@@ -511,7 +511,7 @@ function renderLadri(){
     for(var n=1;n<=10;n++){
       var cls='ladro-num';
       if(n===score)cls+=(n>=8?' sel-high':n>=5?' sel-med':' sel-low');
-      nums+='<div class="'+cls+'" onclick="setLadro(''+l.key+'','+n+')">'+n+'</div>';
+      nums+='<div class="'+cls+'" onclick="setLadro(\''+l.key+'\','+n+')">'+n+'</div>';
     }
     var label=score?(score>=8?'🔴 Molto alto':score>=5?'🟡 Medio':'🟢 Basso'):'Non valutato';
     return '<div class="ladro-row"><div class="ladro-top"><span class="ladro-emoji">'+l.emoji+'</span><span class="ladro-name">'+l.name+'</span><span style="font-size:12px;color:var(--muted)">'+label+'</span></div><div class="ladro-btns">'+nums+'</div></div>';
