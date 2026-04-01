@@ -1,0 +1,952 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="MenteViva">
+<meta name="theme-color" content="#00AEEF">
+<link rel="manifest" href="manifest.json">
+<title>MenteViva</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+:root{
+  --p:#00AEEF;--pd:#0090CC;--pl:#E0F6FF;--pll:#F0FBFF;
+  --g:#27AE60;--gl:#EAFAF1;
+  --y:#F5A623;--yl:#FEF5E4;
+  --r:#E74C3C;--rl:#FDEDEC;
+  --bg:#F0F8FF;--card:#fff;--text:#1A2B4A;--muted:#7A8BAD;--border:#D0E8F5;
+  --safe-b:env(safe-area-inset-bottom,0px);
+  --safe-t:env(safe-area-inset-top,0px);
+}
+html,body{height:100%;background:var(--bg);font-family:'Nunito',sans-serif;color:var(--text);overflow:hidden}
+.screen{position:fixed;inset:0;display:none;flex-direction:column;overflow:hidden;padding-top:var(--safe-t)}
+.screen.active{display:flex}
+.scroll{overflow-y:auto;-webkit-overflow-scrolling:touch;flex:1}
+button{font-family:'Nunito',sans-serif;cursor:pointer;border:none;outline:none}
+
+/* ─── NAVBAR ─── */
+.nav{background:var(--card);border-bottom:1.5px solid var(--border);padding:12px 18px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
+.nav-logo{display:flex;align-items:center;gap:8px}
+.nav-logo span{font-size:20px;font-weight:900;color:var(--p)}
+.nav-stars{display:flex;align-items:center;gap:5px;background:var(--yl);border-radius:20px;padding:5px 12px}
+.nav-stars span{font-weight:800;color:var(--y);font-size:15px}
+
+/* ─── HOME ─── */
+.home-hero{background:linear-gradient(135deg,var(--p) 0%,#4AC8F0 100%);padding:24px 18px 28px;color:#fff;flex-shrink:0}
+.home-hero h1{font-size:22px;font-weight:900;margin-bottom:4px}
+.home-hero p{font-size:14px;opacity:.9;line-height:1.5}
+.home-session{display:inline-flex;align-items:center;gap:6px;margin-top:12px;background:rgba(255,255,255,.2);border-radius:20px;padding:5px 13px;font-size:13px;font-weight:700}
+
+.section{padding:18px 18px 0}
+.section-title{font-size:11px;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:1.2px;margin-bottom:12px}
+
+/* ─── LESSON CARDS ─── */
+.lesson-card{background:var(--card);border:1.5px solid var(--border);border-radius:18px;padding:16px;margin-bottom:10px;display:flex;align-items:center;gap:14px;cursor:pointer;transition:all .2s;min-height:72px}
+.lesson-card.active{border-color:var(--p);box-shadow:0 4px 16px rgba(0,174,239,.15)}
+.lesson-card.locked{opacity:.45;cursor:default}
+.lesson-card.done{border-color:var(--g);background:var(--gl)}
+.l-icon{width:50px;height:50px;border-radius:14px;background:var(--pl);display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0}
+.lesson-card.done .l-icon{background:var(--gl)}
+.lesson-card.locked .l-icon{background:var(--bg)}
+.l-meta{flex:1;min-width:0}
+.l-sub{font-size:11px;font-weight:700;color:var(--p);letter-spacing:.7px;text-transform:uppercase;margin-bottom:2px}
+.lesson-card.done .l-sub{color:var(--g)}
+.l-title{font-size:16px;font-weight:800;margin-bottom:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.l-desc{font-size:12px;color:var(--muted);line-height:1.4}
+.l-badge{font-size:11px;font-weight:800;padding:4px 10px;border-radius:20px;flex-shrink:0}
+.badge-active{background:var(--p);color:#fff}
+.badge-lock{background:var(--border);color:var(--muted)}
+.badge-done{background:var(--g);color:#fff}
+
+/* ─── DIARY ─── */
+.diary-card{background:var(--card);border:1.5px solid var(--border);border-radius:18px;padding:16px;margin-bottom:10px}
+.diary-row{display:flex;gap:8px;margin-bottom:10px}
+.d-input{flex:1;border:1.5px solid var(--border);border-radius:12px;padding:11px 14px;font-family:'Nunito',sans-serif;font-size:15px;color:var(--text);background:var(--bg);outline:none}
+.d-input:focus{border-color:var(--p)}
+.d-btn{background:var(--p);color:#fff;border-radius:12px;padding:0 16px;font-size:20px;font-weight:700;flex-shrink:0;min-width:48px;height:48px}
+.diary-empty{text-align:center;color:var(--muted);font-size:14px;padding:8px 0}
+.diary-item{display:flex;align-items:flex-start;gap:10px;padding:10px 0;border-bottom:1px solid var(--border)}
+.diary-item:last-child{border-bottom:none}
+.diary-dot{width:8px;height:8px;border-radius:50%;background:var(--p);margin-top:5px;flex-shrink:0}
+.diary-text{flex:1;font-size:14px;line-height:1.4}
+.diary-date{font-size:11px;color:var(--muted);margin-top:2px}
+.d-more{text-align:center;margin-top:8px}
+.d-more button{background:none;color:var(--p);font-size:13px;font-weight:700;padding:4px}
+.home-pad{height:calc(20px + var(--safe-b))}
+
+/* ─── LESSON SCREEN ─── */
+.lesson-header{background:var(--card);border-bottom:1.5px solid var(--border);padding:12px 18px;display:flex;align-items:center;gap:12px;flex-shrink:0}
+.back-btn{width:38px;height:38px;border-radius:12px;background:var(--bg);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;cursor:pointer;border:1.5px solid var(--border)}
+.lesson-header-info{flex:1;min-width:0}
+.lesson-header-title{font-size:15px;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.lesson-header-sub{font-size:12px;color:var(--muted)}
+.progress-bar{height:4px;background:var(--border);flex-shrink:0}
+.progress-fill{height:100%;background:linear-gradient(90deg,var(--p),#4AC8F0);transition:width .3s ease}
+
+.slide-container{flex:1;display:flex;flex-direction:column;overflow:hidden}
+.slide{display:none;flex:1;flex-direction:column;padding:22px 20px;overflow-y:auto;-webkit-overflow-scrolling:touch}
+.slide.active{display:flex}
+.slide-emoji{font-size:56px;text-align:center;margin-bottom:16px;line-height:1}
+.slide-title{font-size:22px;font-weight:900;text-align:center;margin-bottom:14px;line-height:1.25}
+.slide-content{font-size:15px;line-height:1.7;color:var(--text);text-align:center;flex:1}
+.slide-content strong{color:var(--p)}
+.slide-content .highlight{background:var(--pl);border-radius:12px;padding:12px 16px;margin:12px 0;text-align:left;display:block;border-left:4px solid var(--p)}
+.slide-content .highlight.green{background:var(--gl);border-color:var(--g)}
+.slide-content .highlight.yellow{background:var(--yl);border-color:var(--y)}
+.slide-content .highlight.red{background:var(--rl);border-color:var(--r)}
+
+.slide-q{margin-top:18px;text-align:left}
+.slide-q-label{font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.8px;margin-bottom:10px}
+.slide-q-answers{display:flex;flex-direction:column;gap:8px}
+.ans-btn{background:var(--bg);border:1.5px solid var(--border);border-radius:14px;padding:13px 16px;font-size:15px;font-weight:700;color:var(--text);text-align:left;transition:all .2s}
+.ans-btn.selected{background:var(--pl);border-color:var(--p);color:var(--p)}
+
+.slide-nav{background:var(--card);border-top:1.5px solid var(--border);padding:14px 18px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-shrink:0;padding-bottom:calc(14px + var(--safe-b))}
+.nav-btn{height:50px;border-radius:16px;font-size:16px;font-weight:800;padding:0 22px;display:flex;align-items:center;gap:6px;transition:all .15s}
+.nav-prev{background:var(--bg);border:1.5px solid var(--border);color:var(--text)}
+.nav-next{background:var(--p);color:#fff;flex:1;justify-content:center}
+.nav-next:disabled{background:var(--border);color:var(--muted)}
+.slide-counter{font-size:13px;font-weight:700;color:var(--muted);min-width:55px;text-align:center}
+
+/* ─── GAMES MENU ─── */
+.games-header{background:linear-gradient(135deg,var(--g) 0%,#2ECC71 100%);padding:22px 18px;color:#fff;flex-shrink:0}
+.games-header h2{font-size:20px;font-weight:900;margin-bottom:4px}
+.games-header p{font-size:14px;opacity:.9}
+.game-card{background:var(--card);border:1.5px solid var(--border);border-radius:18px;padding:16px;margin-bottom:10px;display:flex;align-items:center;gap:14px;cursor:pointer;transition:all .2s;min-height:70px}
+.game-card:active{transform:scale(.98)}
+.game-icon{width:48px;height:48px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0}
+.gi-blue{background:var(--pl)}
+.gi-green{background:var(--gl)}
+.gi-yellow{background:var(--yl)}
+.gi-red{background:var(--rl)}
+.game-meta{flex:1}
+.game-title{font-size:16px;font-weight:800;margin-bottom:2px}
+.game-desc{font-size:13px;color:var(--muted)}
+.game-stars{font-size:13px;font-weight:700;color:var(--y)}
+
+/* ─── GAME SCREENS ─── */
+.game-header{background:var(--card);border-bottom:1.5px solid var(--border);padding:12px 18px;display:flex;align-items:center;gap:12px;flex-shrink:0}
+.game-body{flex:1;padding:20px 18px;overflow-y:auto;-webkit-overflow-scrolling:touch}
+.game-footer{padding:14px 18px;padding-bottom:calc(14px + var(--safe-b));flex-shrink:0}
+
+.game-card-big{background:var(--card);border:2px solid var(--border);border-radius:20px;padding:22px;text-align:center;margin-bottom:16px;min-height:140px;display:flex;flex-direction:column;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(0,0,0,.06)}
+.game-card-big .g-emoji{font-size:48px;margin-bottom:10px}
+.game-card-big .g-text{font-size:17px;font-weight:700;line-height:1.4}
+.two-btn{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.choice-btn{height:58px;border-radius:16px;font-size:16px;font-weight:800;transition:all .15s}
+.choice-btn:active{transform:scale(.96)}
+.btn-blue{background:var(--p);color:#fff}
+.btn-green{background:var(--g);color:#fff}
+.btn-red{background:var(--r);color:#fff}
+.btn-yellow{background:var(--y);color:#fff}
+.btn-gray{background:var(--bg);border:1.5px solid var(--border);color:var(--text)}
+
+.feedback{border-radius:16px;padding:14px 18px;margin-bottom:14px;display:flex;align-items:center;gap:10px;font-size:15px;font-weight:700}
+.fb-correct{background:var(--gl);color:var(--g)}
+.fb-wrong{background:var(--rl);color:var(--r)}
+.fb-icon{font-size:22px}
+
+.score-pill{background:var(--yl);border-radius:20px;padding:6px 14px;font-size:14px;font-weight:800;color:var(--y);display:inline-block;margin-bottom:14px}
+
+/* ─── MEMORY GAME ─── */
+.memory-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.mem-card{height:80px;border-radius:14px;border:2px solid var(--border);background:var(--p);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:#fff;transition:all .3s;padding:8px;text-align:center;line-height:1.3}
+.mem-card.flipped{background:var(--card);color:var(--text);border-color:var(--p)}
+.mem-card.matched{background:var(--gl);color:var(--g);border-color:var(--g);cursor:default}
+.mem-card.wrong{background:var(--rl);border-color:var(--r)}
+.mem-card-back{font-size:24px}
+
+/* ─── FILL BLANK GAME ─── */
+.sentence-box{background:var(--card);border:2px solid var(--border);border-radius:18px;padding:20px;text-align:center;margin-bottom:18px;font-size:17px;font-weight:700;line-height:1.6}
+.blank{display:inline-block;min-width:90px;border-bottom:3px solid var(--p);color:var(--p);padding:0 4px}
+.word-options{display:flex;flex-wrap:wrap;gap:10px;justify-content:center}
+.word-btn{border:2px solid var(--border);border-radius:30px;padding:10px 18px;font-size:15px;font-weight:700;background:var(--card);color:var(--text);transition:all .2s}
+.word-btn.correct{background:var(--gl);border-color:var(--g);color:var(--g)}
+.word-btn.wrong{background:var(--rl);border-color:var(--r);color:var(--r)}
+
+/* ─── DIARY FULL SCREEN ─── */
+.diary-full-header{background:linear-gradient(135deg,#8E44AD 0%,#A569BD 100%);padding:22px 18px;color:#fff;flex-shrink:0}
+
+/* ─── END SCREEN ─── */
+.end-screen{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:30px 24px;text-align:center}
+.end-emoji{font-size:72px;margin-bottom:16px}
+.end-title{font-size:24px;font-weight:900;margin-bottom:8px}
+.end-sub{font-size:15px;color:var(--muted);margin-bottom:24px;line-height:1.5}
+.end-stars{font-size:48px;margin-bottom:8px}
+.end-star-label{font-size:14px;color:var(--muted);margin-bottom:28px}
+.big-btn{height:56px;border-radius:18px;font-size:17px;font-weight:900;padding:0 28px;width:100%;max-width:320px}
+.big-btn+.big-btn{margin-top:10px}
+.btn-primary{background:var(--p);color:#fff}
+.btn-secondary{background:var(--bg);border:2px solid var(--border);color:var(--text)}
+
+/* ─── UTILITY ─── */
+.tag{font-size:11px;font-weight:800;padding:3px 9px;border-radius:20px;display:inline-block}
+.tag-p{background:var(--pl);color:var(--p)}
+.tag-g{background:var(--gl);color:var(--g)}
+</style>
+</head>
+<body>
+
+<!-- ════════════════════ HOME ════════════════════ -->
+<div id="s-home" class="screen active">
+  <div class="nav">
+    <div class="nav-logo">
+      <span>🧠</span><span>MenteViva</span>
+    </div>
+    <div class="nav-stars">⭐ <span id="total-stars">0</span></div>
+  </div>
+  <div class="scroll">
+    <div class="home-hero">
+      <h1>Ciao, Maria Sophia! 👋</h1>
+      <p>Qui trovi le tue lezioni, i giochi e il tuo diario delle distrazioni.</p>
+      <div class="home-session" id="session-info">📅 <span id="session-text">Prossima: Lunedì</span></div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">Le tue lezioni</div>
+      <div class="lesson-card active" onclick="openLesson(0)">
+        <div class="l-icon">🧠</div>
+        <div class="l-meta">
+          <div class="l-sub">Lezione 1</div>
+          <div class="l-title">Il Tuo Cervello</div>
+          <div class="l-desc">Dopamina, Pilota, Motore e i 5 Ladri</div>
+        </div>
+        <div class="l-badge badge-active">Attiva</div>
+      </div>
+      <div class="lesson-card locked">
+        <div class="l-icon">🗓️</div>
+        <div class="l-meta">
+          <div class="l-sub">Lezione 2</div>
+          <div class="l-title">Lo Studio Efficace</div>
+          <div class="l-desc">Prossimamente</div>
+        </div>
+        <div class="l-badge badge-lock">🔒</div>
+      </div>
+      <div class="lesson-card locked">
+        <div class="l-icon">🎯</div>
+        <div class="l-meta">
+          <div class="l-sub">Lezione 3</div>
+          <div class="l-title">Gli Obiettivi</div>
+          <div class="l-desc">Prossimamente</div>
+        </div>
+        <div class="l-badge badge-lock">🔒</div>
+      </div>
+      <div class="lesson-card locked">
+        <div class="l-icon">🚀</div>
+        <div class="l-meta">
+          <div class="l-sub">Lezione 4</div>
+          <div class="l-title">La Motivazione</div>
+          <div class="l-desc">Prossimamente</div>
+        </div>
+        <div class="l-badge badge-lock">🔒</div>
+      </div>
+    </div>
+
+    <div class="section" style="margin-top:8px">
+      <div class="section-title">Diario delle distrazioni</div>
+      <div class="diary-card">
+        <div class="diary-row">
+          <input class="d-input" id="diary-input" type="text" placeholder="Cosa ti ha distratta oggi?">
+          <button class="d-btn" onclick="addDiary()">+</button>
+        </div>
+        <div id="diary-preview"></div>
+        <div class="d-more"><button onclick="show('s-diary')">Vedi tutto →</button></div>
+      </div>
+    </div>
+
+    <div class="home-pad"></div>
+  </div>
+</div>
+
+<!-- ════════════════════ LESSON ════════════════════ -->
+<div id="s-lesson" class="screen">
+  <div class="lesson-header">
+    <div class="back-btn" onclick="show('s-home')">←</div>
+    <div class="lesson-header-info">
+      <div class="lesson-header-title" id="lesson-title">Il Tuo Cervello</div>
+      <div class="lesson-header-sub" id="lesson-sub">Lezione 1</div>
+    </div>
+    <div class="nav-stars">⭐ <span id="lesson-stars">0</span></div>
+  </div>
+  <div class="progress-bar"><div class="progress-fill" id="lesson-progress"></div></div>
+
+  <div class="slide-container" id="slides-container">
+    <!-- slides injected by JS -->
+  </div>
+
+  <div class="slide-nav">
+    <button class="nav-btn nav-prev" id="btn-prev" onclick="changeSlide(-1)">←</button>
+    <span class="slide-counter" id="slide-counter">1 / 20</span>
+    <button class="nav-btn nav-next" id="btn-next" onclick="changeSlide(1)">Avanti →</button>
+  </div>
+</div>
+
+<!-- ════════════════════ GAMES MENU ════════════════════ -->
+<div id="s-games" class="screen">
+  <div class="nav">
+    <div class="back-btn" onclick="show('s-home')">←</div>
+    <div class="nav-logo"><span>🎮</span><span>Giochi</span></div>
+    <div class="nav-stars">⭐ <span id="games-stars">0</span></div>
+  </div>
+  <div class="scroll" style="padding:18px">
+    <div class="game-card" onclick="startGame(1)">
+      <div class="game-icon gi-blue">🧭</div>
+      <div class="game-meta">
+        <div class="game-title">Pilota o Motore?</div>
+        <div class="game-desc">Riconosci chi controlla ogni situazione</div>
+        <div class="game-stars">⭐ Fino a 10 stelle</div>
+      </div>
+    </div>
+    <div class="game-card" onclick="startGame(2)">
+      <div class="game-icon gi-green">⚡</div>
+      <div class="game-meta">
+        <div class="game-title">Vero o Falso?</div>
+        <div class="game-desc">Rispondi veloce: V o F?</div>
+        <div class="game-stars">⭐ Fino a 10 stelle</div>
+      </div>
+    </div>
+    <div class="game-card" onclick="startGame(3)">
+      <div class="game-icon gi-yellow">🃏</div>
+      <div class="game-meta">
+        <div class="game-title">Memoria</div>
+        <div class="game-desc">Abbina il termine alla definizione</div>
+        <div class="game-stars">⭐ Fino a 10 stelle</div>
+      </div>
+    </div>
+    <div class="game-card" onclick="startGame(4)">
+      <div class="game-icon gi-red">✏️</div>
+      <div class="game-meta">
+        <div class="game-title">Completa la Frase</div>
+        <div class="game-desc">Trova la parola mancante</div>
+        <div class="game-stars">⭐ Fino a 10 stelle</div>
+      </div>
+    </div>
+    <div style="height:calc(20px + var(--safe-b))"></div>
+  </div>
+</div>
+
+<!-- ════════════════════ GAME 1 — PILOTA O MOTORE ════════════════════ -->
+<div id="s-game1" class="screen">
+  <div class="game-header">
+    <div class="back-btn" onclick="show('s-games')">←</div>
+    <div class="lesson-header-info">
+      <div class="lesson-header-title">🧭 Pilota o Motore?</div>
+      <div class="lesson-header-sub" id="g1-counter">Domanda 1/10</div>
+    </div>
+    <div class="score-pill" id="g1-score">⭐ 0</div>
+  </div>
+  <div class="game-body" id="g1-body">
+    <div class="game-card-big" id="g1-card">
+      <div class="g-emoji" id="g1-emoji">🤔</div>
+      <div class="g-text" id="g1-text">Caricamento...</div>
+    </div>
+    <div id="g1-feedback"></div>
+    <div class="two-btn">
+      <button class="choice-btn btn-blue" onclick="answerG1('P')">🧭 Pilota</button>
+      <button class="choice-btn btn-red" onclick="answerG1('M')">⚡ Motore</button>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════ GAME 2 — VERO O FALSO ════════════════════ -->
+<div id="s-game2" class="screen">
+  <div class="game-header">
+    <div class="back-btn" onclick="show('s-games')">←</div>
+    <div class="lesson-header-info">
+      <div class="lesson-header-title">⚡ Vero o Falso?</div>
+      <div class="lesson-header-sub" id="g2-counter">Domanda 1/10</div>
+    </div>
+    <div class="score-pill" id="g2-score">⭐ 0</div>
+  </div>
+  <div class="game-body">
+    <div class="game-card-big" id="g2-card">
+      <div class="g-text" id="g2-text">Caricamento...</div>
+    </div>
+    <div id="g2-feedback"></div>
+    <div class="two-btn">
+      <button class="choice-btn btn-green" onclick="answerG2(true)">✅ Vero</button>
+      <button class="choice-btn btn-red" onclick="answerG2(false)">❌ Falso</button>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════ GAME 3 — MEMORIA ════════════════════ -->
+<div id="s-game3" class="screen">
+  <div class="game-header">
+    <div class="back-btn" onclick="show('s-games')">←</div>
+    <div class="lesson-header-info">
+      <div class="lesson-header-title">🃏 Memoria</div>
+      <div class="lesson-header-sub" id="g3-counter">Coppie trovate: 0/6</div>
+    </div>
+    <div class="score-pill" id="g3-score">⭐ 0</div>
+  </div>
+  <div class="game-body">
+    <p style="font-size:13px;color:var(--muted);text-align:center;margin-bottom:14px">Tocca due carte per abbinarle!</p>
+    <div class="memory-grid" id="memory-grid"></div>
+  </div>
+</div>
+
+<!-- ════════════════════ GAME 4 — COMPLETA LA FRASE ════════════════════ -->
+<div id="s-game4" class="screen">
+  <div class="game-header">
+    <div class="back-btn" onclick="show('s-games')">←</div>
+    <div class="lesson-header-info">
+      <div class="lesson-header-title">✏️ Completa la Frase</div>
+      <div class="lesson-header-sub" id="g4-counter">Domanda 1/8</div>
+    </div>
+    <div class="score-pill" id="g4-score">⭐ 0</div>
+  </div>
+  <div class="game-body">
+    <div class="sentence-box" id="g4-sentence">Caricamento...</div>
+    <div id="g4-feedback" style="margin-bottom:12px"></div>
+    <div class="word-options" id="g4-options"></div>
+  </div>
+  <div class="game-footer">
+    <button class="big-btn btn-primary" id="g4-next" onclick="nextG4()" style="display:none">Avanti →</button>
+  </div>
+</div>
+
+<!-- ════════════════════ DIARY FULL ════════════════════ -->
+<div id="s-diary" class="screen">
+  <div class="diary-full-header">
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px">
+      <div class="back-btn" onclick="show('s-home')" style="background:rgba(255,255,255,.2);border:none">←</div>
+      <span style="font-size:19px;font-weight:900;color:#fff">Diario delle Distrazioni</span>
+    </div>
+    <p style="font-size:13px;opacity:.9;color:#fff">Tutto quello che hai segnato finora</p>
+  </div>
+  <div class="scroll" style="padding:18px">
+    <div class="diary-card">
+      <div class="diary-row">
+        <input class="d-input" id="diary-input2" type="text" placeholder="Aggiungi una distrazione...">
+        <button class="d-btn" onclick="addDiary2()">+</button>
+      </div>
+    </div>
+    <div id="diary-full-list"></div>
+    <div style="height:calc(20px + var(--safe-b))"></div>
+  </div>
+</div>
+
+<!-- ════════════════════ END SCREEN ════════════════════ -->
+<div id="s-end" class="screen">
+  <div class="nav">
+    <div class="back-btn" onclick="show('s-home')">←</div>
+    <div class="nav-logo"><span>🏆</span><span>Risultato</span></div>
+  </div>
+  <div class="end-screen">
+    <div class="end-emoji" id="end-emoji">🎉</div>
+    <div class="end-title" id="end-title">Bravissima!</div>
+    <div class="end-sub" id="end-sub">Hai completato il gioco!</div>
+    <div class="end-stars" id="end-stars">⭐⭐⭐</div>
+    <div class="end-star-label" id="end-star-label">stelle guadagnate</div>
+    <button class="big-btn btn-primary" onclick="show('s-games')">Gioca ancora</button>
+    <button class="big-btn btn-secondary" onclick="show('s-home')">Torna a casa</button>
+  </div>
+</div>
+
+<script>
+// ═══════════════════════════════════════
+// STATE
+// ═══════════════════════════════════════
+let totalStars = parseInt(localStorage.getItem('mv-stars') || '0');
+let diaryEntries = JSON.parse(localStorage.getItem('mv-diary') || '[]');
+let currentSlide = 0;
+
+function saveStars() { localStorage.setItem('mv-stars', totalStars); }
+function saveDiary() { localStorage.setItem('mv-diary', JSON.stringify(diaryEntries)); }
+
+function addStars(n) {
+  totalStars += n;
+  saveStars();
+  document.querySelectorAll('[id$="-stars"], #total-stars').forEach(el => {
+    if (el) el.textContent = totalStars;
+  });
+}
+
+// ═══════════════════════════════════════
+// NAVIGATION
+// ═══════════════════════════════════════
+function show(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  updateStarsUI();
+  if (id === 's-diary') renderDiaryFull();
+  if (id === 's-home') { renderDiaryPreview(); updateSession(); }
+}
+
+function updateStarsUI() {
+  document.querySelectorAll('#total-stars,#lesson-stars,#games-stars').forEach(el => {
+    if(el) el.textContent = totalStars;
+  });
+}
+
+// ═══════════════════════════════════════
+// SESSION INFO
+// ═══════════════════════════════════════
+function updateSession() {
+  const day = new Date().getDay(); // 0=sun,1=mon,2=tue,3=wed,4=thu,5=fri,6=sat
+  const el = document.getElementById('session-text');
+  if (day === 1 || day === 2) el.textContent = 'Prossima: Mercoledì';
+  else el.textContent = 'Prossima: Lunedì';
+}
+
+// ═══════════════════════════════════════
+// DIARY
+// ═══════════════════════════════════════
+function addDiary(inputId) {
+  const input = document.getElementById(inputId || 'diary-input');
+  const val = input.value.trim();
+  if (!val) return;
+  const now = new Date();
+  const dateStr = now.toLocaleDateString('it-IT', {day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'});
+  diaryEntries.unshift({ text: val, date: dateStr });
+  saveDiary();
+  input.value = '';
+  renderDiaryPreview();
+}
+function addDiary2() { addDiary('diary-input2'); renderDiaryFull(); }
+
+function diaryItemHTML(entry) {
+  return `<div class="diary-item">
+    <div class="diary-dot"></div>
+    <div>
+      <div class="diary-text">${entry.text}</div>
+      <div class="diary-date">${entry.date}</div>
+    </div>
+  </div>`;
+}
+
+function renderDiaryPreview() {
+  const el = document.getElementById('diary-preview');
+  if (!el) return;
+  if (!diaryEntries.length) { el.innerHTML = '<div class="diary-empty">Nessuna distrazione segnata ancora 🎉</div>'; return; }
+  el.innerHTML = diaryEntries.slice(0,3).map(diaryItemHTML).join('');
+}
+
+function renderDiaryFull() {
+  const el = document.getElementById('diary-full-list');
+  if (!el) return;
+  if (!diaryEntries.length) { el.innerHTML = '<div class="diary-card diary-empty" style="padding:20px;text-align:center">Nessuna distrazione segnata ancora 🎉</div>'; return; }
+  el.innerHTML = '<div class="diary-card">' + diaryEntries.map(diaryItemHTML).join('') + '</div>';
+}
+
+// ═══════════════════════════════════════
+// SLIDES DATA
+// ═══════════════════════════════════════
+const SLIDES = [
+  {
+    emoji:'🧠', title:'Il tuo cervello: istruzioni per l\'uso',
+    html:`<p>Oggi scopriamo qualcosa di <strong>incredibile</strong>: come funziona il tuo cervello e perché a volte non riesci a concentrarti — anche quando <em>vuoi</em>.</p>
+    <span class="highlight">Spoiler: non è colpa tua. È neuroscienzaaaaa 🔬</span>`,
+    question:'Quando studi, ti distrai spesso?', answers:['Sempre 😅','A volte','Mai (bugiarda 😂)']
+  },
+  {
+    emoji:'⚙️', title:'Il cervello è una macchina',
+    html:`<p>Il cervello è la macchina più potente che esiste — ma come tutte le macchine, <strong>ha bisogno di essere usata nel modo giusto</strong>.</p>
+    <span class="highlight yellow">Un'auto sportiva guidata male si schianta. Un cervello gestito male... studia male. 🏎️</span>
+    <p style="margin-top:12px">Il problema non è il cervello. Il problema è che <strong>nessuno ci insegna a usarlo</strong>.</p>`
+  },
+  {
+    emoji:'🧪', title:'La dopamina: il chimico segreto',
+    html:`<p>Nel tuo cervello c'è un "chimico" che si chiama <strong>dopamina</strong>. La rilasci ogni volta che fai qualcosa che ti piace.</p>
+    <span class="highlight">💜 TikTok → dopamina<br>🍕 Pizza → dopamina<br>✅ Compito finito → dopamina<br>👍 Un like sul telefono → dopamina</span>
+    <p style="margin-top:12px">La dopamina è il segnale che dice al cervello: <strong>"Ripeti questa cosa!"</strong></p>`
+  },
+  {
+    emoji:'📱', title:'Dopamina veloce vs lenta',
+    html:`<p>Non tutta la dopamina è uguale. C'è la dopamina <strong>veloce</strong> e la dopamina <strong>lenta</strong>.</p>
+    <span class="highlight red">⚡ Dopamina veloce = TikTok, Instagram, notifiche<br>Arriva subito, scompare subito, ti lascia vuota</span>
+    <span class="highlight green">🌱 Dopamina lenta = studiare, imparare, finire un compito<br>Arriva dopo, dura di più, ti dà vera soddisfazione</span>
+    <p style="margin-top:12px">Il problema? Il cervello vuole sempre quella <strong>più veloce</strong>.</p>`,
+    question:'Quale preferisci adesso?', answers:['La veloce 😅','La lenta 💪','Dipende dal giorno']
+  },
+  {
+    emoji:'🧭', title:'Il Pilota',
+    html:`<p>Nella testa hai due "personaggi" che si contendono il controllo.</p>
+    <p>Il primo si chiama il <strong>Pilota</strong>. Vive nella parte frontale del cervello (si chiama corteccia prefrontale).</p>
+    <span class="highlight">Il Pilota:<br>✅ Pensa prima di agire<br>✅ Pianifica<br>✅ Sa aspettare<br>✅ Dice "adesso studio, TikTok dopo"</span>
+    <p style="margin-top:12px">Il Pilota è la tua parte <strong>saggia</strong>. La vuoi tu al comando.</p>`
+  },
+  {
+    emoji:'⚡', title:'Il Motore Impulsivo',
+    html:`<p>Il secondo personaggio è il <strong>Motore Impulsivo</strong>. Vive nella parte antica del cervello (sistema limbico).</p>
+    <span class="highlight red">Il Motore:<br>❌ Reagisce senza pensare<br>❌ Vuole tutto SUBITO<br>❌ Si annoia facilmente<br>❌ Dice "un video ancora, poi studio"</span>
+    <p style="margin-top:12px">Il Motore non è cattivo — ti protegge dai pericoli. Il problema è che <strong>tratta TikTok come un pericolo urgente</strong>.</p>`
+  },
+  {
+    emoji:'🥊', title:'Chi vince?',
+    html:`<p>Il Pilota e il Motore lottano <strong>tutto il giorno</strong> per il controllo delle tue azioni.</p>
+    <span class="highlight yellow">🧭 Pilota: "Apri il libro"<br>⚡ Motore: "Aspetta, guarda questa notifica"<br>🧭 Pilota: "No, prima finisci il capitolo"<br>⚡ Motore: "Ma è solo un secondo..."</span>
+    <p style="margin-top:12px">Di solito <strong>vince il Motore</strong> — perché è più veloce e più forte. A meno che tu non alleni il Pilota. 💪</p>`,
+    question:'Nella tua esperienza, chi vince di più?', answers:['Il Pilota 😇','Il Motore 😈','Dipende dal giorno']
+  },
+  {
+    emoji:'🏋️', title:'Come si allena il Pilota',
+    html:`<p>Il Pilota si allena come un muscolo: più lo usi, più diventa forte. Ecco le sue tecniche:</p>
+    <span class="highlight">📱 Metti il telefono <strong>in un altro posto</strong> prima di studiare (non solo giù)</span>
+    <span class="highlight">⏱️ Studia a blocchi di <strong>25 minuti</strong>, poi pausa di 5</span>
+    <span class="highlight">📋 Scrivi <strong>cosa devi fare</strong> prima di iniziare — toglie confusione al cervello</span>
+    <p style="margin-top:12px">Piccoli cambiamenti → grandi risultati nel tempo.</p>`
+  },
+  {
+    emoji:'🦹', title:'I 5 Ladri dell\'Attenzione',
+    html:`<p>Ci sono 5 "ladri" che rubano la tua attenzione mentre studi — senza che tu te ne accorga.</p>
+    <span class="highlight">Riconoscerli è il primo passo per <strong>fermarli</strong>.</span>
+    <p style="margin-top:12px">Pronta a scoprirli? 🔍</p>`,
+    question:'Secondo te qual è il ladro più pericoloso?', answers:['Il telefono 📱','Il rumore 🔊','La stanchezza 😴','La noia 😑']
+  },
+  {
+    emoji:'📱', title:'Ladro 1: Il Telefono',
+    html:`<p>Il telefono è il ladro numero uno — anche se è <strong>girato</strong>, anche se è in <strong>silenzioso</strong>.</p>
+    <span class="highlight red">Uno studio ha dimostrato che avere il telefono SUL TAVOLO (anche spento) riduce la capacità di concentrazione del <strong>20%</strong>. Solo perché sai che c'è.</span>
+    <p style="margin-top:12px">La soluzione non è la forza di volontà. La soluzione è <strong>metterlo fisicamente lontano</strong> — in un'altra stanza, in uno zaino, da qualche parte dove non lo vedi.</p>`
+  },
+  {
+    emoji:'🔊', title:'Ladro 2: Il Rumore',
+    html:`<p>Il rumore di sottofondo — musica con testo, TV in sottofondo, voci — <strong>occupa una parte del cervello</strong> che stai cercando di usare per studiare.</p>
+    <span class="highlight yellow">Il cervello umano NON riesce davvero a fare multitasking.<br>Quando pensi di fare due cose insieme, in realtà <strong>switchi velocemente</strong> tra le due — e perdi energia ogni volta.</span>
+    <p style="margin-top:12px">Musica senza testo (classica, lofi) va meglio. Silenzio va meglio ancora.</p>`,
+    question:'Studi con la musica?', answers:['Sempre 🎵','A volte','Mai, preferisco silenzio']
+  },
+  {
+    emoji:'😴', title:'Ladro 3: La Stanchezza',
+    html:`<p>Un cervello stanco è come uno smartphone con il 5% di batteria: <strong>funziona, ma male</strong>.</p>
+    <span class="highlight red">Con meno di 7-8 ore di sonno, la memoria a breve termine cala drasticamente — cioè studi le cose ma il cervello <strong>non le fissa</strong> bene.</span>
+    <p style="margin-top:12px">Se sei stanca, è meglio fare <strong>30 minuti buoni</strong> riposata che 2 ore da zombie.</p>
+    <span class="highlight">💡 Studiare la sera tardi: il cervello fissa i ricordi <strong>durante il sonno</strong>. Se non dormi, non fissa.</span>`
+  },
+  {
+    emoji:'📋', title:'Ladro 4: La Disorganizzazione',
+    html:`<p>"Non so da dove iniziare" è una frase che blocca il cervello <strong>prima ancora di partire</strong>.</p>
+    <span class="highlight yellow">Quando non hai un piano, il cervello spende energia a decidere cosa fare — energie che non ha più per studiare.</span>
+    <p style="margin-top:12px">La soluzione: prima di iniziare, scrivi <strong>esattamente</strong> cosa devi fare oggi. Non "studiare matematica" — ma "fare gli esercizi 3, 4, 5 di pag. 47".</p>
+    <span class="highlight">Più è specifico il compito, meno energia ci vuole per iniziarlo.</span>`
+  },
+  {
+    emoji:'💭', title:'Ladro 5: I Pensieri Vaganti',
+    html:`<p>Stai leggendo un paragrafo... e all'improvviso stai pensando a cosa mangi dopo, a quel messaggio che hai visto stamattina, a quella cosa imbarazzante di 3 anni fa.</p>
+    <span class="highlight">Questo si chiama <strong>mind wandering</strong> — la mente che va per conto suo.</span>
+    <p style="margin-top:12px">È normalissimo. Il cervello a riposo tende a "vagare". Il trucco è <strong>riportarlo indietro</strong> senza arrabbiarsi.</p>
+    <span class="highlight green">Quando ti accorgi che stai pensando ad altro → respira → torna al punto.<br>Farlo bene è un'abilità che si allena. 🧘</span>`,
+    question:'Ti succede spesso di perdere il filo?', answers:['Sempre 😅','A volte','Raramente']
+  },
+  {
+    emoji:'🔋', title:'La Forza di Volontà: la batteria',
+    html:`<p>La forza di volontà non è infinita. <strong>È come una batteria</strong> che si scarica durante il giorno.</p>
+    <span class="highlight red">Ogni "no" che ti dici (no al telefono, no al divano, no allo spuntino) consuma un po' di batteria.</span>
+    <p style="margin-top:12px">Ecco perché la sera è più difficile resistere alle distrazioni. Non sei "pigra" — sei semplicemente a corto di batteria.</p>`
+  },
+  {
+    emoji:'⬇️', title:'La batteria si scarica così',
+    html:`<p>Cose che scaricano la batteria della forza di volontà:</p>
+    <span class="highlight red">❌ Prendere tante decisioni (cosa indosso? cosa mangio?)<br>❌ Resistere a tentazioni<br>❌ Gestire emozioni difficili<br>❌ Litigare con qualcuno<br>❌ Annoiarsi senza fare nulla</span>
+    <span class="highlight green">✅ Soluzione: studia quando hai più energia (non dopo 6 ore di telefono). Fai le cose difficili per prime.</span>`,
+    question:'Di solito a che ora studi?', answers:['Mattina','Pomeriggio','Sera','Notte 🦉']
+  },
+  {
+    emoji:'📲', title:'L\'Effetto TikTok',
+    html:`<p>TikTok è progettato da ingegneri pagati milioni per <strong>tenere il tuo cervello incollato</strong> allo schermo il più a lungo possibile.</p>
+    <span class="highlight red">Video cortissimi = dopamina rapidissima = il cervello si abitua alla velocità.<br>Risultato: tutto quello che è lento (leggere, studiare, pensare) diventa <strong>insopportabilmente noioso</strong>.</span>
+    <p style="margin-top:12px">Non è colpa tua. È design. Ma ora che lo sai, <strong>puoi difenderti</strong>.</p>`
+  },
+  {
+    emoji:'🌿', title:'Come ricaricare il cervello',
+    html:`<p>Prima di studiare, il cervello ha bisogno di "disintossicarsi" dalla dopamina veloce. Qualche tecnica:</p>
+    <span class="highlight">⏰ <strong>10 minuti senza schermo</strong> prima di aprire i libri — il cervello si stabilizza</span>
+    <span class="highlight">🚶 Una <strong>camminata breve</strong> resetta il Motore Impulsivo</span>
+    <span class="highlight">💧 <strong>Bevi acqua</strong> — la disidratazione lieve riduce la concentrazione</span>
+    <span class="highlight green">🎵 <strong>Musica lofi</strong> o binaural beats durante lo studio aiutano il cervello a entrare in "modalità focus"</span>`
+  },
+  {
+    emoji:'🏆', title:'Le 3 Regole d\'Oro',
+    html:`<p>Tre cose che cambiamo <strong>subito</strong> nel modo in cui studi:</p>
+    <span class="highlight" style="font-size:16px">📵 <strong>Regola 1: Telefono in un'altra stanza</strong><br><small>Non sul tavolo. Non in tasca. Via.</small></span>
+    <span class="highlight yellow" style="font-size:16px">📋 <strong>Regola 2: Scrivi cosa fai prima di iniziare</strong><br><small>Massimo 3 cose. Specifiche. Non "studiare".</small></span>
+    <span class="highlight green" style="font-size:16px">⏱️ <strong>Regola 3: Blocchi da 25 minuti</strong><br><small>Studia 25 min, pausa 5. Poi ricomincia.</small></span>`
+  },
+  {
+    emoji:'🎉', title:'Ottimo lavoro oggi!',
+    html:`<p>Hai imparato tantissimo. Ricapitoliamo:</p>
+    <span class="highlight">🧪 <strong>Dopamina</strong> = il chimico del piacere<br>🧭 <strong>Pilota</strong> = parte saggia, pianifica<br>⚡ <strong>Motore</strong> = parte impulsiva, vuole subito<br>🦹 <strong>5 Ladri</strong> = telefono, rumore, stanchezza, disorganizzazione, mente vagante<br>🔋 <strong>Forza di volontà</strong> = batteria che si esaurisce<br>📲 <strong>Effetto TikTok</strong> = cervello abituato alla velocità</span>
+    <span class="highlight green" style="margin-top:8px">Sei pronta per i giochi? Metti alla prova quello che hai imparato! 🎮</span>`
+  }
+];
+
+// ═══════════════════════════════════════
+// LESSON
+// ═══════════════════════════════════════
+function openLesson(idx) {
+  currentSlide = 0;
+  buildSlides();
+  show('s-lesson');
+  renderSlide();
+}
+
+function buildSlides() {
+  const container = document.getElementById('slides-container');
+  container.innerHTML = SLIDES.map((s, i) => {
+    let qHTML = '';
+    if (s.question) {
+      qHTML = `<div class="slide-q">
+        <div class="slide-q-label">💬 ${s.question}</div>
+        <div class="slide-q-answers">${s.answers.map(a =>
+          `<button class="ans-btn" onclick="selectAns(this)">${a}</button>`).join('')}</div>
+      </div>`;
+    }
+    return `<div class="slide ${i===0?'active':''}" id="slide-${i}">
+      <div class="slide-emoji">${s.emoji}</div>
+      <div class="slide-title">${s.title}</div>
+      <div class="slide-content">${s.html}${qHTML}</div>
+    </div>`;
+  }).join('');
+}
+
+function renderSlide() {
+  const total = SLIDES.length;
+  document.getElementById('slide-counter').textContent = `${currentSlide+1} / ${total}`;
+  document.getElementById('lesson-progress').style.width = `${((currentSlide+1)/total)*100}%`;
+  document.getElementById('btn-prev').style.display = currentSlide === 0 ? 'none' : 'flex';
+  document.querySelectorAll('.slide').forEach((s,i) => s.classList.toggle('active', i===currentSlide));
+  const isLast = currentSlide === total-1;
+  const btn = document.getElementById('btn-next');
+  if (isLast) {
+    btn.textContent = '🎮 Vai ai Giochi!';
+    btn.onclick = () => show('s-games');
+  } else {
+    btn.textContent = 'Avanti →';
+    btn.onclick = () => changeSlide(1);
+  }
+}
+
+function changeSlide(dir) {
+  const next = currentSlide + dir;
+  if (next < 0 || next >= SLIDES.length) return;
+  currentSlide = next;
+  renderSlide();
+  // earn star every 5 slides
+  if (dir > 0 && currentSlide % 5 === 0) addStars(1);
+}
+
+function selectAns(btn) {
+  btn.closest('.slide-q-answers').querySelectorAll('.ans-btn').forEach(b => b.classList.remove('selected'));
+  btn.classList.add('selected');
+}
+
+// ═══════════════════════════════════════
+// GAME 1 — PILOTA O MOTORE
+// ═══════════════════════════════════════
+const G1_DATA = [
+  {emoji:'📱',text:'Apri TikTok "solo un secondo" mentre studi',answer:'M'},
+  {emoji:'📋',text:'Scrivi un piano prima di iniziare a studiare',answer:'P'},
+  {emoji:'🍕',text:'Apri il frigo ogni 10 minuti senza avere fame',answer:'M'},
+  {emoji:'⏰',text:'Metti una sveglia per fermarti dopo 25 minuti',answer:'P'},
+  {emoji:'🎮',text:'Rimandi i compiti perché "non hai voglia adesso"',answer:'M'},
+  {emoji:'📵',text:'Metti il telefono in silenzioso e in un\'altra stanza',answer:'P'},
+  {emoji:'💤',text:'Continui a guardare serie TV anche se sai che devi dormire',answer:'M'},
+  {emoji:'📚',text:'Leggi il capitolo anche se è noioso, perché l\'esame si avvicina',answer:'P'},
+  {emoji:'🛒',text:'Compri cose online invece di studiare',answer:'M'},
+  {emoji:'✅',text:'Finisci il compito difficile prima di quello facile',answer:'P'},
+];
+
+let g1idx=0, g1score=0;
+function startGame(n) {
+  if(n===1){g1idx=0;g1score=0;renderG1();show('s-game1');}
+  else if(n===2){g2idx=0;g2score=0;renderG2();show('s-game2');}
+  else if(n===3){initMemory();show('s-game3');}
+  else if(n===4){g4idx=0;g4score=0;renderG4();show('s-game4');}
+}
+function renderG1(){
+  if(g1idx>=G1_DATA.length){endGame(g1score,G1_DATA.length,'Pilota o Motore?');return;}
+  const d=G1_DATA[g1idx];
+  document.getElementById('g1-emoji').textContent=d.emoji;
+  document.getElementById('g1-text').textContent=d.text;
+  document.getElementById('g1-counter').textContent=`Domanda ${g1idx+1}/${G1_DATA.length}`;
+  document.getElementById('g1-score').textContent=`⭐ ${g1score}`;
+  document.getElementById('g1-feedback').innerHTML='';
+}
+function answerG1(ans){
+  const d=G1_DATA[g1idx];
+  const correct=ans===d.answer;
+  if(correct)g1score++;
+  document.getElementById('g1-feedback').innerHTML=`<div class="feedback ${correct?'fb-correct':'fb-wrong'}">
+    <div class="fb-icon">${correct?'✅':'❌'}</div>
+    <div>${correct?'Esatto! '+( ans==='P'?'È il Pilota che ragiona.':'È il Motore che reagisce.'):'Non esatto. '+( d.answer==='P'?'Questo è il Pilota.':'Questo è il Motore.')}</div>
+  </div>`;
+  g1idx++;
+  setTimeout(renderG1,1500);
+}
+
+// ═══════════════════════════════════════
+// GAME 2 — VERO O FALSO
+// ═══════════════════════════════════════
+const G2_DATA = [
+  {text:'La dopamina è rilasciata solo quando mangi qualcosa di buono',answer:false},
+  {text:'Il Pilota vive nella parte frontale del cervello',answer:true},
+  {text:'Avere il telefono sul tavolo non influisce sulla concentrazione',answer:false},
+  {text:'La forza di volontà è una risorsa che si esaurisce',answer:true},
+  {text:'La musica con testo aiuta a studiare meglio del silenzio',answer:false},
+  {text:'Il cervello fissa i ricordi durante il sonno',answer:true},
+  {text:'TikTok è progettato per usare meno tempo possibile',answer:false},
+  {text:'Studiare a blocchi di 25 minuti è più efficace di studiare ore senza pause',answer:true},
+  {text:'Il Motore Impulsivo pianifica e sa aspettare',answer:false},
+  {text:'La dopamina veloce dura meno di quella lenta',answer:true},
+];
+let g2idx=0,g2score=0;
+function renderG2(){
+  if(g2idx>=G2_DATA.length){endGame(g2score,G2_DATA.length,'Vero o Falso?');return;}
+  const d=G2_DATA[g2idx];
+  document.getElementById('g2-text').textContent=d.text;
+  document.getElementById('g2-counter').textContent=`Domanda ${g2idx+1}/${G2_DATA.length}`;
+  document.getElementById('g2-score').textContent=`⭐ ${g2score}`;
+  document.getElementById('g2-feedback').innerHTML='';
+}
+function answerG2(ans){
+  const d=G2_DATA[g2idx];
+  const correct=(ans===d.answer);
+  if(correct)g2score++;
+  document.getElementById('g2-feedback').innerHTML=`<div class="feedback ${correct?'fb-correct':'fb-wrong'}">
+    <div class="fb-icon">${correct?'✅':'❌'}</div>
+    <div>${correct?'Esatto!':'Non esatto — la risposta è '+(d.answer?'VERO':'FALSO')+'.'}</div>
+  </div>`;
+  g2idx++;
+  setTimeout(renderG2,1400);
+}
+
+// ═══════════════════════════════════════
+// GAME 3 — MEMORIA
+// ═══════════════════════════════════════
+const MEM_PAIRS = [
+  ['Dopamina','Chimico del piacere nel cervello'],
+  ['Pilota','Parte saggia che pianifica'],
+  ['Motore Impulsivo','Parte che vuole tutto subito'],
+  ['Effetto TikTok','Abitudine alla dopamina veloce'],
+  ['Forza di volontà','Batteria che si scarica'],
+  ['Mind wandering','Mente che va per conto suo'],
+];
+let memFlipped=[],memMatched=0,memLocked=false,memScore=0;
+function initMemory(){
+  memFlipped=[];memMatched=0;memLocked=false;memScore=0;
+  document.getElementById('g3-score').textContent='⭐ 0';
+  document.getElementById('g3-counter').textContent='Coppie trovate: 0/6';
+  const cards=[];
+  MEM_PAIRS.forEach((pair,i)=>{
+    cards.push({id:`t-${i}`,pairId:i,text:pair[0]});
+    cards.push({id:`d-${i}`,pairId:i,text:pair[1]});
+  });
+  cards.sort(()=>Math.random()-.5);
+  const grid=document.getElementById('memory-grid');
+  grid.innerHTML=cards.map(c=>`<div class="mem-card" id="mc-${c.id}" data-pair="${c.pairId}" data-id="${c.id}" onclick="flipMem(this)">
+    <span class="mem-card-back">🧠</span>
+  </div>`).join('');
+  // store text
+  cards.forEach(c=>document.getElementById(`mc-${c.id}`).dataset.text=c.text);
+}
+function flipMem(el){
+  if(memLocked||el.classList.contains('matched')||el.classList.contains('flipped'))return;
+  el.classList.add('flipped');
+  el.textContent=el.dataset.text;
+  memFlipped.push(el);
+  if(memFlipped.length===2){
+    memLocked=true;
+    const [a,b]=memFlipped;
+    if(a.dataset.pair===b.dataset.pair){
+      a.classList.add('matched');b.classList.add('matched');
+      memMatched++;memScore++;memFlipped=[];memLocked=false;
+      document.getElementById('g3-counter').textContent=`Coppie trovate: ${memMatched}/6`;
+      document.getElementById('g3-score').textContent=`⭐ ${memScore}`;
+      if(memMatched===6)setTimeout(()=>endGame(memScore*1.5,9,'Memoria'),800);
+    } else {
+      setTimeout(()=>{
+        a.classList.remove('flipped');b.classList.remove('flipped');
+        a.innerHTML='<span class="mem-card-back">🧠</span>';
+        b.innerHTML='<span class="mem-card-back">🧠</span>';
+        memFlipped=[];memLocked=false;
+      },1000);
+    }
+  }
+}
+
+// ═══════════════════════════════════════
+// GAME 4 — COMPLETA LA FRASE
+// ═══════════════════════════════════════
+const G4_DATA = [
+  {sentence:'La ___ è il chimico del piacere nel cervello.',blank:'dopamina',options:['dopamina','adrenalina','serotonina']},
+  {sentence:'Il Pilota vive nella parte ___ del cervello.',blank:'frontale',options:['frontale','posteriore','centrale']},
+  {sentence:'La forza di volontà è come una ___ che si scarica.',blank:'batteria',options:['batteria','lampadina','molla']},
+  {sentence:'TikTok crea l\'abitudine alla dopamina ___.',blank:'veloce',options:['veloce','lenta','naturale']},
+  {sentence:'Il Motore Impulsivo vuole tutto ___.',blank:'subito',options:['subito','lentamente','domani']},
+  {sentence:'Il cervello fissa i ricordi durante il ___.',blank:'sonno',options:['sonno','pranzo','gioco']},
+  {sentence:'Avere il telefono sul tavolo riduce la concentrazione del ___ %.',blank:'20',options:['20','5','50']},
+  {sentence:'Studiare a blocchi di ___ minuti è più efficace.',blank:'25',options:['25','60','10']},
+];
+let g4idx=0,g4score=0,g4answered=false;
+function renderG4(){
+  if(g4idx>=G4_DATA.length){endGame(g4score,G4_DATA.length,'Completa la Frase');return;}
+  g4answered=false;
+  const d=G4_DATA[g4idx];
+  document.getElementById('g4-sentence').innerHTML=d.sentence.replace(d.blank,'<span class="blank">___</span>');
+  document.getElementById('g4-counter').textContent=`Domanda ${g4idx+1}/${G4_DATA.length}`;
+  document.getElementById('g4-score').textContent=`⭐ ${g4score}`;
+  document.getElementById('g4-feedback').innerHTML='';
+  document.getElementById('g4-next').style.display='none';
+  const opts=[...d.options].sort(()=>Math.random()-.5);
+  document.getElementById('g4-options').innerHTML=opts.map(o=>
+    `<button class="word-btn" onclick="answerG4(this,'${o}','${d.blank}','${d.sentence}')">${o}</button>`
+  ).join('');
+}
+function answerG4(btn,chosen,correct,sentence){
+  if(g4answered)return;
+  g4answered=true;
+  const ok=chosen===correct;
+  if(ok)g4score++;
+  btn.classList.add(ok?'correct':'wrong');
+  if(!ok){
+    document.querySelectorAll('.word-btn').forEach(b=>{ if(b.textContent===correct)b.classList.add('correct'); });
+  }
+  document.getElementById('g4-sentence').innerHTML=sentence.replace(correct,`<span class="blank" style="color:var(--g)">${correct}</span>`);
+  document.getElementById('g4-feedback').innerHTML=`<div class="feedback ${ok?'fb-correct':'fb-wrong'}"><div class="fb-icon">${ok?'✅':'❌'}</div><div>${ok?'Esatto!':'La risposta era "'+correct+'".'}</div></div>`;
+  document.getElementById('g4-next').style.display='block';
+}
+function nextG4(){g4idx++;renderG4();}
+
+// ═══════════════════════════════════════
+// END GAME
+// ═══════════════════════════════════════
+function endGame(score,total,gameName){
+  const stars=Math.round((score/total)*10);
+  addStars(stars);
+  const pct=score/total;
+  document.getElementById('end-emoji').textContent=pct>=.8?'🏆':pct>=.5?'💪':'😊';
+  document.getElementById('end-title').textContent=pct>=.8?'Bravissima!':pct>=.5?'Buon lavoro!':'Continua così!';
+  document.getElementById('end-sub').textContent=`Hai risposto bene a ${Math.round(score)} domande su ${total} in "${gameName}"`;
+  document.getElementById('end-stars').textContent='⭐'.repeat(Math.max(1,Math.round(stars/3)));
+  document.getElementById('end-star-label').textContent=`+${stars} stelle guadagnate — totale: ${totalStars}`;
+  show('s-end');
+}
+
+// ═══════════════════════════════════════
+// INIT
+// ═══════════════════════════════════════
+updateStarsUI();
+renderDiaryPreview();
+updateSession();
+
+// Service Worker
+if('serviceWorker' in navigator){
+  navigator.serviceWorker.register('./sw.js').then(reg=>{
+    reg.addEventListener('updatefound',()=>{
+      const w=reg.installing;
+      w.addEventListener('statechange',()=>{
+        if(w.state==='installed'&&navigator.serviceWorker.controller){
+          window.location.reload();
+        }
+      });
+    });
+  });
+}
+</script>
+</body>
+</html>
