@@ -31,7 +31,7 @@ input,textarea{font-family:'Nunito',sans-serif}
 .nav{background:var(--card);border-bottom:1.5px solid var(--border);padding:12px 18px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
 .nav-logo{display:flex;align-items:center;gap:8px}
 .nav-logo span{font-size:20px;font-weight:900;color:var(--p)}
-.stars-pill{display:flex;align-items:center;gap:5px;background:var(--yl);border-radius:20px;padding:5px 12px;font-weight:800;color:var(--y);font-size:15px}
+
 .home-hero{background:linear-gradient(135deg,var(--p) 0%,#4AC8F0 100%);padding:22px 18px 24px;color:#fff;flex-shrink:0}
 .home-hero h1{font-size:21px;font-weight:900;margin-bottom:3px}
 .home-hero p{font-size:13px;opacity:.9;line-height:1.5;margin-bottom:12px}
@@ -109,6 +109,11 @@ input,textarea{font-family:'Nunito',sans-serif}
 .ladro-num.sel-high{background:var(--r);border-color:var(--r);color:#fff}
 .ladro-num.sel-med{background:var(--y);border-color:var(--y);color:#fff}
 .ladro-num.sel-low{background:var(--g);border-color:var(--g);color:#fff}
+.ladri-history{margin-top:12px;border-top:1px solid var(--border);padding-top:10px}
+.ladri-history-item{font-size:13px;color:var(--muted);padding:6px 0;border-bottom:1px solid var(--border);line-height:1.4}
+.ladri-history-item:last-child{border-bottom:none}
+.ladri-save-btn{width:100%;height:44px;border-radius:14px;background:var(--pu);color:#fff;font-size:15px;font-weight:800;margin-top:12px;border:none;cursor:pointer}
+
 .lesson-header{background:var(--card);border-bottom:1.5px solid var(--border);padding:12px 18px;display:flex;align-items:center;gap:12px;flex-shrink:0}
 .back-btn{width:38px;height:38px;border-radius:12px;background:var(--bg);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;cursor:pointer;border:1.5px solid var(--border)}
 .lesson-header-info{flex:1;min-width:0}
@@ -176,8 +181,8 @@ input,textarea{font-family:'Nunito',sans-serif}
 .end-emoji{font-size:68px;margin-bottom:14px}
 .end-title{font-size:22px;font-weight:900;margin-bottom:6px}
 .end-sub{font-size:14px;color:var(--muted);margin-bottom:20px;line-height:1.5}
-.end-stars-big{font-size:44px;margin-bottom:4px}
-.end-star-label{font-size:13px;color:var(--muted);margin-bottom:24px}
+
+
 .big-btn{height:54px;border-radius:18px;font-size:16px;font-weight:900;padding:0 26px;width:100%;max-width:310px;display:block}
 .big-btn+.big-btn{margin-top:10px}
 .btn-p{background:var(--p);color:#fff}
@@ -190,6 +195,9 @@ input,textarea{font-family:'Nunito',sans-serif}
 .modal input:focus{border-color:var(--p)}
 .modal-btns{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .modal-btns button{height:48px;border-radius:14px;font-size:15px;font-weight:800}
+
+.lesson-done-btn{width:100%;margin-top:8px;height:40px;border-radius:12px;font-size:13px;font-weight:800;border:1.5px dashed var(--border);background:none;color:var(--muted);cursor:pointer;transition:all .2s}
+.lesson-done-btn.done{background:var(--gl);border-color:var(--g);color:var(--g)}
 .home-pad{height:calc(24px + var(--safe-b))}
 </style>
 
@@ -200,13 +208,18 @@ input,textarea{font-family:'Nunito',sans-serif}
 <script type="application/json" id="g2l2-data">[{"text": "Rileggere molte volte è il modo migliore per memorizzare", "ans": false}, {"text": "Il cervello fissa i ricordi durante il sonno", "ans": true}, {"text": "La pausa su TikTok recupera energia come una pausa vera", "ans": false}, {"text": "Fare la cosa difficile per prima è più efficace", "ans": true}, {"text": "Studiare 3 ore di fila è meglio di 3 sessioni da 25 minuti", "ans": false}, {"text": "Spiegare ad alta voce aiuta a capire dove ci sono lacune", "ans": true}, {"text": "Evidenziare molto è una tecnica di studio attivo", "ans": false}, {"text": "Ripassare a distanza di giorni fissa meglio dei contenuti", "ans": true}, {"text": "Dormire poco non influisce su quello che si ricorda", "ans": false}, {"text": "Scrivere un piano prima di studiare risparmia energia mentale", "ans": true}]</script>
 <script type="application/json" id="g4l2-data">[{"s": "Lo studio ___ fa faticare il cervello e fissa davvero i contenuti.", "blank": "attivo", "opts": ["attivo", "passivo", "veloce"]}, {"s": "La tecnica Pomodoro usa sessioni da ___ minuti.", "blank": "25", "opts": ["25", "45", "10"]}, {"s": "Il cervello fissa i ricordi durante il ___.", "blank": "sonno", "opts": ["sonno", "pasto", "riposo"]}, {"s": "Prima di studiare bisogna scrivere un ___ specifico.", "blank": "piano", "opts": ["piano", "riassunto", "schema"]}, {"s": "La pausa su TikTok è una pausa ___.", "blank": "falsa", "opts": ["falsa", "vera", "breve"]}, {"s": "Conviene fare prima la cosa più ___.", "blank": "difficile", "opts": ["difficile", "facile", "lunga"]}, {"s": "Rileggere il capitolo è studio ___.", "blank": "passivo", "opts": ["passivo", "attivo", "efficace"]}, {"s": "Ripassare a distanza di giorni si chiama ripetizione ___.", "blank": "spaziata", "opts": ["spaziata", "veloce", "totale"]}]</script>
 <script type="application/json" id="meml2-data">[["Studio attivo", "Spiega senza guardare"], ["Studio passivo", "Rileggi e copi"], ["Tecnica Pomodoro", "25 min + pausa vera"], ["Ripetizione spaziata", "Ripassa a distanza di giorni"], ["Prima il difficile", "Batteria ancora carica"], ["Sonno", "Fissa i ricordi di notte"]]</script>
+
+<script type="application/json" id="slides3-data">[{"emoji": "🔄", "title": "Da dove veniamo", "html": "<p>Nelle prime due lezioni hai imparato <strong>come funziona il cervello</strong> e <strong>come si studia davvero</strong>.</p><span class=\"hl\">Oggi facciamo il passo successivo: non basta sapere come studiare — bisogna anche sapere <strong>quando, quanto e come organizzarsi</strong>. 📅</span>"}, {"emoji": "🌀", "title": "Il problema del caos", "html": "<p>Ti è mai capitato di arrivare alla sera prima di una verifica e renderti conto che non sai da dove iniziare?</p><span class=\"hl r\">❌ Apri il libro a caso<br>❌ Non sai quanto material c'è<br>❌ Studi di tutto un po' senza criterio<br>❌ Vai a letto tardissimo sperando che basti</span><p style=\"margin-top:10px\">Questo non è un problema di impegno. È un problema di <strong>mancanza di piano</strong>.</p>", "question": "Ti è capitato di arrivare impreparata a una verifica?", "answers": ["Spesso 😅", "Qualche volta", "Raramente", "Mai (bravissima!)"]}, {"emoji": "🗓️", "title": "Pensare al contrario", "html": "<p>Il segreto dell'organizzazione è <strong>partire dalla fine</strong>.</p><span class=\"hl\">Invece di chiederti: da dove inizio?<br>Chiediti: <strong>quando devo essere pronta?</strong></span><p style=\"margin-top:10px\">Se la verifica è giovedì, pianifichi a ritroso: mercoledì ripasso, martedì studio la seconda parte, lunedì la prima. Giovedì sei già pronta.</p><span class=\"hl g\">Non stai studiando di più — stai studiando <strong>nel momento giusto</strong>.</span>"}, {"emoji": "🧩", "title": "Dividi e conquista", "html": "<p>Un capitolo intero sembra enorme. Ma se lo dividi in pezzi piccoli, diventa gestibile.</p><span class=\"hl y\">❌ Devo studiare tutta la storia del Novecento<br>✅ Lunedì: cause della WWI (30 min)<br>✅ Martedì: la guerra in trincea (25 min)<br>✅ Mercoledì: fine guerra e conseguenze (25 min)<br>✅ Giovedì: ripasso veloce tutto (20 min)</span><p style=\"margin-top:10px\">Stesso materiale. La differenza è solo <strong>come lo organizzi</strong>.</p>"}, {"emoji": "⚡", "title": "Non tutte le materie sono uguali", "html": "<p>Alcune materie richiedono <strong>comprensione</strong>, altre <strong>memorizzazione</strong>, altre <strong>pratica</strong>.</p><span class=\"hl\">🧠 Comprensione (matematica, scienze): ci vuole calma, non puoi studiare l'ultima sera</span><span class=\"hl y\">📖 Memorizzazione (storia, geografia): funziona meglio con ripetizioni spaziate</span><span class=\"hl g\">✏️ Pratica (esercizi, grammatica): devi farlo tu, non basta leggere la teoria</span>", "question": "Quale tipo di materia ti mette più in difficoltà?", "answers": ["Comprensione (mate/scienze)", "Memorizzazione (storia/geo)", "Pratica (esercizi)", "Tutte uguale 😅"]}, {"emoji": "🌅", "title": "La routine del mattino", "html": "<p>Le prime decisioni della giornata consumano batteria del Pilota. Se inizi già in caos, arrivi a studiare già scarica.</p><span class=\"hl g\">Una piccola routine mattutina protegge la tua energia:<br>✅ Sai cosa mangi<br>✅ Sai cosa ti metti<br>✅ Sai cosa hai da fare oggi</span><p style=\"margin-top:10px\">Non deve essere perfetta. Anche solo <strong>sapere cosa hai da fare oggi</strong> la mattina fa una differenza enorme.</p>"}, {"emoji": "📝", "title": "La lista delle cose da fare", "html": "<p>La lista non è uno strumento da secchioni. È uno strumento da <strong>cervello efficiente</strong>.</p><span class=\"hl\">Quando scrivi quello che devi fare, il cervello smette di usare energia per ricordarlo — e la usa per farlo.</span><span class=\"hl y\">⚠️ Però attenzione: la lista funziona solo se è <strong>specifica</strong>.<br>❌ Studiare italiano<br>✅ Leggere e riassumere pagine 45-52 di italiano</span>"}, {"emoji": "🐸", "title": "Mangia la rana", "html": "<p>C'è una tecnica che si chiama <strong>Mangia la rana</strong>. La rana è la cosa che vuoi fare meno.</p><span class=\"hl r\">Se eviti la cosa difficile, ci pensi tutto il giorno. Ti pesa. Ti stanca anche senza farla.</span><span class=\"hl g\">Se invece la fai <strong>per prima</strong>, il resto della giornata sembra leggero. Tutto il resto è più facile della rana.</span><p style=\"margin-top:10px\">La rana di solito è il compito che tieni rimandando da tre giorni. 🐸</p>", "question": "C'è qualcosa che stai rimandando da giorni?", "answers": ["Sì, sempre 😩", "Qualcosa sì", "In questo momento no", "Mai rimando nulla (bugiarda 😂)"]}, {"emoji": "🚫", "title": "La trappola dell'occuparsi", "html": "<p>C'è una differenza enorme tra essere <strong>occupata</strong> ed essere <strong>produttiva</strong>.</p><span class=\"hl r\">Occupata: stai al tavolo con i libri aperti da 2 ore ma hai guardato il telefono 30 volte, riordinato l'astuccio e riletto la stessa pagina 4 volte.</span><span class=\"hl g\">Produttiva: hai studiato 45 minuti davvero, poi ti sei fermata.</span><p style=\"margin-top:10px\">45 minuti produttivi valgono più di 3 ore occupate.</p>"}, {"emoji": "📅", "title": "Come prepararsi a una verifica", "html": "<p>Una verifica si prepara in <strong>almeno 3 giorni</strong>, non la sera prima.</p><span class=\"hl\">📌 <strong>3 giorni prima:</strong> leggi tutto il materiale una volta, capisci cos'è</span><span class=\"hl y\">📌 <strong>2 giorni prima:</strong> studia attivamente — riassumi, ti fai domande</span><span class=\"hl g\">📌 <strong>1 giorno prima:</strong> ripasso veloce, poi smetti e dormi bene</span><p style=\"margin-top:10px\">La notte prima non serve studiare di più — il cervello ha bisogno di <strong>consolidare</strong>.</p>"}, {"emoji": "😴", "title": "La notte prima della verifica", "html": "<p>La tentazione è restare sveglia fino alle 2 a ripassare tutto. Ma è il <strong>peggior errore</strong> che puoi fare.</p><span class=\"hl r\">Cervello stanco = memoria a breve termine che non funziona = dimentichi proprio quello che hai studiato la sera prima.</span><span class=\"hl g\">Cervello riposato = connessioni neuronali attive = ricordi quello che hai studiato nei giorni precedenti.</span><p style=\"margin-top:10px\">Dormire bene la notte prima <strong>è parte dello studio</strong>.</p>"}, {"emoji": "📱", "title": "Il telefono e il tempo", "html": "<p>Apri Instagram per 2 minuti. Ma poi escono le storie, i reel, i messaggi. Quando richiudi sono passati 40 minuti.</p><span class=\"hl r\">Il telefono non ti ruba solo attenzione — ti ruba <strong>tempo</strong>. Tempo che non torni indietro.</span><p style=\"margin-top:10px\">Soluzione: dai al telefono il suo <strong>posto fisso</strong> nella giornata. Non durante lo studio, non durante i pasti, non prima di dormire.</p><span class=\"hl g\">Decidi tu quando usarlo. Non lui quando usare te.</span>", "question": "Usi il telefono durante i pasti o prima di dormire?", "answers": ["Sempre 📱", "Spesso", "A volte", "Quasi mai"]}, {"emoji": "🏆", "title": "Le 3 regole dell'organizzazione", "html": "<p>Tre cose concrete da applicare <strong>questa settimana</strong>:</p><span class=\"hl\" style=\"font-size:15px\">📅 <strong>Regola 1: Guarda il calendario ogni mattina</strong><br><small>Cosa ho oggi? Cosa ho nei prossimi 3 giorni?</small></span><span class=\"hl y\" style=\"font-size:15px\">📝 <strong>Regola 2: Scrivi 3 cose da fare ogni giorno</strong><br><small>Specifiche. Non più di 3.</small></span><span class=\"hl g\" style=\"font-size:15px\">🐸 <strong>Regola 3: Inizia dalla rana</strong><br><small>La cosa più difficile o quella che rimandi di più.</small></span>"}, {"emoji": "🧪", "title": "Esperimento della settimana", "html": "<p>Una sola cosa da provare prima della prossima lezione:</p><span class=\"hl\" style=\"font-size:15px;text-align:center\"><strong>La sera prima, scrivi 3 cose specifiche da fare il giorno dopo.</strong></span><p style=\"margin-top:10px\">Non 10 cose. Non generiche. Solo 3, specifiche. E inizia dalla più difficile.</p><span class=\"hl g\">Poi dimmi com'è andata. 🎯</span>"}, {"emoji": "❓", "title": "Quiz rapido — parte 1", "html": "<p>Mettiamo alla prova quello che hai imparato oggi!</p><span class=\"hl\">Sei pronta? 💪</span>", "question": "Come si prepara bene una verifica?", "answers": ["Studio tutto la sera prima", "Inizio 3 giorni prima con un piano", "Leggo il libro in classe il giorno stesso", "Copio da un compagno 😂"]}, {"emoji": "❓", "title": "Quiz rapido — parte 2", "html": "<p>Ancora una!</p>", "question": "Cosa significa 'mangiare la rana'?", "answers": ["Fare una pausa mangiando", "Iniziare dalla cosa più difficile", "Studiare tardi la notte", "Saltare un compito"]}, {"emoji": "❓", "title": "Quiz rapido — parte 3", "html": "<p>Ultima!</p>", "question": "Qual è la differenza tra essere occupata e produttiva?", "answers": ["Nessuna differenza", "Produttiva = fai cose utili davvero, occupata no", "Occupata è meglio", "Produttiva significa fare tutto veloce"]}, {"emoji": "🎯", "title": "La tua sfida", "html": "<p>Questa settimana, aggiungi i tuoi impegni nella sezione <strong>Impegni settimanali</strong> qui nell'app.</p><span class=\"hl\">Ogni verifica, interrogazione o compito importante — segnalo con quanti giorni hai per prepararti.</span><span class=\"hl g\">E ricorda: 3 cose specifiche ogni sera per il giorno dopo. 🎯</span>"}, {"emoji": "🎉", "title": "Ottimo lavoro oggi!", "html": "<p>Hai imparato tantissimo. Ricapitoliamo:</p><span class=\"hl\">🗓️ <strong>Pianifica a ritroso</strong> dalla data della verifica<br>🧩 <strong>Dividi</strong> il materiale in pezzi piccoli<br>🐸 <strong>Mangia la rana</strong> — prima il difficile<br>🚫 Occupata ≠ produttiva<br>📅 <strong>3 giorni</strong> per prepararsi a una verifica<br>😴 <strong>Dormi bene</strong> la notte prima</span><span class=\"hl g\" style=\"margin-top:8px\">Pronta per i giochi? 🎮</span>"}]</script>
+<script type="application/json" id="g1l3-data">[{"emoji": "📖", "text": "Studi tutto il capitolo la sera prima della verifica", "ans": "C"}, {"emoji": "📅", "text": "Inizi a studiare 3 giorni prima con un piano", "ans": "O"}, {"emoji": "📱", "text": "Guardi il telefono ogni 5 minuti mentre studi", "ans": "C"}, {"emoji": "📝", "text": "Scrivi 3 cose specifiche da fare domani", "ans": "O"}, {"emoji": "🛋️", "text": "Studi sul letto con la TV accesa", "ans": "C"}, {"emoji": "🐸", "text": "Fai prima il compito più difficile", "ans": "O"}, {"emoji": "🌀", "text": "Apri il libro senza sapere da dove iniziare", "ans": "C"}, {"emoji": "🧩", "text": "Dividi il capitolo in parti da studiare in giorni diversi", "ans": "O"}, {"emoji": "😴", "text": "Stai sveglia fino alle 2 a ripassare la sera prima", "ans": "C"}, {"emoji": "✅", "text": "Dormi bene la notte prima e ripassi al mattino", "ans": "O"}]</script>
+<script type="application/json" id="g2l3-data">[{"text": "Studiare tutto la sera prima è il modo migliore per prepararsi", "ans": false}, {"text": "Pianificare a ritroso dalla data della verifica aiuta molto", "ans": true}, {"text": "Essere occupata e produttiva è la stessa cosa", "ans": false}, {"text": "La lista delle cose da fare funziona meglio se è specifica", "ans": true}, {"text": "Dormire bene la notte prima della verifica è inutile", "ans": false}, {"text": "Iniziare dalla cosa più difficile protegge la batteria del Pilota", "ans": true}, {"text": "45 minuti produttivi valgono meno di 3 ore con il telefono in mano", "ans": false}, {"text": "Il cervello consolida i ricordi durante il sonno", "ans": true}, {"text": "La rana è la cosa più facile da fare", "ans": false}, {"text": "Dividere il materiale in pezzi piccoli lo rende più gestibile", "ans": true}]</script>
+<script type="application/json" id="g4l3-data">[{"s": "La tecnica 'mangia la ___' dice di iniziare dalla cosa più difficile.", "blank": "rana", "opts": ["rana", "pizza", "torta"]}, {"s": "Una verifica si prepara in almeno ___ giorni.", "blank": "3", "opts": ["3", "1", "7"]}, {"s": "Pianificare a ___ significa partire dalla data della verifica.", "blank": "ritroso", "opts": ["ritroso", "caso", "memoria"]}, {"s": "La lista funziona solo se è ___.", "blank": "specifica", "opts": ["specifica", "lunga", "colorata"]}, {"s": "45 minuti ___ valgono più di 3 ore occupate.", "blank": "produttivi", "opts": ["produttivi", "passivi", "liberi"]}, {"s": "La notte prima di una verifica bisogna ___.", "blank": "dormire", "opts": ["dormire", "studiare", "ripassare tutto"]}, {"s": "Il cervello consolida i ricordi durante il ___.", "blank": "sonno", "opts": ["sonno", "ripasso", "pasto"]}, {"s": "La cosa che rimandi di più si chiama la tua ___.", "blank": "rana", "opts": ["rana", "pausa", "priorità"]}]</script>
+<script type="application/json" id="meml3-data">[["Mangia la rana", "Inizia dalla cosa più difficile"], ["Pianificare a ritroso", "Parti dalla data della verifica"], ["Occupata vs produttiva", "Fare cose utili davvero"], ["3 giorni prima", "Leggi e capisci il materiale"], ["Lista specifica", "Non studiare ma esercizi 3-4-5"], ["Notte prima verifica", "Dormi bene, non studiare tardi"]]</script>
 </head>
 <body>
 
 <div id="s-home" class="screen active">
   <div class="nav">
     <div class="nav-logo"><span>🧠</span><span>MenteViva</span></div>
-    <div class="stars-pill">⭐ <span class="stars-display">0</span></div>
   </div>
   <div class="scroll">
     <div class="home-hero">
@@ -227,32 +240,36 @@ input,textarea{font-family:'Nunito',sans-serif}
     </div>
     <div class="section" style="margin-top:8px">
       <div class="sec-title">Le tue lezioni</div>
-      <div class="lesson-card active" onclick="openLesson()">
+      <div class="lesson-card active" id="lcard-1" onclick="openLesson(1)">
         <div class="l-icon">🧠</div>
         <div class="l-meta">
           <div class="l-num">Lezione 1</div>
           <div class="l-title">Il Tuo Cervello</div>
           <div class="l-desc">Dopamina, Pilota, Motore e i 5 Ladri</div>
         </div>
-        <div class="l-badge badge-active">Attiva</div>
+        <div class="l-badge" id="lbadge-1">Attiva</div>
       </div>
-      <div class="lesson-card active" onclick="openLesson(2)">
+      <button class="lesson-done-btn" id="ldone-1" onclick="toggleLessonDone(1,event)">✓ Segna come completata</button>
+      <div class="lesson-card active" id="lcard-2" onclick="openLesson(2)">
         <div class="l-icon">📚</div>
         <div class="l-meta">
           <div class="l-num">Lezione 2</div>
           <div class="l-title">Come si studia davvero</div>
           <div class="l-desc">Studio attivo, Pomodoro e il sonno</div>
         </div>
-        <div class="l-badge badge-active">Attiva</div>
+        <div class="l-badge" id="lbadge-2">Attiva</div>
       </div>
-      <div class="lesson-card locked">
-        <div class="l-icon">📚</div>
+      <button class="lesson-done-btn" id="ldone-2" onclick="toggleLessonDone(2,event)">✓ Segna come completata</button>
+      <div class="lesson-card active" id="lcard-3" onclick="openLesson(3)">
+        <div class="l-icon">🗓️</div>
         <div class="l-meta">
-          <div class="l-num" style="color:var(--muted)">Lezione 3</div>
-          <div class="l-title" style="color:var(--muted)">Prossimamente</div>
+          <div class="l-num">Lezione 3</div>
+          <div class="l-title">Organizzati come una pro</div>
+          <div class="l-desc">Pianificazione, routine e verifiche</div>
         </div>
-        <div class="l-badge badge-lock">🔒</div>
+        <div class="l-badge" id="lbadge-3">Attiva</div>
       </div>
+      <button class="lesson-done-btn" id="ldone-3" onclick="toggleLessonDone(3,event)">✓ Segna come completata</button>
       <div class="lesson-card locked">
         <div class="l-icon">📚</div>
         <div class="l-meta">
@@ -305,6 +322,8 @@ input,textarea{font-family:'Nunito',sans-serif}
       <div class="ladri-card">
         <p style="font-size:13px;color:var(--muted);margin-bottom:12px">Quanto ti distrae ogni ladro? Dai un voto da 1 a 10.</p>
         <div id="ladri-rows"></div>
+        <button class="ladri-save-btn" onclick="saveLadriReport()">Salva valutazione 📊</button>
+        <div class="ladri-history" id="ladri-history"></div>
       </div>
     </div>
 
@@ -319,7 +338,6 @@ input,textarea{font-family:'Nunito',sans-serif}
       <div class="lesson-header-title" id="lesson-screen-title">Il Tuo Cervello</div>
       <div class="lesson-header-sub" id="lesson-screen-sub">Lezione 1</div>
     </div>
-    <div class="stars-pill">⭐ <span class="stars-display">0</span></div>
   </div>
   <div class="progress-bar"><div class="progress-fill" id="lesson-progress"></div></div>
   <div class="slide-container" id="slides-container"></div>
@@ -334,7 +352,6 @@ input,textarea{font-family:'Nunito',sans-serif}
   <div class="nav">
     <div class="back-btn" onclick="show('s-home')">←</div>
     <div class="nav-logo"><span>🎮</span><span>Giochi</span></div>
-    <div class="stars-pill">⭐ <span class="stars-display">0</span></div>
   </div>
   <div class="scroll" style="padding:16px">
     <div style="background:linear-gradient(135deg,var(--g),#2ECC71);border-radius:18px;padding:18px;margin-bottom:14px;color:#fff">
@@ -350,22 +367,22 @@ input,textarea{font-family:'Nunito',sans-serif}
 </div>
 
 <div id="s-game1" class="screen">
-  <div class="game-header"><div class="back-btn" onclick="show('s-games')">←</div><div class="lesson-header-info"><div class="lesson-header-title">🧭 Pilota o Motore?</div><div class="lesson-header-sub" id="g1-counter">1/10</div></div><div class="score-pill" id="g1-score">⭐ 0</div></div>
-  <div class="game-body"><div class="game-card-big"><div class="g-emoji" id="g1-emoji">🤔</div><div class="g-text" id="g1-text">...</div></div><div id="g1-fb"></div><div class="two-btn"><button class="choice-btn btn-blue" id="g1-btn1" onclick="ansG1(currentLesson===2?'A':'P')"><span id="g1-lbl1">🧭 Pilota</span></button><button class="choice-btn btn-red" id="g1-btn2" onclick="ansG1(currentLesson===2?'P':'M')"><span id="g1-lbl2">⚡ Motore</span></button></div></div>
+  <div class="game-header"><div class="back-btn" onclick="show('s-games')">←</div><div class="lesson-header-info"><div class="lesson-header-title">🧭 Pilota o Motore?</div><div class="lesson-header-sub" id="g1-counter">1/10</div></div></div>
+  <div class="game-body"><div class="game-card-big"><div class="g-emoji" id="g1-emoji">🤔</div><div class="g-text" id="g1-text">...</div></div><div id="g1-fb"></div><div class="two-btn"><button class="choice-btn btn-blue" id="g1-btn1" onclick="ansG1(currentLesson===3?'O':currentLesson===2?'A':'P')"><span id="g1-lbl1">🧭 Pilota</span></button><button class="choice-btn btn-red" id="g1-btn2" onclick="ansG1(currentLesson===3?'C':currentLesson===2?'P':'M')"><span id="g1-lbl2">⚡ Motore</span></button></div></div>
 </div>
 
 <div id="s-game2" class="screen">
-  <div class="game-header"><div class="back-btn" onclick="show('s-games')">←</div><div class="lesson-header-info"><div class="lesson-header-title">⚡ Vero o Falso?</div><div class="lesson-header-sub" id="g2-counter">1/10</div></div><div class="score-pill" id="g2-score">⭐ 0</div></div>
+  <div class="game-header"><div class="back-btn" onclick="show('s-games')">←</div><div class="lesson-header-info"><div class="lesson-header-title">⚡ Vero o Falso?</div><div class="lesson-header-sub" id="g2-counter">1/10</div></div></div>
   <div class="game-body"><div class="game-card-big"><div class="g-text" id="g2-text">...</div></div><div id="g2-fb"></div><div class="two-btn"><button class="choice-btn btn-green" onclick="ansG2(true)">✅ Vero</button><button class="choice-btn btn-red" onclick="ansG2(false)">❌ Falso</button></div></div>
 </div>
 
 <div id="s-game3" class="screen">
-  <div class="game-header"><div class="back-btn" onclick="show('s-games')">←</div><div class="lesson-header-info"><div class="lesson-header-title">🃏 Memoria</div><div class="lesson-header-sub" id="g3-counter">Coppie: 0/6</div></div><div class="score-pill" id="g3-score">⭐ 0</div></div>
+  <div class="game-header"><div class="back-btn" onclick="show('s-games')">←</div><div class="lesson-header-info"><div class="lesson-header-title">🃏 Memoria</div><div class="lesson-header-sub" id="g3-counter">Coppie: 0/6</div></div></div>
   <div class="game-body"><p style="font-size:13px;color:var(--muted);text-align:center;margin-bottom:12px">Tocca due carte per abbinarle!</p><div class="memory-grid" id="mem-grid"></div></div>
 </div>
 
 <div id="s-game4" class="screen">
-  <div class="game-header"><div class="back-btn" onclick="show('s-games')">←</div><div class="lesson-header-info"><div class="lesson-header-title">✏️ Completa la Frase</div><div class="lesson-header-sub" id="g4-counter">1/8</div></div><div class="score-pill" id="g4-score">⭐ 0</div></div>
+  <div class="game-header"><div class="back-btn" onclick="show('s-games')">←</div><div class="lesson-header-info"><div class="lesson-header-title">✏️ Completa la Frase</div><div class="lesson-header-sub" id="g4-counter">1/8</div></div></div>
   <div class="game-body"><div class="sentence-box" id="g4-sentence">...</div><div id="g4-fb" style="margin-bottom:10px"></div><div class="word-options" id="g4-opts"></div></div>
   <div class="game-footer"><button class="big-btn btn-p" id="g4-next" onclick="nextG4()" style="display:none">Avanti →</button></div>
 </div>
@@ -381,8 +398,6 @@ input,textarea{font-family:'Nunito',sans-serif}
     <div class="end-emoji" id="end-emoji">🎉</div>
     <div class="end-title" id="end-title">Bravissima!</div>
     <div class="end-sub" id="end-sub"></div>
-    <div class="end-stars-big" id="end-stars-big">⭐⭐⭐</div>
-    <div class="end-star-label" id="end-star-label"></div>
     <button class="big-btn btn-p" onclick="show('s-games')">Gioca ancora</button>
     <button class="big-btn btn-sec" onclick="show('s-home')">Torna a casa</button>
   </div>
@@ -400,7 +415,32 @@ input,textarea{font-family:'Nunito',sans-serif}
 </div>
 
 <script>
-var totalStars=parseInt(localStorage.getItem('mv-stars')||'0');
+
+
+var lessonDone=JSON.parse(localStorage.getItem('mv-lessons')||'{}');
+function toggleLessonDone(n,e){
+  e.stopPropagation();
+  lessonDone[n]=!lessonDone[n];
+  save('mv-lessons',lessonDone);
+  renderLessonStates();
+}
+function renderLessonStates(){
+  [1,2,3].forEach(function(n){
+    var card=document.getElementById('lcard-'+n);
+    var badge=document.getElementById('lbadge-'+n);
+    var btn=document.getElementById('ldone-'+n);
+    if(!card||!badge||!btn)return;
+    if(lessonDone[n]){
+      card.classList.remove('active');card.classList.add('done');
+      badge.className='l-badge badge-done';badge.textContent='✓ Completata';
+      btn.className='lesson-done-btn done';btn.textContent='✓ Completata — tocca per annullare';
+    } else {
+      card.classList.add('active');card.classList.remove('done');
+      badge.className='l-badge badge-active';badge.textContent='Attiva';
+      btn.className='lesson-done-btn';btn.textContent='✓ Segna come completata';
+    }
+  });
+}
 var diaryEntries=JSON.parse(localStorage.getItem('mv-diary')||'[]');
 var impegni=JSON.parse(localStorage.getItem('mv-impegni')||'[]');
 var ladriScores=JSON.parse(localStorage.getItem('mv-ladri')||'{}');
@@ -410,14 +450,13 @@ var currentSlide=0;
 var currentLesson=1;
 
 function save(k,v){localStorage.setItem(k,typeof v==='string'?v:JSON.stringify(v));}
-function addStars(n){totalStars+=n;save('mv-stars',totalStars);updateStarsUI();}
-function updateStarsUI(){document.querySelectorAll('.stars-display').forEach(function(el){el.textContent=totalStars;});}
+
+
 
 function show(id){
   document.querySelectorAll('.screen').forEach(function(s){s.classList.remove('active');});
   document.getElementById(id).classList.add('active');
-  updateStarsUI();
-  if(id==='s-home'){renderDiaryPreview();renderImpegni();renderLadri();document.getElementById('session-text').textContent=sessionText;}
+  if(id==='s-home'){renderDiaryPreview();renderImpegni();renderLadri();renderLessonStates();document.getElementById('session-text').textContent=sessionText;}
   if(id==='s-diary')renderDiaryFull();
   if(id==='s-games'){
     var isL2=currentLesson===2;
@@ -425,10 +464,10 @@ function show(id){
     var s=document.getElementById('games-sub');
     var g1t=document.getElementById('game1-title');
     var g1d=document.getElementById('game1-desc');
-    if(t)t.textContent=isL2?'Giochi Lezione 2':'Giochi Lezione 1';
-    if(s)s.textContent='4 giochi, stelle da guadagnare 🌟';
-    if(g1t)g1t.textContent=isL2?'Passivo o Attivo?':'Pilota o Motore?';
-    if(g1d)g1d.textContent=isL2?'Riconosci il tipo di studio':'Riconosci chi controlla ogni situazione';
+    var isL3=currentLesson===3;
+    if(t)t.textContent=isL3?'Giochi Lezione 3':isL2?'Giochi Lezione 2':'Giochi Lezione 1';
+    if(g1t)g1t.textContent=isL3?'Organizzato o Caotico?':isL2?'Passivo o Attivo?':'Pilota o Motore?';
+    if(g1d)g1d.textContent=isL3?'Riconosci il comportamento giusto':isL2?'Riconosci il tipo di studio':'Riconosci chi controlla ogni situazione';
   }
 }
 
@@ -519,11 +558,31 @@ var LADRI=[
   {key:'social',emoji:'📲',name:'I Social Media'},
   {key:'comfort',emoji:'🛋️',name:'Il Comfort Eccessivo'},
 ];
+var ladriHistory=JSON.parse(localStorage.getItem('mv-ladri-history')||'[]');
 function setLadro(key,val){
   ladriScores[key]=val;save('mv-ladri',ladriScores);renderLadri();
 }
+function saveLadriReport(){
+  var LADRI_NAMES={'smartphone':'Smartphone','notifiche':'Notifiche','multitasking':'Multitasking','social':'Social Media','comfort':'Comfort Eccessivo'};
+  var now=new Date();
+  var dateStr=now.toLocaleDateString('it-IT',{day:'numeric',month:'short'})+' '+now.toLocaleTimeString('it-IT',{hour:'2-digit',minute:'2-digit'});
+  var summary=Object.keys(ladriScores).map(function(k){
+    return LADRI_NAMES[k]+(': ')+ladriScores[k]+'/10';
+  }).join(' · ');
+  if(!summary){alert('Dai prima un voto ai ladri!');return;}
+  ladriHistory.unshift({date:dateStr,summary:summary});
+  save('mv-ladri-history',ladriHistory);
+  renderLadriHistory();
+}
+function renderLadriHistory(){
+  var el=document.getElementById('ladri-history');if(!el)return;
+  if(!ladriHistory.length){el.innerHTML='';return;}
+  el.innerHTML='<div style="font-size:11px;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:.8px;margin-bottom:8px">Storico valutazioni</div>'+
+    ladriHistory.map(function(h){return '<div class="ladri-history-item"><strong>'+h.date+'</strong><br>'+h.summary+'</div>';}).join('');
+}
 function renderLadri(){
   var el=document.getElementById('ladri-rows');if(!el)return;
+  renderLadriHistory();
   el.innerHTML=LADRI.map(function(l){
     var score=ladriScores[l.key]||0;
     var nums='';
@@ -539,6 +598,7 @@ function renderLadri(){
 
 var SLIDES=JSON.parse(document.getElementById('slides-data').textContent);
 var SLIDES2=JSON.parse(document.getElementById('slides2-data').textContent);
+var SLIDES3=JSON.parse(document.getElementById('slides3-data').textContent);
 
 function openLesson(n){
   currentLesson=n||1;
@@ -550,7 +610,7 @@ function openLesson(n){
   buildSlides();show('s-lesson');renderSlide();
 }
 function buildSlides(){
-  var slides=currentLesson===1?SLIDES:SLIDES2;
+  var slides=currentLesson===1?SLIDES:currentLesson===2?SLIDES2:SLIDES3;
   var c=document.getElementById('slides-container');
   c.innerHTML=slides.map(function(s,i){
     var q='';
@@ -559,7 +619,7 @@ function buildSlides(){
   }).join('');
 }
 function renderSlide(){
-  var slides=currentLesson===1?SLIDES:SLIDES2;
+  var slides=currentLesson===1?SLIDES:currentLesson===2?SLIDES2:SLIDES3;
   var total=slides.length;
   document.getElementById('slide-counter').textContent=(currentSlide+1)+' / '+total;
   document.getElementById('lesson-progress').style.width=(((currentSlide+1)/total)*100)+'%';
@@ -572,10 +632,9 @@ function renderSlide(){
 }
 function changeSlide(d){
   var next=currentSlide+d;
-  var slides=currentLesson===1?SLIDES:SLIDES2;
+  var slides=currentLesson===1?SLIDES:currentLesson===2?SLIDES2:SLIDES3;
   if(next<0||next>=slides.length)return;
   currentSlide=next;renderSlide();
-  if(d>0&&currentSlide%5===0)addStars(1);
 }
 function selectAns(btn){
   btn.closest('.slide-q-answers').querySelectorAll('.ans-btn').forEach(function(b){b.classList.remove('selected');});
@@ -601,10 +660,15 @@ function startGame(n){
     G2=JSON.parse(document.getElementById('g2l2-data').textContent);
     G4=JSON.parse(document.getElementById('g4l2-data').textContent);
     MEM_PAIRS=JSON.parse(document.getElementById('meml2-data').textContent);
+  } else if(currentLesson===3){
+    G1=JSON.parse(document.getElementById('g1l3-data').textContent);
+    G2=JSON.parse(document.getElementById('g2l3-data').textContent);
+    G4=JSON.parse(document.getElementById('g4l3-data').textContent);
+    MEM_PAIRS=JSON.parse(document.getElementById('meml3-data').textContent);
   }
   if(n===1){
-    var lbl=currentLesson===2?'Passivo o Attivo?':'Pilota o Motore?';
-    document.querySelector('#s-game1 .lesson-header-title').textContent=(currentLesson===2?'📚 ':'🧭 ')+lbl;
+    var lbl=currentLesson===3?'Organizzato o Caotico?':currentLesson===2?'Passivo o Attivo?':'Pilota o Motore?';
+    document.querySelector('#s-game1 .lesson-header-title').textContent=(currentLesson===3?'🗓️ ':currentLesson===2?'📚 ':'🧭 ')+lbl;
     g1i=0;g1s=0;renderG1();show('s-game1');
   }
   else if(n===2){g2i=0;g2s=0;renderG2();show('s-game2');}
@@ -612,15 +676,17 @@ function startGame(n){
   else if(n===4){g4i=0;g4s=0;g4done=false;renderG4();show('s-game4');}
 }
 function renderG1(){
-  var gameName=currentLesson===2?'Passivo o Attivo?':'Pilota o Motore?';
+  var gameName=currentLesson===3?'Organizzato o Caotico?':currentLesson===2?'Passivo o Attivo?':'Pilota o Motore?';
   if(g1i>=G1.length){endGame(g1s,G1.length,gameName);return;}
   var d=G1[g1i];
   document.getElementById('g1-emoji').textContent=d.emoji;
   document.getElementById('g1-text').textContent=d.text;
   document.getElementById('g1-counter').textContent=(g1i+1)+'/'+G1.length;
-  document.getElementById('g1-score').textContent='⭐ '+g1s;
   document.getElementById('g1-fb').innerHTML='';
-  if(currentLesson===2){
+  if(currentLesson===3){
+    document.getElementById('g1-lbl1').textContent='✅ Organizzata';
+    document.getElementById('g1-lbl2').textContent='🌀 Caotica';
+  } else if(currentLesson===2){
     document.getElementById('g1-lbl1').textContent='💪 Attivo';
     document.getElementById('g1-lbl2').textContent='😴 Passivo';
   } else {
@@ -631,7 +697,9 @@ function renderG1(){
 function ansG1(a){
   var d=G1[g1i],ok=a===d.ans;if(ok)g1s++;
   var msg;
-  if(currentLesson===2){
+  if(currentLesson===3){
+    msg=ok?'Esatto! '+(a==='O'?'Comportamento organizzato.':'Comportamento caotico.'):'Non esatto. '+(d.ans==='O'?'Questo è organizzato.':'Questo è caotico.');
+  } else if(currentLesson===2){
     msg=ok?'Esatto! '+(a==='A'?'Studio attivo.':'Studio passivo.'):'Non esatto. '+(d.ans==='A'?'Questo è studio attivo.':'Questo è studio passivo.');
   } else {
     msg=ok?'Esatto! '+(a==='P'?'È il Pilota.':'È il Motore.'):'Non esatto. '+(d.ans==='P'?'Questo è il Pilota.':'Questo è il Motore.');
@@ -658,7 +726,6 @@ function renderG2(){
   var d=G2[g2i];
   document.getElementById('g2-text').textContent=d.text;
   document.getElementById('g2-counter').textContent=(g2i+1)+'/'+G2.length;
-  document.getElementById('g2-score').textContent='⭐ '+g2s;
   document.getElementById('g2-fb').innerHTML='';
 }
 function ansG2(a){
@@ -722,7 +789,6 @@ function renderG4(){
   var d=G4[g4i];
   document.getElementById('g4-sentence').innerHTML=d.s.replace(d.blank,'<span class="blank">___</span>');
   document.getElementById('g4-counter').textContent=(g4i+1)+'/'+G4.length;
-  document.getElementById('g4-score').textContent='⭐ '+g4s;
   document.getElementById('g4-fb').innerHTML='';
   document.getElementById('g4-next').style.display='none';
   var opts=d.opts.slice().sort(function(){return Math.random()-.5;});
@@ -743,17 +809,14 @@ function nextG4(){g4i++;renderG4();}
 
 function endGame(score,total,name){
   var stars=Math.round((score/total)*10);
-  addStars(stars);
   var pct=score/total;
   document.getElementById('end-emoji').textContent=pct>=.8?'🏆':pct>=.5?'💪':'😊';
   document.getElementById('end-title').textContent=pct>=.8?'Bravissima!':pct>=.5?'Buon lavoro!':'Continua così!';
   document.getElementById('end-sub').textContent=Math.round(score)+' risposte giuste su '+total+' in "'+name+'"';
-  document.getElementById('end-stars-big').textContent='⭐'.repeat(Math.max(1,Math.round(stars/3)));
-  document.getElementById('end-star-label').textContent='+'+stars+' stelle — totale: '+totalStars;
   show('s-end');
 }
 
-updateStarsUI();renderDiaryPreview();renderImpegni();renderLadri();
+renderDiaryPreview();renderImpegni();renderLadri();renderLessonStates();
 document.getElementById('session-text').textContent=sessionText;
 
 if('serviceWorker' in navigator){
