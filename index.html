@@ -57,6 +57,9 @@ input,textarea{font-family:'Nunito',sans-serif}
 .l-desc{font-size:12px;color:var(--muted)}
 .l-badge{font-size:11px;font-weight:800;padding:4px 10px;border-radius:20px;flex-shrink:0}
 .badge-active{background:var(--p);color:#fff}
+.lh-badge.badge-active{background:var(--p);color:#fff}
+.lh-badge.badge-done{background:var(--g);color:#fff}
+.lh-badge.badge-lock{background:var(--border);color:var(--muted)}
 .badge-lock{background:var(--border);color:var(--muted)}
 .badge-done{background:var(--g);color:#fff}
 .diary-card{background:var(--card);border:1.5px solid var(--border);border-radius:18px;padding:16px;margin-bottom:10px}
@@ -198,6 +201,23 @@ input,textarea{font-family:'Nunito',sans-serif}
 
 .lesson-done-btn{width:100%;margin-top:8px;height:40px;border-radius:12px;font-size:13px;font-weight:800;border:1.5px dashed var(--border);background:none;color:var(--muted);cursor:pointer;transition:all .2s}
 .lesson-done-btn.done{background:var(--gl);border-color:var(--g);color:var(--g)}
+
+.lessons-scroll{display:flex;gap:12px;overflow-x:auto;-webkit-overflow-scrolling:touch;padding-bottom:8px;scrollbar-width:none}
+.lessons-scroll::-webkit-scrollbar{display:none}
+.lesson-card-h{background:var(--card);border:1.5px solid var(--border);border-radius:18px;padding:14px;min-width:200px;cursor:pointer;transition:all .2s;flex-shrink:0}
+.lesson-card-h.active{border-color:var(--p);box-shadow:0 4px 16px rgba(0,174,239,.15)}
+.lesson-card-h.locked{opacity:.4;cursor:default}
+.lesson-card-h.done{border-color:var(--g);background:var(--gl)}
+.lh-icon{font-size:28px;margin-bottom:8px}
+.lh-num{font-size:10px;font-weight:700;color:var(--p);text-transform:uppercase;letter-spacing:.7px;margin-bottom:2px}
+.lesson-card-h.done .lh-num{color:var(--g)}
+.lesson-card-h.locked .lh-num{color:var(--muted)}
+.lh-title{font-size:14px;font-weight:800;margin-bottom:2px;line-height:1.2}
+.lh-desc{font-size:11px;color:var(--muted);line-height:1.3}
+.lh-badge{font-size:10px;font-weight:800;padding:3px 8px;border-radius:20px;display:inline-block;margin-top:6px}
+.lesson-done-row{display:flex;gap:8px;overflow-x:auto;-webkit-overflow-scrolling:touch;padding-bottom:4px;scrollbar-width:none}
+.lesson-done-row::-webkit-scrollbar{display:none}
+.lesson-done-btn{min-width:200px;flex-shrink:0;margin-top:0;height:36px;font-size:11px}
 .home-pad{height:calc(24px + var(--safe-b))}
 </style>
 
@@ -240,43 +260,39 @@ input,textarea{font-family:'Nunito',sans-serif}
     </div>
     <div class="section" style="margin-top:8px">
       <div class="sec-title">Le tue lezioni</div>
-      <div class="lesson-card active" id="lcard-1" onclick="openLesson(1)">
-        <div class="l-icon">🧠</div>
-        <div class="l-meta">
-          <div class="l-num">Lezione 1</div>
-          <div class="l-title">Il Tuo Cervello</div>
-          <div class="l-desc">Dopamina, Pilota, Motore e i 5 Ladri</div>
+      <div class="lessons-scroll">
+        <div class="lesson-card-h active" id="lcard-1" onclick="openLesson(1)">
+          <div class="lh-icon">🧠</div>
+          <div class="lh-num">Lezione 1</div>
+          <div class="lh-title">Il Tuo Cervello</div>
+          <div class="lh-desc">Dopamina, Pilota, Motore e i 5 Ladri</div>
+          <div class="lh-badge" id="lbadge-1">Attiva</div>
         </div>
-        <div class="l-badge" id="lbadge-1">Attiva</div>
+        <div class="lesson-card-h active" id="lcard-2" onclick="openLesson(2)">
+          <div class="lh-icon">📚</div>
+          <div class="lh-num">Lezione 2</div>
+          <div class="lh-title">Come si studia davvero</div>
+          <div class="lh-desc">Studio attivo, Pomodoro e il sonno</div>
+          <div class="lh-badge" id="lbadge-2">Attiva</div>
+        </div>
+        <div class="lesson-card-h active" id="lcard-3" onclick="openLesson(3)">
+          <div class="lh-icon">🗓️</div>
+          <div class="lh-num">Lezione 3</div>
+          <div class="lh-title">Organizzati come una pro</div>
+          <div class="lh-desc">Pianificazione, routine e verifiche</div>
+          <div class="lh-badge" id="lbadge-3">Attiva</div>
+        </div>
+        <div class="lesson-card-h locked">
+          <div class="lh-icon">📚</div>
+          <div class="lh-num" style="color:var(--muted)">Lezione 4</div>
+          <div class="lh-title" style="color:var(--muted)">Prossimamente</div>
+          <div class="lh-badge badge-lock">🔒</div>
+        </div>
       </div>
-      <button class="lesson-done-btn" id="ldone-1" onclick="toggleLessonDone(1,event)">✓ Segna come completata</button>
-      <div class="lesson-card active" id="lcard-2" onclick="openLesson(2)">
-        <div class="l-icon">📚</div>
-        <div class="l-meta">
-          <div class="l-num">Lezione 2</div>
-          <div class="l-title">Come si studia davvero</div>
-          <div class="l-desc">Studio attivo, Pomodoro e il sonno</div>
-        </div>
-        <div class="l-badge" id="lbadge-2">Attiva</div>
-      </div>
-      <button class="lesson-done-btn" id="ldone-2" onclick="toggleLessonDone(2,event)">✓ Segna come completata</button>
-      <div class="lesson-card active" id="lcard-3" onclick="openLesson(3)">
-        <div class="l-icon">🗓️</div>
-        <div class="l-meta">
-          <div class="l-num">Lezione 3</div>
-          <div class="l-title">Organizzati come una pro</div>
-          <div class="l-desc">Pianificazione, routine e verifiche</div>
-        </div>
-        <div class="l-badge" id="lbadge-3">Attiva</div>
-      </div>
-      <button class="lesson-done-btn" id="ldone-3" onclick="toggleLessonDone(3,event)">✓ Segna come completata</button>
-      <div class="lesson-card locked">
-        <div class="l-icon">📚</div>
-        <div class="l-meta">
-          <div class="l-num" style="color:var(--muted)">Lezione 4</div>
-          <div class="l-title" style="color:var(--muted)">Prossimamente</div>
-        </div>
-        <div class="l-badge badge-lock">🔒</div>
+      <div class="lesson-done-row">
+        <button class="lesson-done-btn" id="ldone-1" onclick="toggleLessonDone(1,event)">✓ L1 completata</button>
+        <button class="lesson-done-btn" id="ldone-2" onclick="toggleLessonDone(2,event)">✓ L2 completata</button>
+        <button class="lesson-done-btn" id="ldone-3" onclick="toggleLessonDone(3,event)">✓ L3 completata</button>
       </div>
     </div>
     <div class="section" style="margin-top:8px">
@@ -432,12 +448,12 @@ function renderLessonStates(){
     if(!card||!badge||!btn)return;
     if(lessonDone[n]){
       card.classList.remove('active');card.classList.add('done');
-      badge.className='l-badge badge-done';badge.textContent='✓ Completata';
-      btn.className='lesson-done-btn done';btn.textContent='✓ Completata — tocca per annullare';
+      badge.className='lh-badge badge-done';badge.textContent='✓ Fatta';
+      btn.className='lesson-done-btn done';btn.textContent='✓ L'+n+' fatta — annulla';
     } else {
       card.classList.add('active');card.classList.remove('done');
-      badge.className='l-badge badge-active';badge.textContent='Attiva';
-      btn.className='lesson-done-btn';btn.textContent='✓ Segna come completata';
+      badge.className='lh-badge badge-active';badge.textContent='Attiva';
+      btn.className='lesson-done-btn';btn.textContent='✓ L'+n+' completata';
     }
   });
 }
@@ -560,7 +576,14 @@ var LADRI=[
 ];
 var ladriHistory=JSON.parse(localStorage.getItem('mv-ladri-history')||'[]');
 function setLadro(key,val){
-  ladriScores[key]=val;save('mv-ladri',ladriScores);renderLadri();
+  if(ladriScores[key]===val){delete ladriScores[key];}
+  else{ladriScores[key]=val;}
+  save('mv-ladri',ladriScores);renderLadri();
+}
+function deleteLadriReport(i){
+  ladriHistory.splice(i,1);
+  save('mv-ladri-history',ladriHistory);
+  renderLadriHistory();
 }
 function saveLadriReport(){
   var LADRI_NAMES={'smartphone':'Smartphone','notifiche':'Notifiche','multitasking':'Multitasking','social':'Social Media','comfort':'Comfort Eccessivo'};
@@ -578,7 +601,7 @@ function renderLadriHistory(){
   var el=document.getElementById('ladri-history');if(!el)return;
   if(!ladriHistory.length){el.innerHTML='';return;}
   el.innerHTML='<div style="font-size:11px;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:.8px;margin-bottom:8px">Storico valutazioni</div>'+
-    ladriHistory.map(function(h){return '<div class="ladri-history-item"><strong>'+h.date+'</strong><br>'+h.summary+'</div>';}).join('');
+    ladriHistory.map(function(h,i){return '<div class="ladri-history-item" style="display:flex;align-items:flex-start;gap:8px"><div style="flex:1"><strong>'+h.date+'</strong><br>'+h.summary+'</div><button onclick="deleteLadriReport('+i+')" style="background:none;color:var(--muted);font-size:15px;padding:2px;border:none;cursor:pointer;flex-shrink:0">✕</button></div>';}).join('');
 }
 function renderLadri(){
   var el=document.getElementById('ladri-rows');if(!el)return;
