@@ -616,7 +616,7 @@ function loadStudent(id) {
   // Tags
   var tagsRow = document.getElementById('diary-tags-row');
   tagsRow.innerHTML = s.diario.tags.map(function(t){
-    return '<button class="tag-btn" onclick="toggleTag(this,''+t+'')">'+t+'</button>';
+    return '<button class="tag-btn" data-tag="'+t+'" onclick="toggleTagBtn(this)">'+t+'</button>';
   }).join('');
   selectedTags = [];
 
@@ -725,6 +725,10 @@ function changeNum(d) {
   var el=document.getElementById('diary-num');
   el.value=Math.max(0,(parseInt(el.value)||0)+d);
 }
+function toggleTagBtn(btn) { toggleTag(btn, btn.getAttribute('data-tag')); }
+function setLadroBtn(el) { setLadro(el.getAttribute('data-key'), parseInt(el.getAttribute('data-n'))); }
+function toggleTagBtn(btn){ toggleTag(btn, btn.getAttribute('data-tag')); }
+function setLadroBtn(el){ setLadro(el.getAttribute('data-key'), parseInt(el.getAttribute('data-n'))); }
 function toggleTag(btn,tag) {
   btn.classList.toggle('on');
   if(btn.classList.contains('on')) selectedTags.push(tag);
@@ -828,7 +832,7 @@ function renderLadri(){
     for(var n=1;n<=10;n++){
       var cls='ladro-num';
       if(n===score) cls+=(n>=8?' sel-high':n>=5?' sel-med':' sel-low');
-      nums+='<div class="'+cls+'" onclick="setLadro(''+l.key+'','+n+')">'+n+'</div>';
+      nums+='<div class="'+cls+'" data-key="'+l.key+'" data-n="'+n+'" onclick="setLadroBtn(this)">'+n+'</div>';
     }
     var label=score?(score>=8?'🔴 Molto alto':score>=5?'🟡 Medio':'🟢 Basso'):'Non valutato';
     return '<div class="ladro-row"><div class="ladro-top"><span class="ladro-emoji">'+l.emoji+'</span><span class="ladro-name">'+l.name+'</span><span style="font-size:12px;color:var(--muted)">'+label+'</span></div><div class="ladro-btns">'+nums+'</div></div>';
@@ -954,9 +958,10 @@ function renderG4(){
   document.getElementById('g4-next').style.display='none';
   var opts=d.opts.slice().sort(function(){return Math.random()-.5;});
   document.getElementById('g4-opts').innerHTML=opts.map(function(o){
-    return '<button class="word-btn" onclick="ansG4(this,''+o+'')">' + o + '</button>';
+    return '<button class="word-btn" data-opt="'+o+'" onclick="ansG4Btn(this)">'+o+'</button>';
   }).join('');
 }
+function ansG4Btn(btn){ ansG4(btn, btn.getAttribute('data-opt')); }
 function ansG4(btn,chosen){
   if(g4done)return;g4done=true;
   var d=G4[g4i],ok=chosen===d.blank;if(ok)g4s++;
