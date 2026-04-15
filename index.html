@@ -6,19 +6,18 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="MenteViva">
-<meta name="theme-color" content="#00AEEF">
+<meta name="theme-color" id="meta-theme" content="#7B2FBE">
 <link rel="manifest" href="manifest.json">
 <title>MenteViva</title>
 <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 :root{
-  --p:#00AEEF;--pd:#0090CC;--pl:#E0F6FF;
+  --p:#7B2FBE;--pd:#6A1FA8;--pl:#EFE5FF;--p2:#A66DE8;
   --g:#27AE60;--gl:#EAFAF1;
   --y:#F5A623;--yl:#FEF5E4;
   --r:#E74C3C;--rl:#FDEDEC;
-  --pu:#8E44AD;--pul:#F5EEF8;
-  --bg:#F0F8FF;--card:#fff;--text:#1A2B4A;--muted:#7A8BAD;--border:#D0E8F5;
+  --bg:#F9F5FF;--card:#fff;--text:#1A1235;--muted:#8B7AAD;--border:#DDD0F5;
   --safe-b:env(safe-area-inset-bottom,0px);
   --safe-t:env(safe-area-inset-top,0px);
 }
@@ -28,11 +27,45 @@ html,body{height:100%;background:var(--bg);font-family:'Nunito',sans-serif;color
 .scroll{overflow-y:auto;-webkit-overflow-scrolling:touch;flex:1}
 button{font-family:'Nunito',sans-serif;cursor:pointer;border:none;outline:none}
 input,textarea{font-family:'Nunito',sans-serif}
+
+/* LANDING */
+.landing-wrap{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px 20px;background:var(--card)}
+.landing-logo{font-size:52px;margin-bottom:8px;line-height:1}
+.landing-title{font-size:28px;font-weight:900;color:#1A1235;margin-bottom:4px}
+.landing-sub{font-size:14px;color:#888;margin-bottom:36px}
+.student-cards{width:100%;max-width:400px;display:flex;flex-direction:column;gap:14px}
+.student-card{border-radius:22px;padding:18px 20px;display:flex;align-items:center;gap:16px;cursor:pointer;transition:transform .15s,box-shadow .15s;box-shadow:0 4px 20px rgba(0,0,0,.1)}
+.student-card:active{transform:scale(.97)}
+.sc-emoji{font-size:32px;line-height:1}
+.sc-info{flex:1}
+.sc-name{font-size:20px;font-weight:900;color:#fff}
+.sc-label{font-size:12px;color:rgba(255,255,255,.8);margin-top:1px}
+.sc-arrow{font-size:20px;color:rgba(255,255,255,.9);font-weight:900}
+
+/* PIN */
+.pin-wrap{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px 20px;background:var(--card)}
+.pin-icon{font-size:44px;margin-bottom:14px}
+.pin-title{font-size:20px;font-weight:900;color:var(--text);margin-bottom:4px}
+.pin-sub{font-size:14px;color:var(--muted);margin-bottom:24px}
+.pin-dots{display:flex;gap:14px;margin-bottom:20px}
+.pin-dot{width:18px;height:18px;border-radius:50%;border:2.5px solid var(--border);background:var(--card);transition:all .2s}
+.pin-dot.filled{background:var(--p);border-color:var(--p)}
+.pin-error{font-size:13px;color:#E74C3C;font-weight:700;min-height:18px;margin-bottom:10px;text-align:center}
+.pin-pad{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;width:100%;max-width:280px;margin-bottom:16px}
+.pin-key{height:64px;border-radius:16px;font-size:22px;font-weight:800;background:var(--bg);border:1.5px solid var(--border);color:var(--text);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .15s}
+.pin-key:active{background:var(--pl);border-color:var(--p);transform:scale(.94)}
+.pin-key.del{font-size:18px}
+.pin-key.ok{background:var(--p);color:#fff;border-color:var(--p)}
+.pin-back{background:none;color:var(--muted);font-size:14px;font-weight:700;padding:8px;margin-top:4px}
+
+/* NAV */
 .nav{background:var(--card);border-bottom:1.5px solid var(--border);padding:12px 18px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
 .nav-logo{display:flex;align-items:center;gap:8px}
 .nav-logo span{font-size:20px;font-weight:900;color:var(--p)}
+.nav-logout{background:none;font-size:13px;color:var(--muted);font-weight:700;padding:4px}
 
-.home-hero{background:linear-gradient(135deg,var(--p) 0%,#4AC8F0 100%);padding:22px 18px 24px;color:#fff;flex-shrink:0}
+/* HOME */
+.home-hero{background:linear-gradient(135deg,var(--p) 0%,var(--p2) 100%);padding:22px 18px 24px;color:#fff;flex-shrink:0}
 .home-hero h1{font-size:21px;font-weight:900;margin-bottom:3px}
 .home-hero p{font-size:13px;opacity:.9;line-height:1.5;margin-bottom:12px}
 .session-row{display:flex;align-items:center;gap:8px}
@@ -40,28 +73,10 @@ input,textarea{font-family:'Nunito',sans-serif}
 .session-edit{background:rgba(255,255,255,.18);border:none;color:#fff;border-radius:12px;width:34px;height:34px;font-size:15px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
 .section{padding:16px 16px 0}
 .sec-title{font-size:11px;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:1.2px;margin-bottom:10px}
-.sfida-card{background:linear-gradient(135deg,var(--pu),#A569BD);border-radius:18px;padding:16px;color:#fff}
+.sfida-card{background:linear-gradient(135deg,var(--p),var(--p2));border-radius:18px;padding:16px;color:#fff}
 .sfida-label{font-size:10px;font-weight:800;letter-spacing:1px;opacity:.8;text-transform:uppercase;margin-bottom:4px}
 .sfida-title{font-size:16px;font-weight:900;margin-bottom:4px}
 .sfida-desc{font-size:13px;opacity:.9;line-height:1.4}
-.lesson-card{background:var(--card);border:1.5px solid var(--border);border-radius:18px;padding:14px 16px;margin-bottom:10px;display:flex;align-items:center;gap:14px;cursor:pointer;transition:all .2s;min-height:68px}
-.lesson-card.active{border-color:var(--p);box-shadow:0 4px 16px rgba(0,174,239,.15)}
-.lesson-card.locked{opacity:.4;cursor:default}
-.lesson-card.done{border-color:var(--g);background:var(--gl)}
-.l-icon{width:46px;height:46px;border-radius:13px;background:var(--pl);display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0}
-.lesson-card.done .l-icon{background:var(--gl)}
-.lesson-card.locked .l-icon{background:var(--bg)}
-.l-meta{flex:1;min-width:0}
-.l-num{font-size:11px;font-weight:700;color:var(--p);letter-spacing:.7px;text-transform:uppercase;margin-bottom:1px}
-.l-title{font-size:15px;font-weight:800;margin-bottom:1px}
-.l-desc{font-size:12px;color:var(--muted)}
-.l-badge{font-size:11px;font-weight:800;padding:4px 10px;border-radius:20px;flex-shrink:0}
-.badge-active{background:var(--p);color:#fff}
-.lh-badge.badge-active{background:var(--p);color:#fff}
-.lh-badge.badge-done{background:var(--g);color:#fff}
-.lh-badge.badge-lock{background:var(--border);color:var(--muted)}
-.badge-lock{background:var(--border);color:var(--muted)}
-.badge-done{background:var(--g);color:#fff}
 .diary-card{background:var(--card);border:1.5px solid var(--border);border-radius:18px;padding:16px;margin-bottom:10px}
 .diary-num-row{display:flex;align-items:center;gap:10px;margin-bottom:14px}
 .diary-num-label{font-size:13px;font-weight:700;color:var(--text);flex:1;line-height:1.3}
@@ -115,15 +130,15 @@ input,textarea{font-family:'Nunito',sans-serif}
 .ladri-history{margin-top:12px;border-top:1px solid var(--border);padding-top:10px}
 .ladri-history-item{font-size:13px;color:var(--muted);padding:6px 0;border-bottom:1px solid var(--border);line-height:1.4}
 .ladri-history-item:last-child{border-bottom:none}
-.ladri-save-btn{width:100%;height:44px;border-radius:14px;background:var(--pu);color:#fff;font-size:15px;font-weight:800;margin-top:12px;border:none;cursor:pointer}
-
+.ladri-save-btn{width:100%;height:44px;border-radius:14px;background:var(--p);color:#fff;font-size:15px;font-weight:800;margin-top:12px;border:none;cursor:pointer}
+/* LEZIONE */
 .lesson-header{background:var(--card);border-bottom:1.5px solid var(--border);padding:12px 18px;display:flex;align-items:center;gap:12px;flex-shrink:0}
 .back-btn{width:38px;height:38px;border-radius:12px;background:var(--bg);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;cursor:pointer;border:1.5px solid var(--border)}
 .lesson-header-info{flex:1;min-width:0}
 .lesson-header-title{font-size:15px;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .lesson-header-sub{font-size:12px;color:var(--muted)}
 .progress-bar{height:4px;background:var(--border);flex-shrink:0}
-.progress-fill{height:100%;background:linear-gradient(90deg,var(--p),#4AC8F0);transition:width .3s}
+.progress-fill{height:100%;background:linear-gradient(90deg,var(--p),var(--p2));transition:width .3s}
 .slide-container{flex:1;display:flex;flex-direction:column;overflow:hidden}
 .slide{display:none;flex:1;flex-direction:column;padding:20px;overflow-y:auto;-webkit-overflow-scrolling:touch}
 .slide.active{display:flex}
@@ -145,6 +160,7 @@ input,textarea{font-family:'Nunito',sans-serif}
 .nav-prev{background:var(--bg);border:1.5px solid var(--border);color:var(--text)}
 .nav-next{background:var(--p);color:#fff;flex:1;justify-content:center}
 .slide-counter{font-size:13px;font-weight:700;color:var(--muted);min-width:55px;text-align:center}
+/* GIOCHI */
 .game-card2{background:var(--card);border:1.5px solid var(--border);border-radius:18px;padding:15px;margin-bottom:10px;display:flex;align-items:center;gap:14px;cursor:pointer;min-height:68px}
 .game-card2:active{transform:scale(.98);transition:transform .1s}
 .g-icon{width:46px;height:46px;border-radius:13px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0}
@@ -165,7 +181,6 @@ input,textarea{font-family:'Nunito',sans-serif}
 .btn-blue{background:var(--p);color:#fff}
 .btn-green{background:var(--g);color:#fff}
 .btn-red{background:var(--r);color:#fff}
-.score-pill{background:var(--yl);border-radius:20px;padding:5px 12px;font-size:13px;font-weight:800;color:var(--y)}
 .feedback{border-radius:14px;padding:12px 16px;margin-bottom:12px;display:flex;align-items:center;gap:10px;font-size:14px;font-weight:700}
 .fb-ok{background:var(--gl);color:var(--g)}
 .fb-no{background:var(--rl);color:var(--r)}
@@ -184,8 +199,6 @@ input,textarea{font-family:'Nunito',sans-serif}
 .end-emoji{font-size:68px;margin-bottom:14px}
 .end-title{font-size:22px;font-weight:900;margin-bottom:6px}
 .end-sub{font-size:14px;color:var(--muted);margin-bottom:20px;line-height:1.5}
-
-
 .big-btn{height:54px;border-radius:18px;font-size:16px;font-weight:900;padding:0 26px;width:100%;max-width:310px;display:block}
 .big-btn+.big-btn{margin-top:10px}
 .btn-p{background:var(--p);color:#fff}
@@ -198,108 +211,149 @@ input,textarea{font-family:'Nunito',sans-serif}
 .modal input:focus{border-color:var(--p)}
 .modal-btns{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .modal-btns button{height:48px;border-radius:14px;font-size:15px;font-weight:800}
-
 .lesson-done-btn{width:100%;margin-top:8px;height:40px;border-radius:12px;font-size:13px;font-weight:800;border:1.5px dashed var(--border);background:none;color:var(--muted);cursor:pointer;transition:all .2s}
 .lesson-done-btn.done{background:var(--gl);border-color:var(--g);color:var(--g)}
-
 .lessons-scroll{display:flex;gap:12px;overflow-x:auto;-webkit-overflow-scrolling:touch;padding-bottom:8px;scrollbar-width:none}
 .lessons-scroll::-webkit-scrollbar{display:none}
 .lesson-card-h{background:var(--card);border:1.5px solid var(--border);border-radius:18px;padding:14px;min-width:200px;cursor:pointer;transition:all .2s;flex-shrink:0}
-.lesson-card-h.active{border-color:var(--p);box-shadow:0 4px 16px rgba(0,174,239,.15)}
+.lesson-card-h.active{border-color:var(--p);box-shadow:0 4px 16px rgba(0,0,0,.12)}
 .lesson-card-h.locked{opacity:.4;cursor:default}
 .lesson-card-h.done{border-color:var(--g);background:var(--gl)}
 .lh-icon{font-size:28px;margin-bottom:8px}
 .lh-num{font-size:10px;font-weight:700;color:var(--p);text-transform:uppercase;letter-spacing:.7px;margin-bottom:2px}
-.lesson-card-h.done .lh-num{color:var(--g)}
 .lesson-card-h.locked .lh-num{color:var(--muted)}
+.lesson-card-h.done .lh-num{color:var(--g)}
 .lh-title{font-size:14px;font-weight:800;margin-bottom:2px;line-height:1.2}
 .lh-desc{font-size:11px;color:var(--muted);line-height:1.3}
 .lh-badge{font-size:10px;font-weight:800;padding:3px 8px;border-radius:20px;display:inline-block;margin-top:6px}
+.lh-badge.badge-active{background:var(--p);color:#fff}
+.lh-badge.badge-done{background:var(--g);color:#fff}
+.lh-badge.badge-lock{background:var(--border);color:var(--muted)}
 .lesson-done-row{display:flex;gap:8px;overflow-x:auto;-webkit-overflow-scrolling:touch;padding-bottom:4px;scrollbar-width:none}
 .lesson-done-row::-webkit-scrollbar{display:none}
-.lesson-done-btn{min-width:200px;flex-shrink:0;margin-top:0;height:36px;font-size:11px}
+.lesson-done-row .lesson-done-btn{min-width:200px;flex-shrink:0;margin-top:0;height:36px;font-size:11px}
 .home-pad{height:calc(24px + var(--safe-b))}
+/* COMING SOON */
+.coming-soon-card{background:linear-gradient(135deg,var(--p),var(--p2));border-radius:22px;padding:28px;color:#fff;text-align:center;margin:20px 16px}
+.cs-icon{font-size:54px;margin-bottom:12px}
+.cs-title{font-size:22px;font-weight:900;margin-bottom:8px}
+.cs-sub{font-size:14px;opacity:.9;line-height:1.5}
 </style>
-
-<script type="application/json" id="slides-data">[{"emoji": "🧠", "title": "Il tuo cervello: istruzioni per l'uso", "html": "<p>Oggi scopriamo qualcosa di <strong>incredibile</strong>: come funziona il tuo cervello e perché a volte non riesci a concentrarti — anche quando <em>vuoi</em>.</p><span class=\"hl\">Spoiler: non è colpa tua. È neuroscienzaaaaa 🔬</span>", "question": "Quando studi, ti distrai spesso?", "answers": ["Sempre 😅", "A volte", "Mai (bugiarda 😂)"]}, {"emoji": "⚙️", "title": "Il cervello è una macchina", "html": "<p>Il cervello è la macchina più potente che esiste — ma come tutte le macchine, <strong>ha bisogno di essere usata nel modo giusto</strong>.</p><span class=\"hl y\">Un'auto sportiva guidata male si schianta. Un cervello gestito male... studia male. 🏎️</span><p style=\"margin-top:10px\">Il problema non è il cervello. È che <strong>nessuno ci insegna a usarlo</strong>.</p>"}, {"emoji": "📱", "title": "Quante volte oggi?", "html": "<p>Pensa a oggi. <strong>Quante volte hai preso il telefono senza un motivo preciso?</strong></p><span class=\"hl\">Non giudicarti — è un esperimento. Anche 50 è normalissimo con i social di oggi.</span><p style=\"margin-top:10px\">Questa consapevolezza è già il primo passo. 🎯</p>", "question": "Stima approssimativa di oggi:", "answers": ["Meno di 10", "10–30 volte", "30–50 volte", "Più di 50 😅"]}, {"emoji": "🧪", "title": "La dopamina: il chimico segreto", "html": "<p>Nel cervello c'è un chimico che si chiama <strong>dopamina</strong>. Non è la felicità — è il <strong>voglio di più</strong>.</p><span class=\"hl\">💜 TikTok → dopamina → ne voglio ancora<br>🍕 Pizza buona → dopamina → ne voglio ancora<br>👍 Un like → dopamina → ne voglio ancora</span><p style=\"margin-top:10px\">È il segnale che dice al cervello: <strong>Ripeti questa cosa!</strong></p>"}, {"emoji": "📲", "title": "TikTok l'ha capito", "html": "<p>TikTok è stato progettato per <strong>sfruttare la dopamina</strong>.</p><span class=\"hl r\">Video da 15 secondi = dopamina veloce = ne voglio un altro. Il cervello non riesce a smettere. Non è debolezza — è biologia.</span><span class=\"hl g\">Lo studiare dà dopamina lenta: arriva dopo, ma dura di più e dà vera soddisfazione.</span>", "question": "Ti è mai capitato di perdere un'ora su TikTok senza accorgertene?", "answers": ["Sempre 😅", "Spesso", "A volte"]}, {"emoji": "🧭", "title": "Il Pilota", "html": "<p>Nella testa hai due personaggi che si contendono il controllo. Il primo è il <strong>Pilota</strong> — il sistema razionale.</p><span class=\"hl\">✅ Adesso studio, TikTok dopo<br>✅ Aspetto di finire il capitolo<br>✅ Sa aspettare e pianificare</span><p style=\"margin-top:10px\">È la tua parte <strong>saggia</strong>. Però si stanca.</p>"}, {"emoji": "⚡", "title": "Il Motore Impulsivo", "html": "<p>Il secondo è il <strong>Motore Impulsivo</strong> — il sistema emotivo. Vuole tutto <strong>subito</strong>.</p><span class=\"hl r\">❌ Solo un video ancora<br>❌ Mi ha scritto qualcuno, guardo<br>❌ Vuole piacere immediato, non si stanca mai</span><p style=\"margin-top:10px\">Il Motore non dorme mai. E spesso <strong>vince</strong>.</p>"}, {"emoji": "🥊", "title": "Chi vince?", "html": "<p>Il Pilota e il Motore lottano <strong>tutto il giorno</strong>.</p><span class=\"hl y\">🧭 Pilota: Apri il libro<br>⚡ Motore: Aspetta, c'è una notifica<br>🧭 Pilota: Prima finisci il capitolo<br>⚡ Motore: Dai, solo un secondo...</span><p style=\"margin-top:10px\">Quando sei stanca, annoiata o stressata, vince il Motore. Non è forza di volontà — è <strong>biologia</strong>.</p>", "question": "Nella tua esperienza, chi vince di più?", "answers": ["Il Pilota 😇", "Il Motore 😈", "Dipende dal giorno"]}, {"emoji": "🔋", "title": "La batteria della forza di volontà", "html": "<p>La forza di volontà <strong>non è infinita</strong>. È come la batteria del telefono.</p><span class=\"hl r\">Mattina → 100%<br>Pomeriggio → 40–50%<br>Sera → quasi scarica</span><p style=\"margin-top:10px\">Ogni volta che dici no consuma un po' di batteria. Per questo la sera è più difficile resistere.</p><span class=\"hl g\">Non sei pigra. Sei scarica. 🔋</span>"}, {"emoji": "🦹", "title": "I 5 Ladri dell'Attenzione", "html": "<p>Ci sono 5 ladri che rubano la tua attenzione mentre studi.</p><span class=\"hl\">Riconoscerli è il primo passo per fermarli. 🔍</span><p style=\"margin-top:10px\">Li vediamo uno per uno 👇</p>", "question": "Quale secondo te è il più pericoloso?", "answers": ["Il telefono 📱", "Le notifiche 🔔", "Il multitasking 🔀", "Stare a letto 🛋️"]}, {"emoji": "📱", "title": "Ladro 1: Lo Smartphone", "html": "<p>Anche da <strong>spento e capovolto</strong>, il telefono sul tavolo ti distrae.</p><span class=\"hl r\">Solo la sua presenza ruba il <strong>20% della concentrazione</strong>. Il cervello sa che c'è e resta in allerta.</span><p style=\"margin-top:10px\">Soluzione: mettilo <strong>fisicamente in un'altra stanza</strong>. Non sotto il cuscino — proprio via.</p>"}, {"emoji": "🔔", "title": "Ladro 2: Le Notifiche", "html": "<p>Senti il suono e lo ignori? Non basta.</p><span class=\"hl r\">Dopo una notifica, anche se non la guardi, il cervello impiega <strong>20 minuti</strong> per tornare al livello di concentrazione di prima.</span><p style=\"margin-top:10px\">La soluzione non è ignorarle — è <strong>non sentirle</strong>. Modalità non disturbare mentre studi.</p>"}, {"emoji": "🔀", "title": "Ladro 3: Il Multitasking", "html": "<p>Il cervello <strong>non sa fare multitasking</strong> davvero.</p><span class=\"hl y\">Quando pensi di fare due cose insieme, in realtà switchi velocemente da una all'altra — e ogni switch consuma energia.</span><p style=\"margin-top:10px\">Studiare con la TV in sottofondo sembra ok, ma il cervello divide le risorse e studia <strong>peggio</strong>.</p>", "question": "Studi con qualcosa in sottofondo?", "answers": ["Sempre (musica/TV)", "A volte", "Preferisco il silenzio"]}, {"emoji": "📲", "title": "Ladro 4: I Social Media", "html": "<p>I social media funzionano come una <strong>slot machine digitale</strong>.</p><span class=\"hl r\">Ogni scroll potrebbe portare qualcosa di interessante — come tirare la leva di una slot. Il cervello non riesce a smettere.</span><p style=\"margin-top:10px\">Non è mancanza di disciplina. È design <strong>progettato apposta</strong> per tenerti lì.</p>"}, {"emoji": "🛋️", "title": "Ladro 5: Il Comfort Eccessivo", "html": "<p>Studiare a letto = dire al cervello <strong>rilassati</strong>.</p><span class=\"hl r\">Puoi leggere le pagine, ma il cervello non le fisserà nella memoria. Riceve il segnale sbagliato.</span><span class=\"hl g\">✅ Sedia dritta + luce giusta = concentrati<br>❌ Letto + cuscino = dormi</span>"}, {"emoji": "⏰", "title": "L'Effetto TikTok", "html": "<p>I video brevi hanno <strong>riallenato il tuo cervello</strong> a cambiare stimolo velocissimamente.</p><span class=\"hl r\">Se il cervello cambia stimolo ogni 15 secondi, 40 minuti su un capitolo diventano una tortura.</span><p style=\"margin-top:10px\">Buona notizia: il cervello si può <strong>riallenare</strong>. Come la palestra — difficile all'inizio, poi normale.</p>", "question": "Ti annoi subito quando studi?", "answers": ["Subito, dopo 5 minuti", "Dopo un po'", "Dipende dalla materia"]}, {"emoji": "🎯", "title": "L'obiettivo", "html": "<p>L'obiettivo <strong>non è eliminare TikTok</strong>. Sarebbe impossibile.</p><span class=\"hl g\">L'obiettivo è scegliere TU quando usarlo, invece di lasciare che sia lui a scegliere te.</span><p style=\"margin-top:10px\">Se vuoi 30 minuti di TikTok, quelli devono essere 30 minuti esatti. Sei tu che decidi. Non l'app.</p>"}, {"emoji": "💡", "title": "Le strategie che funzionano", "html": "<p>Non si tratta di sforzarti di più. Si tratta di <strong>strategie intelligenti</strong>.</p><span class=\"hl\">📵 Telefono in un'altra stanza prima di studiare</span><span class=\"hl y\">📋 Scrivi esattamente cosa devi fare (non studiare — ma gli esercizi 3-4-5)</span><span class=\"hl g\">⏱️ Studia a blocchi: 25 minuti concentrata, 5 di pausa</span>"}, {"emoji": "📊", "title": "La tua sfida di questa settimana", "html": "<p>Una sola cosa da fare questa settimana:</p><span class=\"hl\" style=\"font-size:16px;text-align:center\"><strong>Conta quante volte prendi il telefono senza un motivo.</strong></span><p style=\"margin-top:10px\">Segnalo nel diario. Non importa se il numero è alto — chi porta un numero reale ha già vinto in consapevolezza.</p><span class=\"hl g\">Nessuno ti giudica. È solo per te. 🎯</span>"}, {"emoji": "🎉", "title": "Ottimo lavoro oggi!", "html": "<p>Hai imparato tantissimo. Ricapitoliamo:</p><span class=\"hl\">🧪 <strong>Dopamina</strong> = voglio di più, non felicità<br>🧭 <strong>Pilota</strong> = razionale, si stanca<br>⚡ <strong>Motore</strong> = emotivo, non si stanca mai<br>🦹 <strong>5 Ladri</strong> = smartphone, notifiche, multitasking, social, comfort<br>🔋 <strong>Forza di volontà</strong> = batteria che si scarica<br>📲 <strong>Effetto TikTok</strong> = cervello abituato alla velocità</span><span class=\"hl g\" style=\"margin-top:8px\">Sei pronta per i giochi? 🎮</span>"}]</script>
-
-<script type="application/json" id="slides2-data">[{"emoji": "🔄", "title": "Da dove veniamo", "html": "<p>Nella Lezione 1 abbiamo scoperto che il cervello ha un <strong>Pilota</strong> razionale e un <strong>Motore Impulsivo</strong> emotivo — e che la forza di volontà si esaurisce come una batteria.</p><span class=\"hl\">Oggi usiamo quello che sappiamo per rispondere alla domanda vera: <strong>ma come si studia davvero?</strong> 📚</span>"}, {"emoji": "😴", "title": "Lo studio passivo", "html": "<p>C'è un modo di studiare che sembra produttivo ma <strong>non funziona quasi per niente</strong>. Si chiama studio passivo.</p><span class=\"hl r\">❌ Leggo e rileggo il capitolo<br>❌ Copio tutto sul quaderno<br>❌ Evidenzio con 5 colori diversi<br>❌ Ascolto la prof e basta</span><p style=\"margin-top:10px\">Ti sembra familiare? 😅</p>", "question": "Quale fai di solito quando studi?", "answers": ["Rileggo il capitolo", "Copio sul quaderno", "Evidenzio tutto", "Un mix di tutto"]}, {"emoji": "🧠", "title": "Perché il passivo non funziona", "html": "<p>Quando rileggi passivamente, il cervello dice: <strong>già visto, non serve immagazzinare.</strong></p><span class=\"hl r\">È come guardare qualcuno giocare a basket per ore. Puoi guardare quanto vuoi — se poi provi a tirare, non sai farlo. Il cervello impara <strong>facendo</strong>, non guardando.</span><p style=\"margin-top:10px\">Quindi rileggere dà la <em>sensazione</em> di studiare, ma non fissa nulla davvero.</p>"}, {"emoji": "💪", "title": "Lo studio attivo", "html": "<p>Lo studio attivo è l'opposto. Il cervello <strong>fatica, elabora, produce</strong>.</p><span class=\"hl g\">✅ Ti fai domande mentre leggi<br>✅ Riassumi con parole tue senza guardare<br>✅ Spieghi ad alta voce come se insegnassi<br>✅ Fai gli esercizi senza guardare la soluzione</span><p style=\"margin-top:10px\">La fatica che senti? È il cervello che sta <strong>davvero imparando</strong>.</p>"}, {"emoji": "🏋️", "title": "Il cervello impara quando fatica", "html": "<p>Più è difficile ricordare qualcosa, <strong>più a lungo lo ricorderai</strong>.</p><span class=\"hl y\">Se guardi la risposta subito, il cervello non fa sforzo → non fissa nulla.<br>Se ci provi da sola prima, anche sbagliando → il cervello fissa molto di più.</span><p style=\"margin-top:10px\">Ecco perché fare gli esercizi <strong>prima</strong> di studiare la teoria, a volte funziona meglio del contrario.</p>", "question": "Quando non sai una risposta, cosa fai di solito?", "answers": ["Guardo subito la soluzione", "Ci provo un po' poi guardo", "Vado avanti e torno dopo"]}, {"emoji": "⏱️", "title": "La tecnica dei 25 minuti", "html": "<p>Si chiama <strong>Tecnica Pomodoro</strong>. Funziona così:</p><span class=\"hl\">🍅 25 minuti di studio concentrato — telefono via, nessuna interruzione<br>☕ 5 minuti di pausa vera<br>🔁 Ripeti</span><p style=\"margin-top:10px\">Perché 25 minuti? Perché è il tempo massimo in cui il cervello riesce a stare <strong>davvero concentrato</strong> senza perdere qualità.</p>"}, {"emoji": "⏸️", "title": "Pausa vera vs pausa falsa", "html": "<p>La pausa è fondamentale. Ma non tutte le pause sono uguali.</p><span class=\"hl r\">❌ Pausa falsa = aprire TikTok, Instagram, WhatsApp<br>Il cervello resta in modalità stimolazione — non si recupera davvero.</span><span class=\"hl g\">✅ Pausa vera = alzarsi, bere acqua, guardare fuori, due minuti di musica, stirarsi<br>Il cervello si stacca davvero e ricomincia fresco.</span>", "question": "Nelle tue pause di solito cosa fai?", "answers": ["Apro il telefono 📱", "Mi alzo e mi muovo", "Rimango ferma al posto", "Mangio qualcosa 🍕"]}, {"emoji": "📋", "title": "Prima di iniziare: il piano", "html": "<p>Il cervello consuma energia anche solo a <strong>decidere cosa fare</strong>. Se inizi a studiare senza un piano, parte già scarico.</p><span class=\"hl\">Soluzione: prima di aprire il libro, scrivi esattamente cosa farai.<br>Non <em>studiare matematica</em> — ma <em>esercizi 3, 4, 5 di pagina 47</em>.</span><p style=\"margin-top:10px\">Più specifico è il compito, <strong>meno energia</strong> ci vuole per iniziarlo.</p>"}, {"emoji": "🎯", "title": "Prima le cose difficili", "html": "<p>La mattina o all'inizio della sessione la batteria del Pilota è carica. La sera è quasi scarica.</p><span class=\"hl g\">Regola: fai sempre la cosa più difficile <strong>per prima</strong>.</span><span class=\"hl r\">Se lasci la cosa difficile per dopo, quando arrivi lì sei già stanca — e non la fai, oppure la fai male.</span><p style=\"margin-top:10px\">Inizia da quello che ti spaventa di più. Il resto viene da solo.</p>", "question": "Di solito da dove inizi a studiare?", "answers": ["Dal più facile per scaldarmi", "Dal più difficile", "A caso, come capita", "Da quello che mi piace di più"]}, {"emoji": "🌙", "title": "Il sonno e la memoria", "html": "<p>Sai cosa fa il tuo cervello mentre dormi?</p><span class=\"hl\">Di notte il cervello <strong>riordina</strong> tutto quello che hai studiato e lo sposta dalla memoria a breve termine a quella a lungo termine. Letteralmente fissa i ricordi.</span><span class=\"hl r\">Se studi fino alle 2 di notte e dormi 4 ore, il cervello non ha tempo di fissare nulla. Hai studiato per niente.</span>"}, {"emoji": "😴", "title": "Studiare tardi: il paradosso", "html": "<p>Più stai sveglia a studiare, <strong>meno ricordi</strong> il giorno dopo.</p><span class=\"hl y\">Studiare 1 ora riposata = ricordi il 70% del contenuto<br>Studiare 3 ore stanca alle 2 di notte = ricordi il 20%</span><p style=\"margin-top:10px\">Non è una questione di impegno. È biologia. Il sonno <strong>non è tempo perso</strong> — è parte dello studio.</p>", "question": "Di solito a che ora vai a letto nei giorni di scuola?", "answers": ["Prima delle 22", "Tra le 22 e mezzanotte", "Dopo mezzanotte 🦉", "Dipende molto"]}, {"emoji": "🔁", "title": "La ripetizione spaziata", "html": "<p>Un segreto che quasi nessuno conosce: <strong>quando rivedi le cose conta più di quanto le studi la prima volta</strong>.</p><span class=\"hl g\">Studiare un argomento per 30 minuti oggi → ripassarlo 10 minuti domani → ripassarlo 5 minuti tra 3 giorni = lo ricordi per settimane.</span><span class=\"hl r\">Studiare lo stesso argomento per 2 ore di fila la sera prima = lo ricordi per il giorno dopo, poi sparisce.</span>"}, {"emoji": "🗣️", "title": "Il trucco del professore", "html": "<p>Una delle tecniche di studio attivo più potenti che esistono:</p><span class=\"hl\" style=\"font-size:15px\"><strong>Spiega l'argomento ad alta voce come se dovessi insegnarlo a qualcuno.</strong></span><p style=\"margin-top:10px\">Se riesci a spiegarlo senza guardare gli appunti, lo sai davvero. Se ti blocchi, hai trovato esattamente il punto su cui lavorare.</p><span class=\"hl g\">Puoi farlo da sola, con un amico, con la tua stanza vuota. Funziona comunque. 🎤</span>"}, {"emoji": "📱", "title": "Lo screen time come alleato", "html": "<p>Il telefono ha già uno strumento integrato che ti dice esattamente quanto lo usi: <strong>Screen Time</strong>.</p><span class=\"hl\">📱 Vai in Impostazioni → Screen Time<br>Vedrai esattamente quante ore passi su ogni app ogni giorno.</span><p style=\"margin-top:10px\">Non è uno strumento per sentirti in colpa. È per <strong>prendere consapevolezza</strong>. Senza dati non puoi cambiare niente.</p>", "question": "Hai mai controllato il tuo screen time?", "answers": ["Mai", "Una volta ogni tanto", "Lo controllo spesso", "Ho paura di guardarlo 😅"]}, {"emoji": "🏆", "title": "Le 3 regole dello studio attivo", "html": "<p>Tre cose da cambiare <strong>subito</strong>:</p><span class=\"hl\" style=\"font-size:15px\">📋 <strong>Regola 1: Scrivi il piano prima</strong><br><small>Cosa fai oggi, esattamente. Non genericamente.</small></span><span class=\"hl y\" style=\"font-size:15px\">💪 <strong>Regola 2: Prima la cosa difficile</strong><br><small>Quando la batteria è ancora carica.</small></span><span class=\"hl g\" style=\"font-size:15px\">⏱️ <strong>Regola 3: 25 minuti + pausa vera</strong><br><small>Non TikTok. Una pausa vera.</small></span>"}, {"emoji": "🧩", "title": "Costruisci la tua sessione perfetta", "html": "<p>Metti insieme tutto quello che hai imparato. Una sessione di studio perfetta ha questo ordine:</p><span class=\"hl\">1️⃣ Scrivi il piano (2 min)<br>2️⃣ Telefono in un'altra stanza<br>3️⃣ 25 minuti di studio attivo<br>4️⃣ Pausa vera (5 min, senza schermo)<br>5️⃣ Altro blocco da 25 minuti<br>6️⃣ Ripassa quello che hai fatto</span><p style=\"margin-top:10px\">Sembra tanto ma in <strong>un'ora fai più</strong> di quanto faresti in 3 ore disorganizzate.</p>"}, {"emoji": "❓", "title": "Quiz rapido — parte 1", "html": "<p>Mettiamo alla prova quello che hai imparato oggi!</p><span class=\"hl\">Prontissima? 💪</span>", "question": "Quale di questi è studio ATTIVO?", "answers": ["Rileggere il capitolo", "Spiegare ad alta voce senza guardare", "Evidenziare con molti colori", "Copiare gli appunti"]}, {"emoji": "❓", "title": "Quiz rapido — parte 2", "html": "<p>Ancora una!</p>", "question": "Perché studiare tardi la notte è controproducente?", "answers": ["Perché fa male agli occhi", "Perché il cervello fissa i ricordi dormendo", "Perché si è stanchi", "Non è controproducente, anzi aiuta"]}, {"emoji": "🎯", "title": "La tua sfida di questa settimana", "html": "<p>Una sola cosa da fare prima della prossima lezione:</p><span class=\"hl\" style=\"font-size:15px;text-align:center\"><strong>Prova UNA sessione da 25 minuti con telefono in un'altra stanza.</strong></span><p style=\"margin-top:10px\">Una sola. Non tutti i giorni. Solo una, per vedere come ti senti dopo.</p><span class=\"hl g\">Poi dimmi com'è andata alla prossima lezione. 🎯</span>"}, {"emoji": "🎉", "title": "Ottimo lavoro oggi!", "html": "<p>Hai imparato tantissimo. Ricapitoliamo:</p><span class=\"hl\">😴 <strong>Studio passivo</strong> = rileggere, copiare, evidenziare — non fissa nulla<br>💪 <strong>Studio attivo</strong> = fai, spiega, prova senza guardare<br>⏱️ <strong>Tecnica dei 25 min</strong> = concentrata, poi pausa vera<br>🌙 <strong>Sonno</strong> = parte dello studio, fissa i ricordi<br>📋 <strong>Piano prima</strong> = meno energia sprecata a decidere<br>🎯 <strong>Prima il difficile</strong> = quando la batteria è carica</span><span class=\"hl g\" style=\"margin-top:8px\">Sei pronta per i giochi? 🎮</span>"}]</script>
-<script type="application/json" id="g1l2-data">[{"emoji": "📖", "text": "Rileggi il capitolo tre volte di fila", "ans": "P"}, {"emoji": "🗣️", "text": "Spieghi l'argomento ad alta voce senza guardare", "ans": "A"}, {"emoji": "🖊️", "text": "Copi parola per parola dal libro sul quaderno", "ans": "P"}, {"emoji": "❓", "text": "Ti fai domande mentre leggi", "ans": "A"}, {"emoji": "🖍️", "text": "Evidenzi tutto il capitolo con 4 colori", "ans": "P"}, {"emoji": "✍️", "text": "Riassumi con parole tue senza guardare gli appunti", "ans": "A"}, {"emoji": "👀", "text": "Guardi la soluzione subito quando non sai", "ans": "P"}, {"emoji": "🧩", "text": "Ci provi da sola prima di guardare la risposta", "ans": "A"}, {"emoji": "🎵", "text": "Studi con la musica e la TV in sottofondo", "ans": "P"}, {"emoji": "⏱️", "text": "Studi 25 minuti concentrata poi fai pausa vera", "ans": "A"}]</script>
-<script type="application/json" id="g2l2-data">[{"text": "Rileggere molte volte è il modo migliore per memorizzare", "ans": false}, {"text": "Il cervello fissa i ricordi durante il sonno", "ans": true}, {"text": "La pausa su TikTok recupera energia come una pausa vera", "ans": false}, {"text": "Fare la cosa difficile per prima è più efficace", "ans": true}, {"text": "Studiare 3 ore di fila è meglio di 3 sessioni da 25 minuti", "ans": false}, {"text": "Spiegare ad alta voce aiuta a capire dove ci sono lacune", "ans": true}, {"text": "Evidenziare molto è una tecnica di studio attivo", "ans": false}, {"text": "Ripassare a distanza di giorni fissa meglio dei contenuti", "ans": true}, {"text": "Dormire poco non influisce su quello che si ricorda", "ans": false}, {"text": "Scrivere un piano prima di studiare risparmia energia mentale", "ans": true}]</script>
-<script type="application/json" id="g4l2-data">[{"s": "Lo studio ___ fa faticare il cervello e fissa davvero i contenuti.", "blank": "attivo", "opts": ["attivo", "passivo", "veloce"]}, {"s": "La tecnica Pomodoro usa sessioni da ___ minuti.", "blank": "25", "opts": ["25", "45", "10"]}, {"s": "Il cervello fissa i ricordi durante il ___.", "blank": "sonno", "opts": ["sonno", "pasto", "riposo"]}, {"s": "Prima di studiare bisogna scrivere un ___ specifico.", "blank": "piano", "opts": ["piano", "riassunto", "schema"]}, {"s": "La pausa su TikTok è una pausa ___.", "blank": "falsa", "opts": ["falsa", "vera", "breve"]}, {"s": "Conviene fare prima la cosa più ___.", "blank": "difficile", "opts": ["difficile", "facile", "lunga"]}, {"s": "Rileggere il capitolo è studio ___.", "blank": "passivo", "opts": ["passivo", "attivo", "efficace"]}, {"s": "Ripassare a distanza di giorni si chiama ripetizione ___.", "blank": "spaziata", "opts": ["spaziata", "veloce", "totale"]}]</script>
-<script type="application/json" id="meml2-data">[["Studio attivo", "Spiega senza guardare"], ["Studio passivo", "Rileggi e copi"], ["Tecnica Pomodoro", "25 min + pausa vera"], ["Ripetizione spaziata", "Ripassa a distanza di giorni"], ["Prima il difficile", "Batteria ancora carica"], ["Sonno", "Fissa i ricordi di notte"]]</script>
-
-<script type="application/json" id="slides3-data">[{"emoji": "🔄", "title": "Da dove veniamo", "html": "<p>Nelle prime due lezioni hai imparato <strong>come funziona il cervello</strong> e <strong>come si studia davvero</strong>.</p><span class=\"hl\">Oggi facciamo il passo successivo: non basta sapere come studiare — bisogna anche sapere <strong>quando, quanto e come organizzarsi</strong>. 📅</span>"}, {"emoji": "🌀", "title": "Il problema del caos", "html": "<p>Ti è mai capitato di arrivare alla sera prima di una verifica e renderti conto che non sai da dove iniziare?</p><span class=\"hl r\">❌ Apri il libro a caso<br>❌ Non sai quanto material c'è<br>❌ Studi di tutto un po' senza criterio<br>❌ Vai a letto tardissimo sperando che basti</span><p style=\"margin-top:10px\">Questo non è un problema di impegno. È un problema di <strong>mancanza di piano</strong>.</p>", "question": "Ti è capitato di arrivare impreparata a una verifica?", "answers": ["Spesso 😅", "Qualche volta", "Raramente", "Mai (bravissima!)"]}, {"emoji": "🗓️", "title": "Pensare al contrario", "html": "<p>Il segreto dell'organizzazione è <strong>partire dalla fine</strong>.</p><span class=\"hl\">Invece di chiederti: da dove inizio?<br>Chiediti: <strong>quando devo essere pronta?</strong></span><p style=\"margin-top:10px\">Se la verifica è giovedì, pianifichi a ritroso: mercoledì ripasso, martedì studio la seconda parte, lunedì la prima. Giovedì sei già pronta.</p><span class=\"hl g\">Non stai studiando di più — stai studiando <strong>nel momento giusto</strong>.</span>"}, {"emoji": "🧩", "title": "Dividi e conquista", "html": "<p>Un capitolo intero sembra enorme. Ma se lo dividi in pezzi piccoli, diventa gestibile.</p><span class=\"hl y\">❌ Devo studiare tutta la storia del Novecento<br>✅ Lunedì: cause della WWI (30 min)<br>✅ Martedì: la guerra in trincea (25 min)<br>✅ Mercoledì: fine guerra e conseguenze (25 min)<br>✅ Giovedì: ripasso veloce tutto (20 min)</span><p style=\"margin-top:10px\">Stesso materiale. La differenza è solo <strong>come lo organizzi</strong>.</p>"}, {"emoji": "⚡", "title": "Non tutte le materie sono uguali", "html": "<p>Alcune materie richiedono <strong>comprensione</strong>, altre <strong>memorizzazione</strong>, altre <strong>pratica</strong>.</p><span class=\"hl\">🧠 Comprensione (matematica, scienze): ci vuole calma, non puoi studiare l'ultima sera</span><span class=\"hl y\">📖 Memorizzazione (storia, geografia): funziona meglio con ripetizioni spaziate</span><span class=\"hl g\">✏️ Pratica (esercizi, grammatica): devi farlo tu, non basta leggere la teoria</span>", "question": "Quale tipo di materia ti mette più in difficoltà?", "answers": ["Comprensione (mate/scienze)", "Memorizzazione (storia/geo)", "Pratica (esercizi)", "Tutte uguale 😅"]}, {"emoji": "🌅", "title": "La routine del mattino", "html": "<p>Le prime decisioni della giornata consumano batteria del Pilota. Se inizi già in caos, arrivi a studiare già scarica.</p><span class=\"hl g\">Una piccola routine mattutina protegge la tua energia:<br>✅ Sai cosa mangi<br>✅ Sai cosa ti metti<br>✅ Sai cosa hai da fare oggi</span><p style=\"margin-top:10px\">Non deve essere perfetta. Anche solo <strong>sapere cosa hai da fare oggi</strong> la mattina fa una differenza enorme.</p>"}, {"emoji": "📝", "title": "La lista delle cose da fare", "html": "<p>La lista non è uno strumento da secchioni. È uno strumento da <strong>cervello efficiente</strong>.</p><span class=\"hl\">Quando scrivi quello che devi fare, il cervello smette di usare energia per ricordarlo — e la usa per farlo.</span><span class=\"hl y\">⚠️ Però attenzione: la lista funziona solo se è <strong>specifica</strong>.<br>❌ Studiare italiano<br>✅ Leggere e riassumere pagine 45-52 di italiano</span>"}, {"emoji": "🐸", "title": "Mangia la rana", "html": "<p>C'è una tecnica che si chiama <strong>Mangia la rana</strong>. La rana è la cosa che vuoi fare meno.</p><span class=\"hl r\">Se eviti la cosa difficile, ci pensi tutto il giorno. Ti pesa. Ti stanca anche senza farla.</span><span class=\"hl g\">Se invece la fai <strong>per prima</strong>, il resto della giornata sembra leggero. Tutto il resto è più facile della rana.</span><p style=\"margin-top:10px\">La rana di solito è il compito che tieni rimandando da tre giorni. 🐸</p>", "question": "C'è qualcosa che stai rimandando da giorni?", "answers": ["Sì, sempre 😩", "Qualcosa sì", "In questo momento no", "Mai rimando nulla (bugiarda 😂)"]}, {"emoji": "🚫", "title": "La trappola dell'occuparsi", "html": "<p>C'è una differenza enorme tra essere <strong>occupata</strong> ed essere <strong>produttiva</strong>.</p><span class=\"hl r\">Occupata: stai al tavolo con i libri aperti da 2 ore ma hai guardato il telefono 30 volte, riordinato l'astuccio e riletto la stessa pagina 4 volte.</span><span class=\"hl g\">Produttiva: hai studiato 45 minuti davvero, poi ti sei fermata.</span><p style=\"margin-top:10px\">45 minuti produttivi valgono più di 3 ore occupate.</p>"}, {"emoji": "📅", "title": "Come prepararsi a una verifica", "html": "<p>Una verifica si prepara in <strong>almeno 3 giorni</strong>, non la sera prima.</p><span class=\"hl\">📌 <strong>3 giorni prima:</strong> leggi tutto il materiale una volta, capisci cos'è</span><span class=\"hl y\">📌 <strong>2 giorni prima:</strong> studia attivamente — riassumi, ti fai domande</span><span class=\"hl g\">📌 <strong>1 giorno prima:</strong> ripasso veloce, poi smetti e dormi bene</span><p style=\"margin-top:10px\">La notte prima non serve studiare di più — il cervello ha bisogno di <strong>consolidare</strong>.</p>"}, {"emoji": "😴", "title": "La notte prima della verifica", "html": "<p>La tentazione è restare sveglia fino alle 2 a ripassare tutto. Ma è il <strong>peggior errore</strong> che puoi fare.</p><span class=\"hl r\">Cervello stanco = memoria a breve termine che non funziona = dimentichi proprio quello che hai studiato la sera prima.</span><span class=\"hl g\">Cervello riposato = connessioni neuronali attive = ricordi quello che hai studiato nei giorni precedenti.</span><p style=\"margin-top:10px\">Dormire bene la notte prima <strong>è parte dello studio</strong>.</p>"}, {"emoji": "📱", "title": "Il telefono e il tempo", "html": "<p>Apri Instagram per 2 minuti. Ma poi escono le storie, i reel, i messaggi. Quando richiudi sono passati 40 minuti.</p><span class=\"hl r\">Il telefono non ti ruba solo attenzione — ti ruba <strong>tempo</strong>. Tempo che non torni indietro.</span><p style=\"margin-top:10px\">Soluzione: dai al telefono il suo <strong>posto fisso</strong> nella giornata. Non durante lo studio, non durante i pasti, non prima di dormire.</p><span class=\"hl g\">Decidi tu quando usarlo. Non lui quando usare te.</span>", "question": "Usi il telefono durante i pasti o prima di dormire?", "answers": ["Sempre 📱", "Spesso", "A volte", "Quasi mai"]}, {"emoji": "🏆", "title": "Le 3 regole dell'organizzazione", "html": "<p>Tre cose concrete da applicare <strong>questa settimana</strong>:</p><span class=\"hl\" style=\"font-size:15px\">📅 <strong>Regola 1: Guarda il calendario ogni mattina</strong><br><small>Cosa ho oggi? Cosa ho nei prossimi 3 giorni?</small></span><span class=\"hl y\" style=\"font-size:15px\">📝 <strong>Regola 2: Scrivi 3 cose da fare ogni giorno</strong><br><small>Specifiche. Non più di 3.</small></span><span class=\"hl g\" style=\"font-size:15px\">🐸 <strong>Regola 3: Inizia dalla rana</strong><br><small>La cosa più difficile o quella che rimandi di più.</small></span>"}, {"emoji": "🧪", "title": "Esperimento della settimana", "html": "<p>Una sola cosa da provare prima della prossima lezione:</p><span class=\"hl\" style=\"font-size:15px;text-align:center\"><strong>La sera prima, scrivi 3 cose specifiche da fare il giorno dopo.</strong></span><p style=\"margin-top:10px\">Non 10 cose. Non generiche. Solo 3, specifiche. E inizia dalla più difficile.</p><span class=\"hl g\">Poi dimmi com'è andata. 🎯</span>"}, {"emoji": "❓", "title": "Quiz rapido — parte 1", "html": "<p>Mettiamo alla prova quello che hai imparato oggi!</p><span class=\"hl\">Sei pronta? 💪</span>", "question": "Come si prepara bene una verifica?", "answers": ["Studio tutto la sera prima", "Inizio 3 giorni prima con un piano", "Leggo il libro in classe il giorno stesso", "Copio da un compagno 😂"]}, {"emoji": "❓", "title": "Quiz rapido — parte 2", "html": "<p>Ancora una!</p>", "question": "Cosa significa 'mangiare la rana'?", "answers": ["Fare una pausa mangiando", "Iniziare dalla cosa più difficile", "Studiare tardi la notte", "Saltare un compito"]}, {"emoji": "❓", "title": "Quiz rapido — parte 3", "html": "<p>Ultima!</p>", "question": "Qual è la differenza tra essere occupata e produttiva?", "answers": ["Nessuna differenza", "Produttiva = fai cose utili davvero, occupata no", "Occupata è meglio", "Produttiva significa fare tutto veloce"]}, {"emoji": "🎯", "title": "La tua sfida", "html": "<p>Questa settimana, aggiungi i tuoi impegni nella sezione <strong>Impegni settimanali</strong> qui nell'app.</p><span class=\"hl\">Ogni verifica, interrogazione o compito importante — segnalo con quanti giorni hai per prepararti.</span><span class=\"hl g\">E ricorda: 3 cose specifiche ogni sera per il giorno dopo. 🎯</span>"}, {"emoji": "🎉", "title": "Ottimo lavoro oggi!", "html": "<p>Hai imparato tantissimo. Ricapitoliamo:</p><span class=\"hl\">🗓️ <strong>Pianifica a ritroso</strong> dalla data della verifica<br>🧩 <strong>Dividi</strong> il materiale in pezzi piccoli<br>🐸 <strong>Mangia la rana</strong> — prima il difficile<br>🚫 Occupata ≠ produttiva<br>📅 <strong>3 giorni</strong> per prepararsi a una verifica<br>😴 <strong>Dormi bene</strong> la notte prima</span><span class=\"hl g\" style=\"margin-top:8px\">Pronta per i giochi? 🎮</span>"}]</script>
-<script type="application/json" id="g1l3-data">[{"emoji": "📖", "text": "Studi tutto il capitolo la sera prima della verifica", "ans": "C"}, {"emoji": "📅", "text": "Inizi a studiare 3 giorni prima con un piano", "ans": "O"}, {"emoji": "📱", "text": "Guardi il telefono ogni 5 minuti mentre studi", "ans": "C"}, {"emoji": "📝", "text": "Scrivi 3 cose specifiche da fare domani", "ans": "O"}, {"emoji": "🛋️", "text": "Studi sul letto con la TV accesa", "ans": "C"}, {"emoji": "🐸", "text": "Fai prima il compito più difficile", "ans": "O"}, {"emoji": "🌀", "text": "Apri il libro senza sapere da dove iniziare", "ans": "C"}, {"emoji": "🧩", "text": "Dividi il capitolo in parti da studiare in giorni diversi", "ans": "O"}, {"emoji": "😴", "text": "Stai sveglia fino alle 2 a ripassare la sera prima", "ans": "C"}, {"emoji": "✅", "text": "Dormi bene la notte prima e ripassi al mattino", "ans": "O"}]</script>
-<script type="application/json" id="g2l3-data">[{"text": "Studiare tutto la sera prima è il modo migliore per prepararsi", "ans": false}, {"text": "Pianificare a ritroso dalla data della verifica aiuta molto", "ans": true}, {"text": "Essere occupata e produttiva è la stessa cosa", "ans": false}, {"text": "La lista delle cose da fare funziona meglio se è specifica", "ans": true}, {"text": "Dormire bene la notte prima della verifica è inutile", "ans": false}, {"text": "Iniziare dalla cosa più difficile protegge la batteria del Pilota", "ans": true}, {"text": "45 minuti produttivi valgono meno di 3 ore con il telefono in mano", "ans": false}, {"text": "Il cervello consolida i ricordi durante il sonno", "ans": true}, {"text": "La rana è la cosa più facile da fare", "ans": false}, {"text": "Dividere il materiale in pezzi piccoli lo rende più gestibile", "ans": true}]</script>
-<script type="application/json" id="g4l3-data">[{"s": "La tecnica 'mangia la ___' dice di iniziare dalla cosa più difficile.", "blank": "rana", "opts": ["rana", "pizza", "torta"]}, {"s": "Una verifica si prepara in almeno ___ giorni.", "blank": "3", "opts": ["3", "1", "7"]}, {"s": "Pianificare a ___ significa partire dalla data della verifica.", "blank": "ritroso", "opts": ["ritroso", "caso", "memoria"]}, {"s": "La lista funziona solo se è ___.", "blank": "specifica", "opts": ["specifica", "lunga", "colorata"]}, {"s": "45 minuti ___ valgono più di 3 ore occupate.", "blank": "produttivi", "opts": ["produttivi", "passivi", "liberi"]}, {"s": "La notte prima di una verifica bisogna ___.", "blank": "dormire", "opts": ["dormire", "studiare", "ripassare tutto"]}, {"s": "Il cervello consolida i ricordi durante il ___.", "blank": "sonno", "opts": ["sonno", "ripasso", "pasto"]}, {"s": "La cosa che rimandi di più si chiama la tua ___.", "blank": "rana", "opts": ["rana", "pausa", "priorità"]}]</script>
-<script type="application/json" id="meml3-data">[["Mangia la rana", "Inizia dalla cosa più difficile"], ["Pianificare a ritroso", "Parti dalla data della verifica"], ["Occupata vs produttiva", "Fare cose utili davvero"], ["3 giorni prima", "Leggi e capisci il materiale"], ["Lista specifica", "Non studiare ma esercizi 3-4-5"], ["Notte prima verifica", "Dormi bene, non studiare tardi"]]</script>
 </head>
 <body>
 
-<div id="s-home" class="screen active">
+<!-- LANDING -->
+<div id="s-landing" class="screen active">
+<div class="landing-wrap">
+  <div class="landing-logo">🧠</div>
+  <div class="landing-title">MenteViva</div>
+  <div class="landing-sub">Scegli il tuo spazio</div>
+  <div class="student-cards">
+    <div class="student-card" style="background:linear-gradient(135deg,#7B2FBE,#A66DE8)" onclick="selectStudent('linda')">
+      <div class="sc-emoji">💜</div>
+      <div class="sc-info"><div class="sc-name">Linda</div><div class="sc-label">Il tuo spazio di metodo</div></div>
+      <div class="sc-arrow">→</div>
+    </div>
+    <div class="student-card" style="background:linear-gradient(135deg,#0D9488,#14B8A6)" onclick="selectStudent('matilde')">
+      <div class="sc-emoji">🏃</div>
+      <div class="sc-info"><div class="sc-name">Matilde</div><div class="sc-label">Il tuo spazio di metodo</div></div>
+      <div class="sc-arrow">→</div>
+    </div>
+    <div class="student-card" style="background:linear-gradient(135deg,#2563EB,#60A5FA)" onclick="selectStudent('niccolo')">
+      <div class="sc-emoji">🏀</div>
+      <div class="sc-info"><div class="sc-name">Niccolò</div><div class="sc-label">Il tuo spazio di metodo</div></div>
+      <div class="sc-arrow">→</div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- PIN -->
+<div id="s-pin" class="screen">
+<div class="pin-wrap">
+  <div class="pin-icon" id="pin-icon">🔒</div>
+  <div class="pin-title" id="pin-title">Accesso</div>
+  <div class="pin-sub">Inserisci il tuo PIN</div>
+  <div class="pin-dots" id="pin-dots">
+    <div class="pin-dot" id="pd0"></div>
+    <div class="pin-dot" id="pd1"></div>
+    <div class="pin-dot" id="pd2"></div>
+    <div class="pin-dot" id="pd3"></div>
+  </div>
+  <div class="pin-error" id="pin-error"></div>
+  <div class="pin-pad">
+    <button class="pin-key" onclick="pinKey('1')">1</button>
+    <button class="pin-key" onclick="pinKey('2')">2</button>
+    <button class="pin-key" onclick="pinKey('3')">3</button>
+    <button class="pin-key" onclick="pinKey('4')">4</button>
+    <button class="pin-key" onclick="pinKey('5')">5</button>
+    <button class="pin-key" onclick="pinKey('6')">6</button>
+    <button class="pin-key" onclick="pinKey('7')">7</button>
+    <button class="pin-key" onclick="pinKey('8')">8</button>
+    <button class="pin-key" onclick="pinKey('9')">9</button>
+    <button class="pin-key del" onclick="pinDel()">⌫</button>
+    <button class="pin-key" onclick="pinKey('0')">0</button>
+    <button class="pin-key ok" onclick="pinConfirm()">✓</button>
+  </div>
+  <button class="pin-back" onclick="show('s-landing')">← Torna indietro</button>
+</div>
+</div>
+
+<!-- HOME -->
+<div id="s-home" class="screen">
   <div class="nav">
     <div class="nav-logo"><span>🧠</span><span>MenteViva</span></div>
+    <button class="nav-logout" onclick="logout()">← Esci</button>
   </div>
   <div class="scroll">
     <div class="home-hero">
-      <h1>Ciao, Maria Sophia! 👋</h1>
-      <p>Bentornata nel tuo spazio. Tieni traccia dei tuoi progressi ogni giorno.</p>
+      <h1 id="home-greeting">Ciao! 👋</h1>
+      <p id="home-sub">Bentornata nel tuo spazio.</p>
       <div class="session-row">
-        <div class="session-pill">📅 <span id="session-text">Prossima: Venerdì 15:00–16:00</span></div>
+        <div class="session-pill">📅 <span id="session-text">Prossima sessione: —</span></div>
         <button class="session-edit" onclick="openSessionModal()">✏️</button>
       </div>
     </div>
     <div class="section">
       <div class="sec-title">Sfida della settimana</div>
       <div class="sfida-card">
-        <div class="sfida-label">🎯 La tua missione</div>
-        <div class="sfida-title">Conta le volte che prendi il telefono</div>
-        <div class="sfida-desc">Ogni volta che lo prendi senza un motivo reale, segnalo qui sotto. Non importa il numero — importa che te ne accorgi! 💪</div>
+        <div class="sfida-label" id="sfida-label">🎯 La tua missione</div>
+        <div class="sfida-title" id="sfida-title">—</div>
+        <div class="sfida-desc" id="sfida-desc">—</div>
       </div>
     </div>
     <div class="section" style="margin-top:8px">
       <div class="sec-title">Le tue lezioni</div>
       <div class="lessons-scroll">
-        <div class="lesson-card-h active" id="lcard-1" onclick="openLesson(1)">
-          <div class="lh-icon">🧠</div>
-          <div class="lh-num">Lezione 1</div>
-          <div class="lh-title">Il Tuo Cervello</div>
-          <div class="lh-desc">Dopamina, Pilota, Motore e i 5 Ladri</div>
-          <div class="lh-badge" id="lbadge-1">Attiva</div>
-        </div>
-        <div class="lesson-card-h active" id="lcard-2" onclick="openLesson(2)">
-          <div class="lh-icon">📚</div>
-          <div class="lh-num">Lezione 2</div>
-          <div class="lh-title">Come si studia davvero</div>
-          <div class="lh-desc">Studio attivo, Pomodoro e il sonno</div>
-          <div class="lh-badge" id="lbadge-2">Attiva</div>
-        </div>
-        <div class="lesson-card-h active" id="lcard-3" onclick="openLesson(3)">
-          <div class="lh-icon">🗓️</div>
-          <div class="lh-num">Lezione 3</div>
-          <div class="lh-title">Organizzati come una pro</div>
-          <div class="lh-desc">Pianificazione, routine e verifiche</div>
-          <div class="lh-badge" id="lbadge-3">Attiva</div>
+        <div class="lesson-card-h" id="lcard-1" onclick="openLesson(1)">
+          <div class="lh-icon" id="l1-icon">🧠</div>
+          <div class="lh-num" id="l1-num">Lezione 1</div>
+          <div class="lh-title" id="l1-title">—</div>
+          <div class="lh-desc" id="l1-desc">—</div>
+          <div class="lh-badge badge-active" id="lbadge-1">Attiva</div>
         </div>
         <div class="lesson-card-h locked">
           <div class="lh-icon">📚</div>
-          <div class="lh-num" style="color:var(--muted)">Lezione 4</div>
+          <div class="lh-num" style="color:var(--muted)">Lezione 2</div>
+          <div class="lh-title" style="color:var(--muted)">Prossimamente</div>
+          <div class="lh-badge badge-lock">🔒</div>
+        </div>
+        <div class="lesson-card-h locked">
+          <div class="lh-icon">🗓️</div>
+          <div class="lh-num" style="color:var(--muted)">Lezione 3</div>
           <div class="lh-title" style="color:var(--muted)">Prossimamente</div>
           <div class="lh-badge badge-lock">🔒</div>
         </div>
       </div>
       <div class="lesson-done-row">
         <button class="lesson-done-btn" id="ldone-1" onclick="toggleLessonDone(1,event)">✓ L1 completata</button>
-        <button class="lesson-done-btn" id="ldone-2" onclick="toggleLessonDone(2,event)">✓ L2 completata</button>
-        <button class="lesson-done-btn" id="ldone-3" onclick="toggleLessonDone(3,event)">✓ L3 completata</button>
       </div>
     </div>
     <div class="section" style="margin-top:8px">
-      <div class="sec-title">📔 Diario delle distrazioni</div>
+      <div class="sec-title" id="diary-sec-title">📔 Diario</div>
       <div class="diary-card">
         <div class="diary-num-row">
-          <div class="diary-num-label">Quante volte hai preso il telefono oggi?</div>
+          <div class="diary-num-label" id="diary-count-label">Quante volte oggi?</div>
           <div class="num-ctrl">
             <button class="num-btn" onclick="changeNum(-1)">−</button>
             <input class="num-val" id="diary-num" type="number" value="0" min="0">
@@ -307,14 +361,7 @@ input,textarea{font-family:'Nunito',sans-serif}
           </div>
         </div>
         <div class="tags-label">Perché ti sei distratta?</div>
-        <div class="tags-row">
-          <button class="tag-btn" onclick="toggleTag(this,'📱 Telefono')">📱 Telefono</button>
-          <button class="tag-btn" onclick="toggleTag(this,'🔔 Notifica')">🔔 Notifica</button>
-          <button class="tag-btn" onclick="toggleTag(this,'😑 Annoiata')">😑 Annoiata</button>
-          <button class="tag-btn" onclick="toggleTag(this,'🛏️ A letto')">🛏️ A letto</button>
-          <button class="tag-btn" onclick="toggleTag(this,'😤 Stress')">😤 Stress</button>
-          <button class="tag-btn" onclick="toggleTag(this,'🫠 In love')">🫠 In love</button>
-        </div>
+        <div class="tags-row" id="diary-tags-row"></div>
         <div class="diary-note-row">
           <textarea class="diary-note" id="diary-note" placeholder="Nota del giorno (opzionale)..." rows="1"></textarea>
           <button class="diary-add-btn" onclick="addDiaryEntry()">+</button>
@@ -327,7 +374,7 @@ input,textarea{font-family:'Nunito',sans-serif}
       <div class="sec-title">📋 Impegni settimanali</div>
       <div class="impegni-card">
         <div class="imp-add-row">
-          <input class="imp-input" id="imp-input" type="text" placeholder="Es: Giovedì — verifica di scienze...">
+          <input class="imp-input" id="imp-input" type="text" placeholder="Es: Giovedì — verifica...">
           <button class="imp-add" onclick="addImpegno()">+</button>
         </div>
         <div id="impegni-list"></div>
@@ -342,16 +389,16 @@ input,textarea{font-family:'Nunito',sans-serif}
         <div class="ladri-history" id="ladri-history"></div>
       </div>
     </div>
-
     <div class="home-pad"></div>
   </div>
 </div>
 
+<!-- LEZIONE -->
 <div id="s-lesson" class="screen">
   <div class="lesson-header">
     <div class="back-btn" onclick="show('s-home')">←</div>
     <div class="lesson-header-info">
-      <div class="lesson-header-title" id="lesson-screen-title">Il Tuo Cervello</div>
+      <div class="lesson-header-title" id="lesson-screen-title">—</div>
       <div class="lesson-header-sub" id="lesson-screen-sub">Lezione 1</div>
     </div>
   </div>
@@ -359,22 +406,23 @@ input,textarea{font-family:'Nunito',sans-serif}
   <div class="slide-container" id="slides-container"></div>
   <div class="slide-nav">
     <button class="nav-btn nav-prev" id="btn-prev" onclick="changeSlide(-1)">←</button>
-    <span class="slide-counter" id="slide-counter">1 / 20</span>
+    <span class="slide-counter" id="slide-counter">1 / 1</span>
     <button class="nav-btn nav-next" id="btn-next" onclick="changeSlide(1)">Avanti →</button>
   </div>
 </div>
 
+<!-- GIOCHI HOME -->
 <div id="s-games" class="screen">
   <div class="nav">
     <div class="back-btn" onclick="show('s-home')">←</div>
     <div class="nav-logo"><span>🎮</span><span>Giochi</span></div>
   </div>
   <div class="scroll" style="padding:16px">
-    <div style="background:linear-gradient(135deg,var(--g),#2ECC71);border-radius:18px;padding:18px;margin-bottom:14px;color:#fff">
-      <div style="font-size:19px;font-weight:900;margin-bottom:3px" id="games-title">Metti alla prova quello che sai!</div>
-      <div style="font-size:13px;opacity:.9" id="games-sub">4 giochi diversi, stelle da guadagnare 🌟</div>
+    <div style="background:linear-gradient(135deg,var(--p),var(--p2));border-radius:18px;padding:18px;margin-bottom:14px;color:#fff">
+      <div style="font-size:19px;font-weight:900;margin-bottom:3px">Metti alla prova quello che sai!</div>
+      <div style="font-size:13px;opacity:.9">4 giochi diversi, stelle da guadagnare 🌟</div>
     </div>
-    <div class="game-card2" onclick="startGame(1)"><div class="g-icon gi-b">🧭</div><div class="game-meta"><div class="game-title2" id="game1-title">Pilota o Motore?</div><div class="game-desc2" id="game1-desc">Riconosci chi controlla ogni situazione</div><div class="game-stars2">⭐ Fino a 10 stelle</div></div></div>
+    <div class="game-card2" onclick="startGame(1)"><div class="g-icon gi-b">🧭</div><div class="game-meta"><div class="game-title2">Pilota o Motore?</div><div class="game-desc2">Riconosci chi controlla ogni situazione</div><div class="game-stars2">⭐ Fino a 10 stelle</div></div></div>
     <div class="game-card2" onclick="startGame(2)"><div class="g-icon gi-g">⚡</div><div class="game-meta"><div class="game-title2">Vero o Falso?</div><div class="game-desc2">Rispondi veloce: V o F?</div><div class="game-stars2">⭐ Fino a 10 stelle</div></div></div>
     <div class="game-card2" onclick="startGame(3)"><div class="g-icon gi-y">🃏</div><div class="game-meta"><div class="game-title2">Memoria</div><div class="game-desc2">Abbina il termine alla definizione</div><div class="game-stars2">⭐ Fino a 10 stelle</div></div></div>
     <div class="game-card2" onclick="startGame(4)"><div class="g-icon gi-r">✏️</div><div class="game-meta"><div class="game-title2">Completa la Frase</div><div class="game-desc2">Trova la parola mancante</div><div class="game-stars2">⭐ Fino a 10 stelle</div></div></div>
@@ -382,43 +430,41 @@ input,textarea{font-family:'Nunito',sans-serif}
   </div>
 </div>
 
+<!-- GIOCO 1 -->
 <div id="s-game1" class="screen">
   <div class="game-header"><div class="back-btn" onclick="show('s-games')">←</div><div class="lesson-header-info"><div class="lesson-header-title">🧭 Pilota o Motore?</div><div class="lesson-header-sub" id="g1-counter">1/10</div></div></div>
-  <div class="game-body"><div class="game-card-big"><div class="g-emoji" id="g1-emoji">🤔</div><div class="g-text" id="g1-text">...</div></div><div id="g1-fb"></div><div class="two-btn"><button class="choice-btn btn-blue" id="g1-btn1" onclick="ansG1(currentLesson===3?'O':currentLesson===2?'A':'P')"><span id="g1-lbl1">🧭 Pilota</span></button><button class="choice-btn btn-red" id="g1-btn2" onclick="ansG1(currentLesson===3?'C':currentLesson===2?'P':'M')"><span id="g1-lbl2">⚡ Motore</span></button></div></div>
+  <div class="game-body"><div class="game-card-big"><div class="g-emoji" id="g1-emoji">🤔</div><div class="g-text" id="g1-text">...</div></div><div id="g1-fb"></div><div class="two-btn"><button class="choice-btn btn-blue" onclick="ansG1('P')">🧭 Pilota</button><button class="choice-btn btn-red" onclick="ansG1('M')">⚡ Motore</button></div></div>
 </div>
-
+<!-- GIOCO 2 -->
 <div id="s-game2" class="screen">
   <div class="game-header"><div class="back-btn" onclick="show('s-games')">←</div><div class="lesson-header-info"><div class="lesson-header-title">⚡ Vero o Falso?</div><div class="lesson-header-sub" id="g2-counter">1/10</div></div></div>
   <div class="game-body"><div class="game-card-big"><div class="g-text" id="g2-text">...</div></div><div id="g2-fb"></div><div class="two-btn"><button class="choice-btn btn-green" onclick="ansG2(true)">✅ Vero</button><button class="choice-btn btn-red" onclick="ansG2(false)">❌ Falso</button></div></div>
 </div>
-
+<!-- GIOCO 3 -->
 <div id="s-game3" class="screen">
   <div class="game-header"><div class="back-btn" onclick="show('s-games')">←</div><div class="lesson-header-info"><div class="lesson-header-title">🃏 Memoria</div><div class="lesson-header-sub" id="g3-counter">Coppie: 0/6</div></div></div>
   <div class="game-body"><p style="font-size:13px;color:var(--muted);text-align:center;margin-bottom:12px">Tocca due carte per abbinarle!</p><div class="memory-grid" id="mem-grid"></div></div>
 </div>
-
+<!-- GIOCO 4 -->
 <div id="s-game4" class="screen">
   <div class="game-header"><div class="back-btn" onclick="show('s-games')">←</div><div class="lesson-header-info"><div class="lesson-header-title">✏️ Completa la Frase</div><div class="lesson-header-sub" id="g4-counter">1/8</div></div></div>
   <div class="game-body"><div class="sentence-box" id="g4-sentence">...</div><div id="g4-fb" style="margin-bottom:10px"></div><div class="word-options" id="g4-opts"></div></div>
   <div class="game-footer"><button class="big-btn btn-p" id="g4-next" onclick="nextG4()" style="display:none">Avanti →</button></div>
 </div>
 
+<!-- DIARIO -->
 <div id="s-diary" class="screen">
-  <div class="nav"><div class="back-btn" onclick="show('s-home')">←</div><div class="nav-logo"><span>📔</span><span style="color:var(--pu)">Diario</span></div></div>
+  <div class="nav"><div class="back-btn" onclick="show('s-home')">←</div><div class="nav-logo"><span>📔</span><span style="color:var(--p)">Diario</span></div></div>
   <div class="scroll" style="padding:16px"><div id="diary-full-list"></div><div style="height:calc(20px + var(--safe-b))"></div></div>
 </div>
 
+<!-- FINE GIOCO -->
 <div id="s-end" class="screen">
   <div class="nav"><div class="back-btn" onclick="show('s-home')">←</div><div class="nav-logo"><span>🏆</span><span>Risultato</span></div></div>
-  <div class="end-body">
-    <div class="end-emoji" id="end-emoji">🎉</div>
-    <div class="end-title" id="end-title">Bravissima!</div>
-    <div class="end-sub" id="end-sub"></div>
-    <button class="big-btn btn-p" onclick="show('s-games')">Gioca ancora</button>
-    <button class="big-btn btn-sec" onclick="show('s-home')">Torna a casa</button>
-  </div>
+  <div class="end-body"><div class="end-emoji" id="end-emoji">🎉</div><div class="end-title" id="end-title">Bravissima!</div><div class="end-sub" id="end-sub"></div><button class="big-btn btn-p" onclick="show('s-games')">Gioca ancora</button><button class="big-btn btn-sec" onclick="show('s-home')">Torna alla home</button></div>
 </div>
 
+<!-- MODAL SESSIONE -->
 <div class="modal-overlay" id="session-modal" onclick="closeSessionModal(event)">
   <div class="modal">
     <h3>✏️ Modifica prossima sessione</h3>
@@ -430,220 +476,386 @@ input,textarea{font-family:'Nunito',sans-serif}
   </div>
 </div>
 
+<script type="application/json" id="data-linda">{"slides": [{"emoji": "🧠", "title": "Il tuo cervello: manuale d'uso", "html": "<p>Nessuno a scuola ti insegna come funziona la tua testa. Eppure è lo strumento che usi <strong>ogni secondo della giornata</strong>.</p><span class=\"hl\">Oggi iniziamo da qui: capire come lavora il tuo cervello e perché a volte sembra lavorare <em>contro</em> di te.</span>", "question": "Quando studi, come ti senti di solito?", "answers": ["Concentrata e produttiva", "Mi distraggo spesso", "Sono ansiosa anche quando studio", "Un misto di tutto"]}, {"emoji": "⚙️", "title": "Il cervello è una macchina", "html": "<p>Il cervello è lo strumento più potente che esiste — ma come tutte le macchine, <strong>funziona bene solo se sai come usarlo</strong>.</p><span class=\"hl y\">Non è una questione di intelligenza. È una questione di metodo. Chi studia meglio non è necessariamente più brava — ha imparato a usare la macchina nel modo giusto.</span><p style=\"margin-top:10px\">E quasi nessuno ci insegna come farlo. <strong>Fino ad oggi.</strong> 🎯</p>"}, {"emoji": "📱", "title": "Quante volte oggi?", "html": "<p>Pensa a oggi. <strong>Quante volte hai aperto Instagram, TikTok o i messaggi senza un motivo preciso?</strong></p><span class=\"hl\">Non si tratta di giudicarti — è un esperimento di consapevolezza. Il numero non importa: importa che te ne accorgi.</span><p style=\"margin-top:10px\">Questa consapevolezza è già il primo passo. 🎯</p>", "question": "La tua stima di oggi:", "answers": ["Meno di 10 volte", "10–30 volte", "30–50 volte", "Più di 50 😅"]}, {"emoji": "🧪", "title": "La dopamina", "html": "<p>Nel cervello c'è una sostanza chiamata <strong>dopamina</strong>. Non è la felicità — è il <strong>voglio ancora</strong>.</p><span class=\"hl\">💜 Un like → dopamina → ne voglio ancora<br>🎬 Un reel → dopamina → ne voglio ancora<br>📩 Un messaggio → dopamina → ne voglio ancora</span><p style=\"margin-top:10px\">È il segnale che dice al cervello: <strong>ripeti questa cosa!</strong> Non è debolezza — è biologia.</p>"}, {"emoji": "📲", "title": "Instagram l'ha capito", "html": "<p>Le app di social media sono state progettate da ingegneri che <strong>conoscono perfettamente la dopamina</strong>.</p><span class=\"hl r\">Scroll infinito, notifiche calibrate, like — tutto costruito per attivare la dopamina ogni pochi secondi. Non è un caso. È design intenzionale.</span><span class=\"hl g\">Lo studio dà dopamina lenta: arriva dopo, ma è più duratura e porta vera soddisfazione.</span>", "question": "Ti è mai capitato di aprire Instagram per 2 minuti e ritrovarti lì 40 minuti dopo?", "answers": ["Sempre", "Spesso", "A volte", "Raramente"]}, {"emoji": "🧭", "title": "Il Pilota", "html": "<p>Nel tuo cervello ci sono due sistemi in costante competizione. Il primo è il <strong>Pilota</strong> — razionale e consapevole.</p><span class=\"hl\">✅ Adesso studio, i social dopo<br>✅ Finisco questo argomento poi mi fermo<br>✅ Sa aspettare, pianificare, valutare le conseguenze</span><p style=\"margin-top:10px\">È la parte <strong>saggia</strong> di te. Ma ha un limite: <em>si stanca.</em></p>"}, {"emoji": "⚡", "title": "Il Motore Impulsivo", "html": "<p>Il secondo sistema è il <strong>Motore Impulsivo</strong> — emotivo, veloce, inesauribile.</p><span class=\"hl r\">❌ Solo un video ancora<br>❌ Controllo i messaggi e poi studio<br>❌ Vuole gratificazione immediata, non pensa alle conseguenze</span><p style=\"margin-top:10px\">Il Motore non è il tuo nemico — è parte di te. Ma se non lo conosci, <strong>decide lui al posto tuo</strong>.</p>"}, {"emoji": "🥊", "title": "La lotta quotidiana", "html": "<p>Il Pilota e il Motore si fronteggiano <strong>decine di volte al giorno</strong>.</p><span class=\"hl y\">🧭 Pilota: apri il libro<br>⚡ Motore: aspetta, c'è una storia nuova<br>🧭 Pilota: dai, solo 20 minuti di studio<br>⚡ Motore: ma prima un secondo di telefono...</span><p style=\"margin-top:10px\">Quando sei stanca, sotto pressione o ansiosa, il Motore vince più facilmente. Non è debolezza — è come <strong>funziona il cervello umano</strong>.</p>", "question": "Nella tua esperienza, chi vince più spesso?", "answers": ["Il Pilota 😇", "Il Motore 😈", "Dipende dal giorno", "Dipende dalla materia"]}, {"emoji": "🔋", "title": "La batteria della forza di volontà", "html": "<p>La forza di volontà non è una qualità fissa — è una <strong>risorsa che si consuma</strong> durante la giornata.</p><span class=\"hl r\">Mattina → 100%<br>Primo pomeriggio → 50–60%<br>Sera → quasi scarica</span><p style=\"margin-top:10px\">Ogni decisione, ogni resistenza a una tentazione, consuma un po' di batteria.</p><span class=\"hl g\">Non è pigrizia. È fisiologia. La sera è oggettivamente più difficile resistere alle distrazioni. 🔋</span>"}, {"emoji": "😰", "title": "L'ansia e il cervello", "html": "<p>C'è qualcosa che complica tutto: <strong>l'ansia da prestazione</strong>. Se la conosci, sappi che non sei sola.</p><span class=\"hl r\">Quando sei ansiosa, il cervello entra in modalità allerta: il Pilota razionale si spegne parzialmente, il Motore prende il sopravvento. Per questo quando sei ansiosa prima di una verifica è difficile concentrarsi.</span><p style=\"margin-top:10px\">Non è incapacità — è il cervello che fa il suo lavoro <strong>nel momento sbagliato</strong>.</p>"}, {"emoji": "🔓", "title": "Rompere il circolo dell'ansia", "html": "<p>L'ansia non si elimina con la forza di volontà. Si gestisce capendo come funziona e <strong>togliendo al cervello l'incertezza</strong>.</p><span class=\"hl g\">✅ Strutturare lo studio riduce l'incertezza → meno ansia<br>✅ Sapere esattamente cosa fare e quando farlo riattiva il Pilota<br>✅ Capire che l'ansia è una risposta normale non ti rende più vulnerabile — ti rende più lucida</span><span class=\"hl\">Più ti organizzi, meno il cervello percepisce minacce. Non è magia — è neuroscienzaaaa. 🔬</span>"}, {"emoji": "🦹", "title": "I 5 Ladri dell'Attenzione", "html": "<p>Ci sono 5 nemici specifici della concentrazione. Li chiamo <strong>i Ladri</strong>.</p><span class=\"hl\">Riconoscerli è il primo passo per non lasciarli vincere. 🔍</span><p style=\"margin-top:10px\">Li vediamo uno per uno 👇</p>", "question": "Quale pensi sia il tuo ladro principale?", "answers": ["Il telefono 📱", "Le notifiche 🔔", "Il multitasking 🔀", "Il comfort eccessivo 🛋️"]}, {"emoji": "📱", "title": "Ladro 1: Lo Smartphone", "html": "<p>Anche <strong>spento e capovolto sul tavolo</strong>, il telefono ti distrae.</p><span class=\"hl r\">Solo la sua presenza ruba circa il <strong>20% della capacità cognitiva</strong>. Il cervello sa che è lì e rimane in allerta, consumando risorse che potrebbero andare allo studio.</span><p style=\"margin-top:10px\">L'unica soluzione davvero efficace: metterlo <strong>fisicamente in un'altra stanza</strong>. Non silenzioso — proprio fuori dalla stanza.</p>"}, {"emoji": "🔔", "title": "Ladro 2: Le Notifiche", "html": "<p>Senti il suono, non guardi, pensi di aver resistito. Ma non basta.</p><span class=\"hl r\">Dopo una notifica — anche ignorata — il cervello impiega fino a <strong>20 minuti</strong> per tornare al livello di concentrazione precedente.</span><p style=\"margin-top:10px\">La soluzione non è ignorarle. È <strong>non sentirle</strong>. Modalità non disturbare attiva ogni volta che studi.</p>"}, {"emoji": "🔀", "title": "Ladro 3: Il Multitasking", "html": "<p>Il cervello umano <strong>non fa multitasking</strong>. Davvero.</p><span class=\"hl y\">Quando pensi di fare due cose insieme, in realtà passi rapidamente dall'una all'altra — e ogni passaggio consuma energia e abbassa la qualità di entrambe le attività.</span><p style=\"margin-top:10px\">Studiare con musica cantata, TV o messaggi aperti significa lavorare con il <strong>30-40% delle risorse in meno</strong>.</p>", "question": "Studi con qualcosa in sottofondo?", "answers": ["Sempre (musica con testo)", "A volte", "Preferisco il silenzio", "Dipende dalla materia"]}, {"emoji": "📲", "title": "Ladro 4: I Social Media", "html": "<p>I social funzionano come una <strong>slot machine digitale</strong>.</p><span class=\"hl r\">Ogni scroll potrebbe portare qualcosa di interessante — come tirare la leva di una slot. Il cervello non riesce a smettere perché non sa mai cosa arriverà dopo.</span><p style=\"margin-top:10px\">Non è mancanza di disciplina. È un meccanismo neurologico <strong>costruito apposta</strong>.</p>"}, {"emoji": "🛋️", "title": "Ladro 5: Il Comfort Eccessivo", "html": "<p>Studiare sdraiata sul letto comunica al cervello: <strong>è ora di rilassarsi</strong>.</p><span class=\"hl r\">Puoi leggere le pagine, ma il cervello riceve il segnale sbagliato e non le consolida in memoria come dovrebbe.</span><span class=\"hl g\">✅ Sedia, scrivania, luce adeguata = modalità concentrazione<br>❌ Letto, cuscino, penombra = modalità riposo</span>"}, {"emoji": "⏰", "title": "Il cervello e la velocità", "html": "<p>Lo scroll continuo ha <strong>riallenato il tuo cervello</strong> a cambiare stimolo ogni pochi secondi.</p><span class=\"hl r\">Se il cervello cambia stimolo ogni 10–15 secondi, stare 30 minuti su un capitolo diventa fisicamente difficile — non per mancanza di impegno, ma per abitudine neurologica.</span><p style=\"margin-top:10px\">Buona notizia: il cervello si può <strong>riallenare</strong>. Come la palestra — difficile all'inizio, normale dopo qualche settimana.</p>", "question": "Ti annoi o ti distrai subito quando studi?", "answers": ["Sì, dopo pochissimi minuti", "Dopo un po'", "Dipende dalla materia", "Riesco a stare concentrata abbastanza"]}, {"emoji": "🎯", "title": "L'obiettivo", "html": "<p>L'obiettivo <strong>non è eliminare i social o il telefono</strong>. Sarebbe irrealistico.</p><span class=\"hl g\">L'obiettivo è scegliere <strong>tu</strong> quando usarli — invece di lasciarli scegliere loro quando usare te.</span><p style=\"margin-top:10px\">Se vuoi 30 minuti di Instagram, sono tuoi. Ma devono essere 30 minuti <em>scelti</em> da te, non rubati senza accorgertene.</p>"}, {"emoji": "💡", "title": "Le strategie che funzionano", "html": "<p>Non si tratta di sforzarti di più. Si tratta di <strong>lavorare in modo più intelligente</strong>.</p><span class=\"hl\">📵 Telefono in un'altra stanza prima di iniziare a studiare</span><span class=\"hl y\">📋 Scrivi esattamente cosa devi fare — non \"studiare diritto\" ma \"leggere e riassumere pagg. 45–52\"</span><span class=\"hl g\">⏱️ Sessioni da 25 minuti concentrata + 5 minuti di pausa vera (non social)</span>"}, {"emoji": "📊", "title": "La tua sfida di questa settimana", "html": "<p>Una sola cosa da fare nei prossimi giorni:</p><span class=\"hl\" style=\"font-size:16px;text-align:center\"><strong>Conta quante volte prendi il telefono senza un motivo preciso.</strong></span><p style=\"margin-top:10px\">Segnalo nel diario qui nell'app. Non importa se il numero è alto — chi porta un dato reale ha già fatto un passo avanti.</p><span class=\"hl g\">Non è un giudizio. È consapevolezza. E la consapevolezza è tutto. 🎯</span>"}, {"emoji": "🎉", "title": "Ottimo lavoro oggi!", "html": "<p>Hai imparato moltissimo. Ricapitoliamo:</p><span class=\"hl\">🧪 <strong>Dopamina</strong> = voglio ancora, non felicità<br>🧭 <strong>Pilota</strong> = razionale, si stanca<br>⚡ <strong>Motore</strong> = emotivo, inesauribile<br>🔋 <strong>Forza di volontà</strong> = batteria che si scarica<br>😰 <strong>Ansia</strong> = Pilota in stand-by, Motore al comando<br>🦹 <strong>5 Ladri</strong> = smartphone, notifiche, multitasking, social, comfort</span><span class=\"hl g\" style=\"margin-top:8px\">Pronta per i giochi? 🎮</span>"}], "g1": [{"emoji": "📱", "text": "Apri Instagram 'solo un secondo' mentre studi", "ans": "M"}, {"emoji": "📋", "text": "Scrivi un piano prima di iniziare a studiare", "ans": "P"}, {"emoji": "🔔", "text": "Interrompi lo studio ogni volta che arriva una notifica", "ans": "M"}, {"emoji": "📵", "text": "Metti il telefono in un'altra stanza prima di studiare", "ans": "P"}, {"emoji": "😴", "text": "Rimandi i compiti perché 'non hai voglia adesso'", "ans": "M"}, {"emoji": "⏱️", "text": "Studi 25 minuti poi fai una pausa pianificata", "ans": "P"}, {"emoji": "📺", "text": "Studi con la TV accesa per non sentire il silenzio", "ans": "M"}, {"emoji": "📚", "text": "Finisci il capitolo anche se sei stanca, come da piano", "ans": "P"}, {"emoji": "💬", "text": "Rispondi ai messaggi appena arrivano mentre studi", "ans": "M"}, {"emoji": "✅", "text": "Inizi dall'argomento più difficile quando sei ancora fresca", "ans": "P"}], "g2": [{"text": "La dopamina è la molecola della felicità", "ans": false}, {"text": "Il Pilota razionale si stanca durante la giornata", "ans": true}, {"text": "Avere il telefono sul tavolo non influenza la concentrazione", "ans": false}, {"text": "La forza di volontà è una risorsa che si esaurisce", "ans": true}, {"text": "Studiare con musica cantata aiuta la concentrazione", "ans": false}, {"text": "L'ansia riduce temporaneamente l'attività del Pilota razionale", "ans": true}, {"text": "Il multitasking rende lo studio più efficiente", "ans": false}, {"text": "Dopo una notifica servono fino a 20 minuti per riconcentrarsi", "ans": true}, {"text": "Studiare sul letto è uguale a studiare alla scrivania", "ans": false}, {"text": "Il cervello può essere riallenato a stare concentrato più a lungo", "ans": true}], "mem": [["Dopamina", "Voglio ancora"], ["Pilota", "Sistema razionale"], ["Motore Impulsivo", "Sistema emotivo"], ["Forza di volontà", "Batteria che si scarica"], ["Ansia", "Pilota in stand-by"], ["20 minuti", "Tempo per riconcentrarsi dopo una notifica"]], "g4": [{"s": "La ___ è la sostanza che dice al cervello 'voglio ancora'.", "blank": "dopamina", "opts": ["dopamina", "adrenalina", "serotonina"]}, {"s": "Il Pilota è il sistema ___ del cervello.", "blank": "razionale", "opts": ["razionale", "emotivo", "impulsivo"]}, {"s": "La forza di volontà funziona come una ___ che si scarica.", "blank": "batteria", "opts": ["batteria", "lampadina", "molla"]}, {"s": "Il Motore Impulsivo vuole gratificazione ___.", "blank": "immediata", "opts": ["immediata", "lenta", "domani"]}, {"s": "Solo la presenza del telefono ruba circa il ___% di concentrazione.", "blank": "20", "opts": ["20", "5", "50"]}, {"s": "Dopo una notifica servono fino a ___ minuti per riconcentrarsi.", "blank": "20", "opts": ["20", "5", "45"]}, {"s": "L'ansia mette il Pilota in ___ e lascia il Motore al comando.", "blank": "stand-by", "opts": ["stand-by", "overdrive", "pausa"]}, {"s": "Studiare ___ è più efficace che ore di studio disorganizzato.", "blank": "a blocchi", "opts": ["a blocchi", "a caso", "di notte"]}]}</script>
+<script type="application/json" id="data-matilde">{"slides": [{"emoji": "🏃", "title": "Hai già una marcia in più", "html": "<p>Dal questionario risulta subito una cosa: il telefono lo metti già in un'altra stanza quando studi.</p><span class=\"hl\" style=\"font-size:15px;text-align:center\"><strong>Il 90% degli studenti non lo fa. Tu sì.</strong></span><p style=\"margin-top:10px\">Hai già l'abitudine più difficile. Oggi capiremo perché funziona — e come ottimizzare tutto il resto per passare da brava a sistematicamente eccellente. 🎯</p>"}, {"emoji": "⚙️", "title": "Il cervello è una macchina", "html": "<p>Il tuo cervello è lo strumento più potente che esiste. Ma come ogni macchina, <strong>funziona bene solo se sai come usarlo</strong>.</p><span class=\"hl y\">Chi prende 9+ non è più sveglio degli altri — ha imparato a usare la macchina nel modo giusto. Non è questione di intelligenza: è questione di metodo.</span><p style=\"margin-top:10px\">E quasi nessuno lo insegna. <strong>Fino ad oggi. 🎯</strong></p>"}, {"emoji": "🧪", "title": "La dopamina", "html": "<p>Nel cervello c'è una sostanza chiamata <strong>dopamina</strong>. Non è la felicità — è il <em>voglio ancora</em>.</p><span class=\"hl\">🏀 Un canestro riuscito → dopamina → voglio tirarne un altro<br>📩 Un messaggio → dopamina → voglio ancora<br>🎬 Un reel → dopamina → voglio ancora</span><p style=\"margin-top:10px\">È il segnale che dice al cervello: <strong>ripeti questa cosa.</strong> Non è debolezza — è biologia.</p>", "question": "Quando finisci un esercizio difficile, come ti senti?", "answers": ["Soddisfatta, voglio continuare", "Sollevata e mi fermo subito", "Indifferente", "Dipende dalla materia"]}, {"emoji": "📱", "title": "Lo scroll e il cervello", "html": "<p>YouTube, le serie TV e i social sono progettati per tenerti incollata allo schermo il più a lungo possibile.</p><span class=\"hl r\">Video brevi = dopamina ogni 5–10 secondi. Dopo 2 ore di scroll, stare 30 minuti su un esercizio di matematica diventa fisicamente difficile — non per pigrizia, ma perché il cervello si è abituato alla velocità degli stimoli.</span><p style=\"margin-top:10px\">Buona notizia: il cervello si può <strong>riallenare</strong>. Esattamente come in palestra. 💪</p>"}, {"emoji": "🧭", "title": "Il Pilota", "html": "<p>Nel cervello ci sono due sistemi in costante competizione. Il primo è il <strong>Pilota</strong> — razionale e consapevole.</p><span class=\"hl\">✅ Adesso faccio 3 esercizi di fisica, poi mi fermo<br>✅ Finisco questa pagina prima di alzarmi<br>✅ Sa aspettare, pianificare, valutare le conseguenze</span><p style=\"margin-top:10px\">È la parte saggia di te. Ma ha un limite fondamentale: <em>si stanca.</em></p>"}, {"emoji": "⚡", "title": "Il Motore Impulsivo", "html": "<p>Il secondo sistema è il <strong>Motore Impulsivo</strong> — emotivo, veloce, inesauribile.</p><span class=\"hl r\">❌ Guardo la soluzione subito senza nemmeno provare<br>❌ Un video su YouTube e poi studio<br>❌ Vuole gratificazione immediata, non pensa al dopo</span><p style=\"margin-top:10px\">Il Motore non è il tuo nemico. Ma se non lo conosci, <strong>decide lui al posto tuo</strong>.</p>", "question": "Chi vince di più nelle tue giornate di studio?", "answers": ["Il Pilota 😇", "Il Motore 😈", "Dipende dall'energia che ho", "Dipende dalla materia"]}, {"emoji": "🔋", "title": "La batteria della forza di volontà", "html": "<p>La forza di volontà non è fissa — è una <strong>risorsa che si esaurisce</strong> durante la giornata.</p><span class=\"hl r\">Mattina → 100%<br>Dopo allenamento di basket → 50–60%<br>Sera dopo teatro o coro → quasi scarica</span><p style=\"margin-top:10px\">Con tutte le tue attività, ottimizzare è ancora più importante.</p><span class=\"hl g\">Studia le materie difficili quando hai ancora energia alta. Non rimandare a sera. 🔋</span>"}, {"emoji": "💭", "title": "Il ladro che non ti aspetti", "html": "<p>Dal questionario emerge il tuo nemico principale: non il telefono — quello hai già risolto. Sono i <strong>pensieri random</strong>.</p><span class=\"hl r\">La mente vaga: pensi al pomeriggio, alla chat, a cosa mangerai, a quella cosa che è successa prima. Succede soprattutto durante gli esercizi difficili, quando il cervello cerca una via di fuga dalla fatica cognitiva.</span><p style=\"margin-top:10px\">Non è disattenzione — è il <strong>Motore che cerca stimoli</strong> perché il Pilota è sotto pressione. È normalissimo.</p>", "question": "Quando ti capitano più i pensieri random?", "answers": ["Sempre, anche dall'inizio", "Solo quando l'esercizio è difficile", "Quando sono stanca", "Verso la fine della sessione"]}, {"emoji": "➗", "title": "Il cervello e gli esercizi", "html": "<p>Risolvere un esercizio di matematica o fisica richiede un tipo di concentrazione <strong>completamente diversa</strong> rispetto a studiare teoria.</p><span class=\"hl y\">È come la differenza tra guardare una partita di basket e giocarla. Puoi guardare 100 partite senza imparare un dribbling. Solo praticando attivamente si impara davvero.</span><p style=\"margin-top:10px\">Lo studio degli esercizi = <strong>studio attivo</strong>. Non basta leggere. Bisogna risolvere, sbagliare, capire perché, rifare.</p>"}, {"emoji": "📖", "title": "Studio attivo vs passivo", "html": "<p>Leggere un esercizio senza risolverlo è <strong>studio passivo</strong>. Il cervello lo percepisce come studio ma non fissa quasi nulla.</p><span class=\"hl g\">✅ Studio attivo: risolvo, sbaglio, capisco perché, rifaccio<br>✅ Studio attivo: spiego la soluzione ad alta voce come se la insegnassi<br>✅ Studio attivo: chiudo la soluzione e rifaccio da zero</span><span class=\"hl r\">❌ Studio passivo: leggo l'esercizio insieme alla soluzione<br>❌ Studio passivo: ricopio senza elaborare</span>"}, {"emoji": "🔄", "title": "La tecnica dei 3 minuti", "html": "<p>Quando un esercizio non viene, <strong>non guardare subito la soluzione</strong>.</p><span class=\"hl\" style=\"font-size:15px\">⏱️ Step 1: Prova da solo per almeno 3 minuti<br>📖 Step 2: Se non riesci, guarda la soluzione<br>🔒 Step 3: Chiudi la soluzione e rifai da zero</span><p style=\"margin-top:10px\">Il terzo step è quello che fa la differenza. Il cervello fissa solo ciò che ricostruisce <strong>attivamente</strong>. Non è barare — è allenamento. 🏋️</p>", "question": "Di solito cosa fai quando un esercizio non viene?", "answers": ["Provo a lungo da solo", "Guardo subito la soluzione", "Chiedo aiuto subito", "Salto e vado avanti"]}, {"emoji": "⏰", "title": "Il tempo e le tue attività", "html": "<p>Basket, teatro, coro, scuola. Non hai tempo da sprecare — ogni sessione deve essere efficiente.</p><span class=\"hl g\">✅ 40 minuti concentrati al 100% valgono più di 3 ore mezze distratte<br>✅ Il cervello non misura le ore: misura la qualità dell'attenzione<br>✅ Sessioni brevi e dense superano sempre sessioni lunghe e diluite</span><p style=\"margin-top:10px\">L'obiettivo non è studiare di più — è studiare <strong>meglio</strong>. Così ti resta tempo per tutto il resto. 🎯</p>"}, {"emoji": "🦹", "title": "I Ladri dell'Attenzione", "html": "<p>Cinque nemici specifici della concentrazione — li chiamo <strong>i Ladri</strong>.</p><span class=\"hl\">📱 Smartphone → <strong>già gestito da te ✅</strong><br>🔔 Notifiche → 20 min per riconcentrarsi dopo una (anche ignorata)<br>🔀 Multitasking → il cervello non esiste in modalità doppia<br>📲 Social Media → slot machine neurale, costruita per non farti smettere<br>💭 Pensieri random → <strong>il tuo ladro principale</strong></span>"}, {"emoji": "🎯", "title": "Le strategie per te", "html": "<p>Basandosi su quello che hai imparato oggi:</p><span class=\"hl\">📵 <strong>Regola 1: già la fai</strong> → telefono in altra stanza ✅</span><span class=\"hl y\">📋 <strong>Regola 2: specifica cosa fare</strong> → non \"matematica\" ma \"esercizi 3.4 pag. 78–80\"</span><span class=\"hl g\">⏱️ <strong>Regola 3: blocchi da 25 minuti</strong> → poi 5 min di pausa vera (non scroll)</span><span class=\"hl\">🔄 <strong>Regola 4: tecnica dei 3 minuti</strong> → prima di guardare la soluzione, prova sempre</span>"}, {"emoji": "📊", "title": "La tua sfida di questa settimana", "html": "<p>Una cosa sola nei prossimi giorni:</p><span class=\"hl\" style=\"font-size:16px;text-align:center\"><strong>Cronometra una sessione da 25 minuti di matematica o fisica, senza interruzioni.</strong></span><p style=\"margin-top:10px\">Poi segnalo nel diario qui nell'app: quante volte la mente è andata a zonzo? Hai finito quello che ti eri prefissata?</p><span class=\"hl g\">Non importa il risultato del primo tentativo. Chi misura migliora sempre. 📊</span>"}, {"emoji": "🎉", "title": "Ottimo lavoro oggi!", "html": "<p>Hai imparato moltissimo. Ricapitoliamo:</p><span class=\"hl\">🧪 <strong>Dopamina</strong> = voglio ancora<br>🧭 <strong>Pilota</strong> = razionale, si stanca<br>⚡ <strong>Motore</strong> = emotivo, inesauribile<br>🔋 <strong>Batteria</strong> = si scarica con le attività<br>💭 <strong>Pensieri random</strong> = il tuo ladro principale<br>📖 <strong>Studio attivo</strong> = risolvo, sbaglio, capisco, rifaccio<br>🔄 <strong>3 minuti</strong> = regola per ogni esercizio difficile</span><span class=\"hl g\" style=\"margin-top:8px\">Pronta per i giochi? 🎮</span>"}], "g1": [{"emoji": "📋", "text": "Ti segni 3 esercizi specifici da fare prima di aprire Gemini", "ans": "P"}, {"emoji": "📖", "text": "Guardi la soluzione dell'esercizio dopo 10 secondi senza nemmeno provare", "ans": "M"}, {"emoji": "🔄", "text": "Riprendi un esercizio sbagliato e lo rifai da zero chiudendo la soluzione", "ans": "P"}, {"emoji": "📸", "text": "Mandi la foto dell'esercizio a Giulia dopo 30 secondi di tentativo", "ans": "M"}, {"emoji": "⏰", "text": "Pianifichi lo studio 30 minuti dopo il basket per recuperare energia", "ans": "P"}, {"emoji": "📺", "text": "Apri YouTube solo un minuto durante la pausa e rimani 20 minuti", "ans": "M"}, {"emoji": "📝", "text": "Scrivi la lista dei compiti prima di sederti alla scrivania", "ans": "P"}, {"emoji": "⏭️", "text": "Salti i dettagli di fisica perché l'interrogazione è tra una settimana", "ans": "M"}, {"emoji": "🎯", "text": "Fai la pausa di 5 minuti senza telefono come pianificato", "ans": "P"}, {"emoji": "💭", "text": "Ti distrai con i pensieri della giornata mentre risolvi un'equazione", "ans": "M"}], "g2": [{"text": "La dopamina è la molecola della felicità", "ans": false}, {"text": "Il Pilota razionale si stanca durante la giornata", "ans": true}, {"text": "Guardare subito la soluzione è il modo migliore per imparare la matematica", "ans": false}, {"text": "La forza di volontà è una risorsa che si esaurisce", "ans": true}, {"text": "Studiare 40 minuti concentrati vale più di 3 ore distratte", "ans": true}, {"text": "I pensieri random durante lo studio sono una forma di Motore Impulsivo", "ans": true}, {"text": "Lo studio attivo e quello passivo producono gli stessi risultati", "ans": false}, {"text": "Avere molte attività extrascolastiche rende impossibile studiare bene", "ans": false}, {"text": "Rifare da zero un esercizio sbagliato è parte del processo di apprendimento", "ans": true}, {"text": "La sera tardi è il momento migliore per studiare le materie difficili", "ans": false}], "mem": [["Dopamina", "Voglio ancora"], ["Pilota", "Sistema razionale"], ["Motore Impulsivo", "Sistema emotivo"], ["Studio attivo", "Rifare l'esercizio sbagliato"], ["Batteria cognitiva", "Si scarica durante la giornata"], ["Pensieri random", "Il Motore cerca stimoli"]], "g4": [{"s": "La dopamina dice al cervello: '___'", "blank": "voglio ancora", "opts": ["voglio ancora", "sono felice", "basta studiare"]}, {"s": "Il Pilota è il sistema ___ del cervello.", "blank": "razionale", "opts": ["razionale", "emotivo", "impulsivo"]}, {"s": "La forza di volontà funziona come una ___ che si scarica.", "blank": "batteria", "opts": ["batteria", "lampadina", "molla"]}, {"s": "Prima di guardare la soluzione, prova per almeno ___ minuti.", "blank": "3", "opts": ["3", "10", "30"]}, {"s": "Studiare ___ vale più di ore di studio disorganizzato.", "blank": "a blocchi", "opts": ["a blocchi", "di notte", "sul letto"]}, {"s": "I pensieri random sono il ___ che cerca stimoli.", "blank": "Motore", "opts": ["Motore", "Pilota", "cervello"]}, {"s": "Lo studio ___ significa risolvere l'esercizio, non solo leggerlo.", "blank": "attivo", "opts": ["attivo", "passivo", "veloce"]}, {"s": "Dopo una notifica, il cervello impiega fino a ___ minuti per riconcentrarsi.", "blank": "20", "opts": ["20", "5", "60"]}]}</script>
+
 <script>
+// ============================================================
+// STUDENT CONFIG
+// ============================================================
+var STUDENTS = {
+  linda: {
+    name: 'Linda', greeting: 'Linda', pin: '1407',
+    colors: { p:'#7B2FBE', pd:'#6A1FA8', pl:'#EFE5FF', p2:'#A66DE8', bg:'#F9F5FF', border:'#DDD0F5', muted:'#8B7AAD', text:'#1A1235' },
+    sub: 'Bentornata nel tuo spazio. Tieni traccia dei tuoi progressi ogni giorno.',
+    sfida: { label:'🎯 La tua missione', title:'Conta le volte che prendi il telefono', desc:'Ogni volta che lo prendi senza un motivo preciso, segnalo nel diario. Non importa il numero — importa che te ne accorgi. 💜' },
+    diario: { title:'📔 Diario delle distrazioni', countLabel:'Quante volte hai preso il telefono oggi?', tags:['📱 Telefono','🔔 Notifica','😑 Annoiata','😰 Ansia','😤 Stress','🌀 Testa altrove'] },
+    lesson: { icon:'🧠', title:'Il Tuo Cervello', desc:'Dopamina, Pilota, Motore e 5 Ladri' },
+    comingSoon: false
+  },
+  matilde: {
+    name: 'Matilde', greeting: 'Matilde', pin: '2805',
+    colors: { p:'#0D9488', pd:'#0F766E', pl:'#CCFBF1', p2:'#14B8A6', bg:'#F0FDFA', border:'#99F6E4', muted:'#5B8A87', text:'#0F2E2B' },
+    sub: 'Bentornata nel tuo spazio. Tieni traccia dei tuoi progressi ogni giorno.',
+    sfida: { label:'🎯 La tua sfida', title:'Cronometra una sessione da 25 minuti', desc:'Matematica o fisica, senza interruzioni. Poi segnalo nel diario: quante volte la mente è andata a zonzo? 🏃' },
+    diario: { title:'📔 Diario di studio', countLabel:'Quante volte la mente è andata a zonzo?', tags:['💭 Pensieri random','📱 Telefono','😑 Annoiata','😤 Stress','⏰ Fine energia','🌀 Affaticamento'] },
+    lesson: { icon:'🏃', title:'Il Tuo Cervello al Lavoro', desc:'Dopamina, Pilota, Motore e Pensieri Random' },
+    comingSoon: false
+  },
+  niccolo: {
+    name: 'Niccolò', greeting: 'Niccolò', pin: '1309',
+    colors: { p:'#2563EB', pd:'#1D4ED8', pl:'#DBEAFE', p2:'#60A5FA', bg:'#F0F7FF', border:'#BFDBFE', muted:'#6B84A8', text:'#0F1F3D' },
+    sub: 'Benvenuto nel tuo spazio. Il tuo percorso MenteViva sta per iniziare!',
+    sfida: { label:'🏀 Il tuo percorso', title:'Prima lezione in arrivo!', desc:'Il tuo spazio MenteViva è pronto. La prima lezione sarà disponibile presto — nel frattempo usa il diario e gli impegni. 🏀' },
+    diario: { title:'📔 Diario di studio', countLabel:'Quante volte ti sei distratto oggi?', tags:['💭 Pensieri random','📺 YouTube / Serie','😑 Annoiato','😤 Stress','🌀 Procrastinazione','📱 Telefono'] },
+    lesson: { icon:'🏀', title:'Lezione 1', desc:'In arrivo — presto disponibile' },
+    comingSoon: true
+  }
+};
 
+// ============================================================
+// STATE
+// ============================================================
+var currentStudent = null;
+var SLIDES1 = [], G1 = [], G2 = [], MEM_PAIRS = [], G4 = [];
+var lessonDone = {}, diaryEntries = [], impegni = [], ladriScores = {}, ladriHistory = [];
+var sessionText = '';
+var selectedTags = [];
+var currentSlide = 0;
+var pinBuffer = '';
 
-var lessonDone=JSON.parse(localStorage.getItem('mv-lessons')||'{}');
-function toggleLessonDone(n,e){
-  e.stopPropagation();
-  lessonDone[n]=!lessonDone[n];
-  save('mv-lessons',lessonDone);
-  renderLessonStates();
+// ============================================================
+// STUDENT SELECT + PIN
+// ============================================================
+function selectStudent(id) {
+  currentStudent = id;
+  var s = STUDENTS[id];
+  document.getElementById('pin-icon').textContent = s.lesson.icon;
+  document.getElementById('pin-title').textContent = 'Accesso per ' + s.name;
+  pinBuffer = '';
+  updatePinDots();
+  document.getElementById('pin-error').textContent = '';
+  applyColors(s.colors);
+  show('s-pin');
 }
-function renderLessonStates(){
-  [1,2,3].forEach(function(n){
-    var card=document.getElementById('lcard-'+n);
-    var badge=document.getElementById('lbadge-'+n);
-    var btn=document.getElementById('ldone-'+n);
-    if(!card||!badge||!btn)return;
-    if(lessonDone[n]){
-      card.classList.remove('active');card.classList.add('done');
-      badge.className='lh-badge badge-done';badge.textContent='✓ Fatta';
-      btn.className='lesson-done-btn done';btn.textContent='✓ L'+n+' fatta — annulla';
-    } else {
-      card.classList.add('active');card.classList.remove('done');
-      badge.className='lh-badge badge-active';badge.textContent='Attiva';
-      btn.className='lesson-done-btn';btn.textContent='✓ L'+n+' completata';
-    }
-  });
+
+function pinKey(k) {
+  if (pinBuffer.length >= 4) return;
+  pinBuffer += k;
+  updatePinDots();
+  if (pinBuffer.length === 4) setTimeout(pinConfirm, 200);
 }
-var diaryEntries=JSON.parse(localStorage.getItem('mv-diary')||'[]');
-var impegni=JSON.parse(localStorage.getItem('mv-impegni')||'[]');
-var ladriScores=JSON.parse(localStorage.getItem('mv-ladri')||'{}');
-var sessionText=localStorage.getItem('mv-session')||'Prossima: Venerdì 15:00–16:00';
-var selectedTags=[];
-var currentSlide=0;
-var currentLesson=1;
 
-function save(k,v){localStorage.setItem(k,typeof v==='string'?v:JSON.stringify(v));}
+function pinDel() {
+  pinBuffer = pinBuffer.slice(0,-1);
+  updatePinDots();
+  document.getElementById('pin-error').textContent = '';
+}
 
-
-
-function show(id){
-  document.querySelectorAll('.screen').forEach(function(s){s.classList.remove('active');});
-  document.getElementById(id).classList.add('active');
-  if(id==='s-home'){renderDiaryPreview();renderImpegni();renderLadri();renderLessonStates();document.getElementById('session-text').textContent=sessionText;}
-  if(id==='s-diary')renderDiaryFull();
-  if(id==='s-games'){
-    var isL2=currentLesson===2;
-    var t=document.getElementById('games-title');
-    var s=document.getElementById('games-sub');
-    var g1t=document.getElementById('game1-title');
-    var g1d=document.getElementById('game1-desc');
-    var isL3=currentLesson===3;
-    if(t)t.textContent=isL3?'Giochi Lezione 3':isL2?'Giochi Lezione 2':'Giochi Lezione 1';
-    if(g1t)g1t.textContent=isL3?'Organizzato o Caotico?':isL2?'Passivo o Attivo?':'Pilota o Motore?';
-    if(g1d)g1d.textContent=isL3?'Riconosci il comportamento giusto':isL2?'Riconosci il tipo di studio':'Riconosci chi controlla ogni situazione';
+function pinConfirm() {
+  var s = STUDENTS[currentStudent];
+  if (pinBuffer === s.pin) {
+    loadStudent(currentStudent);
+    show('s-home');
+  } else {
+    document.getElementById('pin-error').textContent = 'PIN errato. Riprova.';
+    pinBuffer = '';
+    updatePinDots();
   }
 }
 
-function openSessionModal(){
-  document.getElementById('session-input').value=sessionText.replace('Prossima: ','');
+function updatePinDots() {
+  for (var i=0;i<4;i++) {
+    var d = document.getElementById('pd'+i);
+    d.classList.toggle('filled', i < pinBuffer.length);
+  }
+}
+
+function logout() {
+  currentStudent = null;
+  // Reset colors to neutral
+  applyColors(STUDENTS.linda.colors);
+  show('s-landing');
+}
+
+// ============================================================
+// LOAD STUDENT
+// ============================================================
+function loadStudent(id) {
+  var s = STUDENTS[id];
+  applyColors(s.colors);
+  document.getElementById('meta-theme').setAttribute('content', s.colors.p);
+
+  // Load data
+  var key = 'mv-' + id + '-';
+  lessonDone = JSON.parse(localStorage.getItem(key+'lessons') || '{}');
+  diaryEntries = JSON.parse(localStorage.getItem(key+'diary') || '[]');
+  impegni = JSON.parse(localStorage.getItem(key+'impegni') || '[]');
+  ladriScores = JSON.parse(localStorage.getItem(key+'ladri') || '{}');
+  ladriHistory = JSON.parse(localStorage.getItem(key+'ladri-history') || '[]');
+  sessionText = localStorage.getItem(key+'session') || 'Prossima sessione: —';
+
+  // Load slides/games
+  if (!s.comingSoon) {
+    var d = JSON.parse(document.getElementById('data-' + id).textContent);
+    SLIDES1 = d.slides; G1 = d.g1; G2 = d.g2; MEM_PAIRS = d.mem; G4 = d.g4;
+  } else {
+    SLIDES1 = []; G1 = []; G2 = []; MEM_PAIRS = []; G4 = [];
+  }
+
+  // Update UI
+  document.getElementById('home-greeting').textContent = 'Ciao, ' + s.greeting + '! 👋';
+  document.getElementById('home-sub').textContent = s.sub;
+  document.getElementById('sfida-label').textContent = s.sfida.label;
+  document.getElementById('sfida-title').textContent = s.sfida.title;
+  document.getElementById('sfida-desc').textContent = s.sfida.desc;
+  document.getElementById('diary-sec-title').textContent = s.diario.title;
+  document.getElementById('diary-count-label').textContent = s.diario.countLabel;
+  document.getElementById('session-text').textContent = sessionText;
+
+  // Tags
+  var tagsRow = document.getElementById('diary-tags-row');
+  tagsRow.innerHTML = s.diario.tags.map(function(t){
+    return '<button class="tag-btn" onclick="toggleTag(this,''+t+'')">'+t+'</button>';
+  }).join('');
+  selectedTags = [];
+
+  // Lesson card
+  document.getElementById('l1-icon').textContent = s.lesson.icon;
+  document.getElementById('l1-title').textContent = s.lesson.title;
+  document.getElementById('l1-desc').textContent = s.lesson.desc;
+
+  if (s.comingSoon) {
+    var card = document.getElementById('lcard-1');
+    card.classList.remove('active');
+    card.classList.add('locked');
+    card.onclick = null;
+    document.getElementById('l1-num').textContent = 'Lezione 1';
+    document.getElementById('lbadge-1').className = 'lh-badge badge-lock';
+    document.getElementById('lbadge-1').textContent = '🔒';
+    document.getElementById('ldone-1').style.display = 'none';
+  } else {
+    var card = document.getElementById('lcard-1');
+    card.onclick = function(){ openLesson(1); };
+    document.getElementById('ldone-1').style.display = '';
+  }
+
+  renderDiaryPreview();
+  renderImpegni();
+  renderLadri();
+  renderLessonStates();
+}
+
+function applyColors(c) {
+  var r = document.documentElement.style;
+  r.setProperty('--p', c.p);
+  r.setProperty('--pd', c.pd);
+  r.setProperty('--pl', c.pl);
+  r.setProperty('--p2', c.p2);
+  r.setProperty('--bg', c.bg);
+  r.setProperty('--border', c.border);
+  r.setProperty('--muted', c.muted);
+  r.setProperty('--text', c.text);
+}
+
+function save(k,v) {
+  var key = 'mv-' + currentStudent + '-' + k;
+  localStorage.setItem(key, typeof v==='string' ? v : JSON.stringify(v));
+}
+
+// ============================================================
+// SHOW
+// ============================================================
+function show(id) {
+  document.querySelectorAll('.screen').forEach(function(s){ s.classList.remove('active'); });
+  document.getElementById(id).classList.add('active');
+  if (id==='s-home') { renderDiaryPreview(); renderImpegni(); renderLadri(); renderLessonStates(); document.getElementById('session-text').textContent = sessionText; }
+  if (id==='s-diary') renderDiaryFull();
+}
+
+// ============================================================
+// LESSON STATES
+// ============================================================
+function toggleLessonDone(n,e) {
+  e.stopPropagation();
+  lessonDone[n] = !lessonDone[n];
+  save('lessons', lessonDone);
+  renderLessonStates();
+}
+
+function renderLessonStates() {
+  var s = currentStudent ? STUDENTS[currentStudent] : null;
+  if (!s || s.comingSoon) return;
+  var card = document.getElementById('lcard-1');
+  var badge = document.getElementById('lbadge-1');
+  var btn = document.getElementById('ldone-1');
+  if (!card||!badge||!btn) return;
+  if (lessonDone[1]) {
+    card.classList.remove('active'); card.classList.add('done');
+    badge.className='lh-badge badge-done'; badge.textContent='✓ Fatta';
+    btn.className='lesson-done-btn done'; btn.textContent='✓ L1 fatta — annulla';
+  } else {
+    card.classList.add('active'); card.classList.remove('done');
+    badge.className='lh-badge badge-active'; badge.textContent='Attiva';
+    btn.className='lesson-done-btn'; btn.textContent='✓ L1 completata';
+  }
+}
+
+// ============================================================
+// SESSION MODAL
+// ============================================================
+function openSessionModal() {
+  document.getElementById('session-input').value = sessionText.replace('Prossima sessione: ','');
   document.getElementById('session-modal').classList.add('open');
 }
-function closeSessionModal(e){
-  if(!e||e.target===document.getElementById('session-modal'))
+function closeSessionModal(e) {
+  if (!e||e.target===document.getElementById('session-modal'))
     document.getElementById('session-modal').classList.remove('open');
 }
-function saveSession(){
-  var v=document.getElementById('session-input').value.trim();
-  if(v){sessionText='Prossima: '+v;save('mv-session',sessionText);document.getElementById('session-text').textContent=sessionText;}
+function saveSession() {
+  var v = document.getElementById('session-input').value.trim();
+  if (v) { sessionText='Prossima sessione: '+v; save('session',sessionText); document.getElementById('session-text').textContent=sessionText; }
   document.getElementById('session-modal').classList.remove('open');
 }
 
-function changeNum(d){
+// ============================================================
+// DIARY
+// ============================================================
+function changeNum(d) {
   var el=document.getElementById('diary-num');
   el.value=Math.max(0,(parseInt(el.value)||0)+d);
 }
-function toggleTag(btn,tag){
+function toggleTag(btn,tag) {
   btn.classList.toggle('on');
-  if(btn.classList.contains('on'))selectedTags.push(tag);
+  if(btn.classList.contains('on')) selectedTags.push(tag);
   else selectedTags=selectedTags.filter(function(t){return t!==tag;});
 }
-function addDiaryEntry(){
+function addDiaryEntry() {
   var num=parseInt(document.getElementById('diary-num').value)||0;
   var note=document.getElementById('diary-note').value.trim();
   var now=new Date();
   var dateStr=now.toLocaleDateString('it-IT',{day:'numeric',month:'short'})+' '+now.toLocaleTimeString('it-IT',{hour:'2-digit',minute:'2-digit'});
   diaryEntries.unshift({num:num,tags:selectedTags.slice(),note:note,date:dateStr,id:Date.now()});
-  save('mv-diary',diaryEntries);
+  save('diary',diaryEntries);
   document.getElementById('diary-num').value=0;
   document.getElementById('diary-note').value='';
-  document.querySelectorAll('.tag-btn').forEach(function(b){b.classList.remove('on');});
+  document.querySelectorAll('#diary-tags-row .tag-btn').forEach(function(b){b.classList.remove('on');});
   selectedTags=[];
   renderDiaryPreview();
 }
-function deleteDiary(id){
+function deleteDiary(id) {
   diaryEntries=diaryEntries.filter(function(e){return e.id!==id;});
-  save('mv-diary',diaryEntries);
-  renderDiaryPreview();renderDiaryFull();
+  save('diary',diaryEntries); renderDiaryPreview(); renderDiaryFull();
 }
-function entryHTML(e,showDel){
+function entryHTML(e,showDel) {
+  var s = currentStudent ? STUDENTS[currentStudent] : null;
+  var unit = (e.num===1) ? 'volta' : 'volte';
+  var icon = s ? s.diario.tags[0].split(' ')[0] : '📱';
   var tags=e.tags&&e.tags.length?'<div class="diary-item-tags">'+e.tags.join(' · ')+'</div>':'';
   var note=e.note?'<div class="diary-item-note">'+e.note+'</div>':'';
   var del=showDel?'<button class="diary-del" onclick="deleteDiary('+e.id+')">✕</button>':'';
-  return '<div class="diary-item"><div class="diary-dot"></div><div class="diary-body"><div class="diary-item-main">📱 '+e.num+' volt'+(e.num===1?'a':'e')+'</div>'+tags+note+'<div class="diary-date">'+e.date+'</div></div>'+del+'</div>';
+  return '<div class="diary-item"><div class="diary-dot"></div><div class="diary-body"><div class="diary-item-main">'+icon+' '+e.num+' '+unit+'</div>'+tags+note+'<div class="diary-date">'+e.date+'</div></div>'+del+'</div>';
 }
-function renderDiaryPreview(){
-  var el=document.getElementById('diary-preview');if(!el)return;
+function renderDiaryPreview() {
+  var el=document.getElementById('diary-preview'); if(!el)return;
   if(!diaryEntries.length){el.innerHTML='<div class="diary-empty">Nessuna voce ancora 🎉</div>';return;}
   el.innerHTML=diaryEntries.slice(0,3).map(function(e){return entryHTML(e,false);}).join('');
 }
-function renderDiaryFull(){
-  var el=document.getElementById('diary-full-list');if(!el)return;
+function renderDiaryFull() {
+  var el=document.getElementById('diary-full-list'); if(!el)return;
   if(!diaryEntries.length){el.innerHTML='<div class="diary-card" style="padding:20px;text-align:center;color:var(--muted)">Nessuna voce ancora 🎉</div>';return;}
   el.innerHTML='<div class="diary-card">'+diaryEntries.map(function(e){return entryHTML(e,true);}).join('')+'</div>';
 }
 
-function addImpegno(){
+// ============================================================
+// IMPEGNI
+// ============================================================
+function addImpegno() {
   var input=document.getElementById('imp-input');
-  var val=input.value.trim();if(!val)return;
+  var val=input.value.trim(); if(!val)return;
   impegni.unshift({text:val,done:false,id:Date.now()});
-  save('mv-impegni',impegni);input.value='';renderImpegni();
+  save('impegni',impegni); input.value=''; renderImpegni();
 }
-function toggleImpegno(id){
+function toggleImpegno(id) {
   impegni=impegni.map(function(i){return i.id===id?Object.assign({},i,{done:!i.done}):i;});
-  save('mv-impegni',impegni);renderImpegni();
+  save('impegni',impegni); renderImpegni();
 }
-function deleteImpegno(id){
+function deleteImpegno(id) {
   impegni=impegni.filter(function(i){return i.id!==id;});
-  save('mv-impegni',impegni);renderImpegni();
+  save('impegni',impegni); renderImpegni();
 }
-function renderImpegni(){
-  var el=document.getElementById('impegni-list');if(!el)return;
+function renderImpegni() {
+  var el=document.getElementById('impegni-list'); if(!el)return;
   if(!impegni.length){el.innerHTML='<div class="imp-empty">Nessun impegno aggiunto ancora</div>';return;}
   el.innerHTML=impegni.map(function(i){
     return '<div class="imp-item"><div class="imp-check'+(i.done?' done':'')+'" onclick="toggleImpegno('+i.id+')">'+(i.done?'✓':'')+'</div><div class="imp-text'+(i.done?' done':'')+'">'+i.text+'</div><button class="imp-del" onclick="deleteImpegno('+i.id+')">✕</button></div>';
   }).join('');
 }
 
-var LADRI=[
-  {key:'smartphone',emoji:'📱',name:'Lo Smartphone'},
-  {key:'notifiche',emoji:'🔔',name:'Le Notifiche'},
-  {key:'multitasking',emoji:'🔀',name:'Il Multitasking'},
-  {key:'social',emoji:'📲',name:'I Social Media'},
-  {key:'comfort',emoji:'🛋️',name:'Il Comfort Eccessivo'},
-];
-var ladriHistory=JSON.parse(localStorage.getItem('mv-ladri-history')||'[]');
+// ============================================================
+// LADRI
+// ============================================================
+var LADRI_DATA=[{key:'smartphone',emoji:'📱',name:'Lo Smartphone'},{key:'notifiche',emoji:'🔔',name:'Le Notifiche'},{key:'multitasking',emoji:'🔀',name:'Il Multitasking'},{key:'social',emoji:'📲',name:'I Social Media'},{key:'comfort',emoji:'🛋️',name:'Il Comfort Eccessivo'}];
 function setLadro(key,val){
-  if(ladriScores[key]===val){delete ladriScores[key];}
-  else{ladriScores[key]=val;}
-  save('mv-ladri',ladriScores);renderLadri();
+  if(ladriScores[key]===val)delete ladriScores[key];
+  else ladriScores[key]=val;
+  save('ladri',ladriScores); renderLadri();
 }
 function deleteLadriReport(i){
-  ladriHistory.splice(i,1);
-  save('mv-ladri-history',ladriHistory);
-  renderLadriHistory();
+  ladriHistory.splice(i,1); save('ladri-history',ladriHistory); renderLadriHistory();
 }
 function saveLadriReport(){
-  var LADRI_NAMES={'smartphone':'Smartphone','notifiche':'Notifiche','multitasking':'Multitasking','social':'Social Media','comfort':'Comfort Eccessivo'};
+  var NAMES={smartphone:'Smartphone',notifiche:'Notifiche',multitasking:'Multitasking',social:'Social Media',comfort:'Comfort'};
   var now=new Date();
   var dateStr=now.toLocaleDateString('it-IT',{day:'numeric',month:'short'})+' '+now.toLocaleTimeString('it-IT',{hour:'2-digit',minute:'2-digit'});
-  var summary=Object.keys(ladriScores).map(function(k){
-    return LADRI_NAMES[k]+(': ')+ladriScores[k]+'/10';
-  }).join(' · ');
+  var summary=Object.keys(ladriScores).map(function(k){return NAMES[k]+': '+ladriScores[k]+'/10';}).join(' · ');
   if(!summary){alert('Dai prima un voto ai ladri!');return;}
   ladriHistory.unshift({date:dateStr,summary:summary});
-  save('mv-ladri-history',ladriHistory);
-  renderLadriHistory();
+  save('ladri-history',ladriHistory); renderLadriHistory();
 }
 function renderLadriHistory(){
-  var el=document.getElementById('ladri-history');if(!el)return;
+  var el=document.getElementById('ladri-history'); if(!el)return;
   if(!ladriHistory.length){el.innerHTML='';return;}
   el.innerHTML='<div style="font-size:11px;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:.8px;margin-bottom:8px">Storico valutazioni</div>'+
     ladriHistory.map(function(h,i){return '<div class="ladri-history-item" style="display:flex;align-items:flex-start;gap:8px"><div style="flex:1"><strong>'+h.date+'</strong><br>'+h.summary+'</div><button onclick="deleteLadriReport('+i+')" style="background:none;color:var(--muted);font-size:15px;padding:2px;border:none;cursor:pointer;flex-shrink:0">✕</button></div>';}).join('');
 }
 function renderLadri(){
-  var el=document.getElementById('ladri-rows');if(!el)return;
+  var el=document.getElementById('ladri-rows'); if(!el)return;
   renderLadriHistory();
-  el.innerHTML=LADRI.map(function(l){
+  el.innerHTML=LADRI_DATA.map(function(l){
     var score=ladriScores[l.key]||0;
     var nums='';
     for(var n=1;n<=10;n++){
       var cls='ladro-num';
-      if(n===score)cls+=(n>=8?' sel-high':n>=5?' sel-med':' sel-low');
-      nums+='<div class="'+cls+'" onclick="setLadro(\''+l.key+'\','+n+')">'+n+'</div>';
+      if(n===score) cls+=(n>=8?' sel-high':n>=5?' sel-med':' sel-low');
+      nums+='<div class="'+cls+'" onclick="setLadro(''+l.key+'','+n+')">'+n+'</div>';
     }
     var label=score?(score>=8?'🔴 Molto alto':score>=5?'🟡 Medio':'🟢 Basso'):'Non valutato';
     return '<div class="ladro-row"><div class="ladro-top"><span class="ladro-emoji">'+l.emoji+'</span><span class="ladro-name">'+l.name+'</span><span style="font-size:12px;color:var(--muted)">'+label+'</span></div><div class="ladro-btns">'+nums+'</div></div>';
   }).join('');
 }
 
-var SLIDES=JSON.parse(document.getElementById('slides-data').textContent);
-var SLIDES2=JSON.parse(document.getElementById('slides2-data').textContent);
-var SLIDES3=JSON.parse(document.getElementById('slides3-data').textContent);
-
-function openLesson(n){
-  currentLesson=n||1;
+// ============================================================
+// LEZIONE
+// ============================================================
+function openLesson(n) {
+  if (!currentStudent || STUDENTS[currentStudent].comingSoon) return;
   currentSlide=0;
-  var titleEl=document.getElementById('lesson-screen-title');
-  var subEl=document.getElementById('lesson-screen-sub');
-  if(currentLesson===1){titleEl.textContent='Il Tuo Cervello';subEl.textContent='Lezione 1';}
-  else{titleEl.textContent='Come si studia davvero';subEl.textContent='Lezione 2';}
-  buildSlides();show('s-lesson');renderSlide();
+  var s = STUDENTS[currentStudent];
+  document.getElementById('lesson-screen-title').textContent = s.lesson.title;
+  document.getElementById('lesson-screen-sub').textContent = 'Lezione 1';
+  buildSlides(); show('s-lesson'); renderSlide();
 }
 function buildSlides(){
-  var slides=currentLesson===1?SLIDES:currentLesson===2?SLIDES2:SLIDES3;
   var c=document.getElementById('slides-container');
-  c.innerHTML=slides.map(function(s,i){
+  c.innerHTML=SLIDES1.map(function(s,i){
     var q='';
     if(s.question){q='<div class="slide-q"><div class="slide-q-label">💬 '+s.question+'</div><div class="slide-q-answers">'+s.answers.map(function(a){return '<button class="ans-btn" onclick="selectAns(this)">'+a+'</button>';}).join('')+'</div></div>';}
     return '<div class="slide'+(i===0?' active':'')+'" id="sl-'+i+'"><div class="slide-emoji">'+s.emoji+'</div><div class="slide-title">'+s.title+'</div><div class="slide-content">'+s.html+q+'</div></div>';
   }).join('');
 }
 function renderSlide(){
-  var slides=currentLesson===1?SLIDES:currentLesson===2?SLIDES2:SLIDES3;
-  var total=slides.length;
+  var total=SLIDES1.length;
   document.getElementById('slide-counter').textContent=(currentSlide+1)+' / '+total;
   document.getElementById('lesson-progress').style.width=(((currentSlide+1)/total)*100)+'%';
   document.getElementById('btn-prev').style.display=currentSlide===0?'none':'flex';
@@ -655,95 +867,41 @@ function renderSlide(){
 }
 function changeSlide(d){
   var next=currentSlide+d;
-  var slides=currentLesson===1?SLIDES:currentLesson===2?SLIDES2:SLIDES3;
-  if(next<0||next>=slides.length)return;
-  currentSlide=next;renderSlide();
+  if(next<0||next>=SLIDES1.length)return;
+  currentSlide=next; renderSlide();
 }
 function selectAns(btn){
   btn.closest('.slide-q-answers').querySelectorAll('.ans-btn').forEach(function(b){b.classList.remove('selected');});
   btn.classList.add('selected');
 }
 
-var G1=[
-  {emoji:'📱',text:'Apri TikTok "solo un secondo" mentre studi',ans:'M'},
-  {emoji:'📋',text:'Scrivi un piano prima di iniziare a studiare',ans:'P'},
-  {emoji:'🍕',text:'Apri il frigo ogni 10 minuti senza avere fame',ans:'M'},
-  {emoji:'⏰',text:'Metti una sveglia per fermarti dopo 25 minuti',ans:'P'},
-  {emoji:'🎮',text:'Rimandi i compiti perché "non hai voglia adesso"',ans:'M'},
-  {emoji:'📵',text:'Metti il telefono in silenzioso in un\'altra stanza',ans:'P'},
-  {emoji:'💤',text:'Continui la serie TV sapendo che devi dormire',ans:'M'},
-  {emoji:'📚',text:'Leggi il capitolo anche se è noioso per l\'esame',ans:'P'},
-  {emoji:'🛒',text:'Compri cose online invece di fare i compiti',ans:'M'},
-  {emoji:'✅',text:'Fai i compiti difficili prima di quelli facili',ans:'P'}
-];
-var g1i=0,g1s=0;
+// ============================================================
+// GIOCHI
+// ============================================================
+var g1i=0,g1s=0,g2i=0,g2s=0,g4i=0,g4s=0,g4done=false;
+var memFlipped=[],memMatched=0,memLocked=false,memScore=0;
+
 function startGame(n){
-  if(currentLesson===2){
-    G1=JSON.parse(document.getElementById('g1l2-data').textContent);
-    G2=JSON.parse(document.getElementById('g2l2-data').textContent);
-    G4=JSON.parse(document.getElementById('g4l2-data').textContent);
-    MEM_PAIRS=JSON.parse(document.getElementById('meml2-data').textContent);
-  } else if(currentLesson===3){
-    G1=JSON.parse(document.getElementById('g1l3-data').textContent);
-    G2=JSON.parse(document.getElementById('g2l3-data').textContent);
-    G4=JSON.parse(document.getElementById('g4l3-data').textContent);
-    MEM_PAIRS=JSON.parse(document.getElementById('meml3-data').textContent);
-  }
-  if(n===1){
-    var lbl=currentLesson===3?'Organizzato o Caotico?':currentLesson===2?'Passivo o Attivo?':'Pilota o Motore?';
-    document.querySelector('#s-game1 .lesson-header-title').textContent=(currentLesson===3?'🗓️ ':currentLesson===2?'📚 ':'🧭 ')+lbl;
-    g1i=0;g1s=0;renderG1();show('s-game1');
-  }
+  if(!currentStudent||STUDENTS[currentStudent].comingSoon){return;}
+  if(n===1){g1i=0;g1s=0;renderG1();show('s-game1');}
   else if(n===2){g2i=0;g2s=0;renderG2();show('s-game2');}
   else if(n===3){initMem();show('s-game3');}
   else if(n===4){g4i=0;g4s=0;g4done=false;renderG4();show('s-game4');}
 }
 function renderG1(){
-  var gameName=currentLesson===3?'Organizzato o Caotico?':currentLesson===2?'Passivo o Attivo?':'Pilota o Motore?';
-  if(g1i>=G1.length){endGame(g1s,G1.length,gameName);return;}
+  if(g1i>=G1.length){endGame(g1s,G1.length,'Pilota o Motore?');return;}
   var d=G1[g1i];
   document.getElementById('g1-emoji').textContent=d.emoji;
   document.getElementById('g1-text').textContent=d.text;
   document.getElementById('g1-counter').textContent=(g1i+1)+'/'+G1.length;
   document.getElementById('g1-fb').innerHTML='';
-  if(currentLesson===3){
-    document.getElementById('g1-lbl1').textContent='✅ Organizzata';
-    document.getElementById('g1-lbl2').textContent='🌀 Caotica';
-  } else if(currentLesson===2){
-    document.getElementById('g1-lbl1').textContent='💪 Attivo';
-    document.getElementById('g1-lbl2').textContent='😴 Passivo';
-  } else {
-    document.getElementById('g1-lbl1').textContent='🧭 Pilota';
-    document.getElementById('g1-lbl2').textContent='⚡ Motore';
-  }
 }
 function ansG1(a){
   var d=G1[g1i],ok=a===d.ans;if(ok)g1s++;
-  var msg;
-  if(currentLesson===3){
-    msg=ok?'Esatto! '+(a==='O'?'Comportamento organizzato.':'Comportamento caotico.'):'Non esatto. '+(d.ans==='O'?'Questo è organizzato.':'Questo è caotico.');
-  } else if(currentLesson===2){
-    msg=ok?'Esatto! '+(a==='A'?'Studio attivo.':'Studio passivo.'):'Non esatto. '+(d.ans==='A'?'Questo è studio attivo.':'Questo è studio passivo.');
-  } else {
-    msg=ok?'Esatto! '+(a==='P'?'È il Pilota.':'È il Motore.'):'Non esatto. '+(d.ans==='P'?'Questo è il Pilota.':'Questo è il Motore.');
-  }
+  var msg=ok?'Esatto! '+(a==='P'?'È il Pilota.':'È il Motore.'):'Non esatto. '+(d.ans==='P'?'Questo è il Pilota.':'Questo è il Motore.');
   document.getElementById('g1-fb').innerHTML='<div class="feedback '+(ok?'fb-ok':'fb-no')+'"><div class="fb-icon">'+(ok?'✅':'❌')+'</div><div>'+msg+'</div></div>';
   g1i++;setTimeout(renderG1,1400);
 }
-
-var G2=[
-  {text:'La dopamina è la molecola della felicità',ans:false},
-  {text:'Il Pilota vive nella parte frontale del cervello',ans:true},
-  {text:'Avere il telefono sul tavolo non cambia nulla',ans:false},
-  {text:'La forza di volontà è una risorsa che si esaurisce',ans:true},
-  {text:'La musica con testo aiuta a studiare meglio del silenzio',ans:false},
-  {text:'Il cervello fissa i ricordi durante il sonno',ans:true},
-  {text:'TikTok è progettato per ridurre il tempo che ci passiamo',ans:false},
-  {text:'Studiare a blocchi di 25 minuti è più efficace di ore senza pause',ans:true},
-  {text:'Il Motore Impulsivo si stanca come il Pilota',ans:false},
-  {text:'Dopo una notifica servono 20 minuti per riconcentrarsi',ans:true}
-];
-var g2i=0,g2s=0;
 function renderG2(){
   if(g2i>=G2.length){endGame(g2s,G2.length,'Vero o Falso?');return;}
   var d=G2[g2i];
@@ -756,21 +914,14 @@ function ansG2(a){
   document.getElementById('g2-fb').innerHTML='<div class="feedback '+(ok?'fb-ok':'fb-no')+'"><div class="fb-icon">'+(ok?'✅':'❌')+'</div><div>'+(ok?'Esatto!':'Non esatto — è '+(d.ans?'VERO':'FALSO')+'.')+'</div></div>';
   g2i++;setTimeout(renderG2,1300);
 }
-
-var MEM_PAIRS=[
-  ['Dopamina','Voglio di più'],['Pilota','Sistema razionale'],['Motore Impulsivo','Sistema emotivo'],
-  ['Effetto TikTok','Abitudine alla dopamina veloce'],['Forza di volontà','Batteria che si scarica'],['20 minuti','Tempo per riconcentrarsi dopo notifica']
-];
-var memFlipped=[],memMatched=0,memLocked=false,memScore=0;
 function initMem(){
   memFlipped=[];memMatched=0;memLocked=false;memScore=0;
-  document.getElementById('g3-score').textContent='⭐ 0';
   document.getElementById('g3-counter').textContent='Coppie: 0/6';
   var cards=[];
   MEM_PAIRS.forEach(function(p,i){cards.push({id:'t'+i,pair:i,txt:p[0]});cards.push({id:'d'+i,pair:i,txt:p[1]});});
   cards.sort(function(){return Math.random()-.5;});
   document.getElementById('mem-grid').innerHTML=cards.map(function(c){
-    return '<div class="mem-card" id="mc-'+c.id+'" data-pair="'+c.pair+'" data-txt="'+c.txt+'" onclick="flipMem(this)"><span>🧠</span></div>';
+    return '<div class="mem-card" id="mc-'+c.id+'" data-pair="'+c.pair+'" data-txt="'+c.txt+'" onclick="flipMem(this)"><span>⭐</span></div>';
   }).join('');
 }
 function flipMem(el){
@@ -783,29 +934,16 @@ function flipMem(el){
       a.classList.add('matched');b.classList.add('matched');
       memMatched++;memScore++;memFlipped=[];memLocked=false;
       document.getElementById('g3-counter').textContent='Coppie: '+memMatched+'/6';
-      document.getElementById('g3-score').textContent='⭐ '+memScore;
       if(memMatched===6)setTimeout(function(){endGame(Math.min(memScore*1.5,10),10,'Memoria');},600);
     } else {
       setTimeout(function(){
         a.classList.remove('flipped');b.classList.remove('flipped');
-        a.innerHTML='<span>🧠</span>';b.innerHTML='<span>🧠</span>';
+        a.innerHTML='<span>⭐</span>';b.innerHTML='<span>⭐</span>';
         memFlipped=[];memLocked=false;
       },900);
     }
   }
 }
-
-var G4=[
-  {s:'La ___ è la molecola del "voglio di più".',blank:'dopamina',opts:['dopamina','adrenalina','serotonina']},
-  {s:'Il Pilota vive nella parte ___ del cervello.',blank:'frontale',opts:['frontale','posteriore','centrale']},
-  {s:'La forza di volontà è come una ___ che si scarica.',blank:'batteria',opts:['batteria','lampadina','molla']},
-  {s:'TikTok crea l\'abitudine alla dopamina ___.',blank:'veloce',opts:['veloce','lenta','naturale']},
-  {s:'Il Motore Impulsivo vuole tutto ___.',blank:'subito',opts:['subito','lentamente','domani']},
-  {s:'Il cervello fissa i ricordi durante il ___.',blank:'sonno',opts:['sonno','pranzo','gioco']},
-  {s:'Solo la presenza del telefono ruba il ___% di concentrazione.',blank:'20',opts:['20','5','50']},
-  {s:'Dopo una notifica servono ___ minuti per riconcentrarsi.',blank:'20',opts:['20','5','45']}
-];
-var g4i=0,g4s=0,g4done=false;
 function renderG4(){
   if(g4i>=G4.length){endGame(g4s,G4.length,'Completa la Frase');return;}
   g4done=false;
@@ -816,7 +954,7 @@ function renderG4(){
   document.getElementById('g4-next').style.display='none';
   var opts=d.opts.slice().sort(function(){return Math.random()-.5;});
   document.getElementById('g4-opts').innerHTML=opts.map(function(o){
-    return '<button class="word-btn" onclick="ansG4(this,\''+o+'\')">' + o + '</button>';
+    return '<button class="word-btn" onclick="ansG4(this,''+o+'')">' + o + '</button>';
   }).join('');
 }
 function ansG4(btn,chosen){
@@ -829,18 +967,13 @@ function ansG4(btn,chosen){
   document.getElementById('g4-next').style.display='block';
 }
 function nextG4(){g4i++;renderG4();}
-
 function endGame(score,total,name){
-  var stars=Math.round((score/total)*10);
   var pct=score/total;
   document.getElementById('end-emoji').textContent=pct>=.8?'🏆':pct>=.5?'💪':'😊';
   document.getElementById('end-title').textContent=pct>=.8?'Bravissima!':pct>=.5?'Buon lavoro!':'Continua così!';
   document.getElementById('end-sub').textContent=Math.round(score)+' risposte giuste su '+total+' in "'+name+'"';
   show('s-end');
 }
-
-renderDiaryPreview();renderImpegni();renderLadri();renderLessonStates();
-document.getElementById('session-text').textContent=sessionText;
 
 if('serviceWorker' in navigator){
   navigator.serviceWorker.register('./sw.js').then(function(reg){
