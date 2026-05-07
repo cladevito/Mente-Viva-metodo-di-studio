@@ -2,7 +2,7 @@
 // sw.js
 // Incrementa CACHE_VERSION ad ogni deploy
 // ─────────────────────────────────────────────
-const CACHE_VERSION = 'mv-v1.0.0';
+const CACHE_VERSION = 'mv-v1.1.0';
 const STATIC_CACHE  = `${CACHE_VERSION}-static`;
 
 // File da mettere in cache per uso offline
