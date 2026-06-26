@@ -34,12 +34,12 @@ input,textarea{font-family:'Nunito',sans-serif}
 .landing-logo{font-size:52px;margin-bottom:8px;line-height:1}
 .landing-title{font-size:28px;font-weight:900;color:#1A1235;margin-bottom:4px}
 .landing-sub{font-size:14px;color:#888;margin-bottom:36px}
-.student-cards{width:100%;max-width:400px;display:flex;flex-direction:column;gap:14px}
-.student-card{border-radius:22px;padding:18px 20px;display:flex;align-items:center;gap:16px;cursor:pointer;transition:transform .15s,box-shadow .15s;box-shadow:0 4px 20px rgba(0,0,0,.1)}
+.student-cards{width:100%;max-width:520px;display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.student-card{border-radius:18px;padding:14px 16px;display:flex;align-items:center;gap:12px;cursor:pointer;transition:transform .15s,box-shadow .15s;box-shadow:0 4px 16px rgba(0,0,0,.12)}
 .student-card:active{transform:scale(.97)}
-.sc-emoji{font-size:32px;line-height:1}
+.sc-emoji{font-size:26px;line-height:1}
 .sc-info{flex:1}
-.sc-name{font-size:20px;font-weight:900;color:#fff}
+.sc-name{font-size:17px;font-weight:900;color:#fff}
 .sc-label{font-size:12px;color:rgba(255,255,255,.8);margin-top:1px}
 .sc-arrow{font-size:20px;color:rgba(255,255,255,.9);font-weight:900}
 
@@ -293,7 +293,7 @@ input,textarea{font-family:'Nunito',sans-serif}
       <div class="sc-info"><div class="sc-name">Emiliano</div><div class="sc-label">Il tuo spazio di metodo</div></div>
       <div class="sc-arrow">→</div>
     </div>
-    <div class="student-card" style="background:linear-gradient(135deg,#EA580C,#FB923C)" onclick="selectStudent('alan')">
+    <div class="student-card" style="background:linear-gradient(135deg,#C2643A,#D4834F)" onclick="selectStudent('alan')">
       <div class="sc-emoji">🐟</div>
       <div class="sc-info"><div class="sc-name">Alan</div><div class="sc-label">Il tuo spazio di metodo</div></div>
       <div class="sc-arrow">→</div>
@@ -627,7 +627,7 @@ var STUDENTS = {
   },
   alan: {
     name: 'Alan', greeting: 'Alan', pin: '1510',
-    colors: { p:'#EA580C', pd:'#C2410C', pl:'#FFEDD5', p2:'#FB923C', bg:'#FFF7ED', border:'#FED7AA', muted:'#9A6040', text:'#1A1235' },
+    colors: { p:'#C2643A', pd:'#A3511E', pl:'#FDEBD0', p2:'#D4834F', bg:'#FEF6EE', border:'#F5CBA7', muted:'#9C6E52', text:'#1A1235' },
     sub: 'Bentornato. Hai le tecniche — costruiamo il metodo.',
     sfida: { label:'🎯 La tua sfida', title:'Schema a libro chiuso + telefono fuori', desc:'Dopo ogni argomento studiato, rifai lo schema a libro chiuso. E metti il telefono fuori dalla stanza. Poi segnalo nel diario: quante volte la mente è andata all’acquario?' },
     diario: { title:'📔 Il mio diario', countLabel:'Quante volte la mente è andata a zonzo oggi?', tags:['🐟 Acquario', '📱 Telefono', '💭 Pensieri random', '😰 Ansia', '🔋 Stanchezza', '🎾 Altro'] },
